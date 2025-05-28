@@ -1,0 +1,45 @@
+- !<AssetImportMetadata/7867664a-0e87-418b-8b12-af8393c9a1ee>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> a9687755-6765-494c-a284-546a5c2ceee3
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> a9687755-6765-494c-a284-546a5c2ceee3
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 4d56f7b1-b015-46a8-a90f-c4ae2e4d2b71
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/4d56f7b1-b015-46a8-a90f-c4ae2e4d2b71>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 7da38fcb-0920-4428-aadf-fb50f9a43013
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    instantiator: false
+    spiritAnimalPrefab: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - instantiator: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      spiritAnimalPrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input AssignableType instantiator
+    - // @input Asset.ObjectPrefab spiritAnimalPrefab

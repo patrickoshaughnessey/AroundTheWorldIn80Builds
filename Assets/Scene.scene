@@ -677,6 +677,22 @@
     - !<own> fe7f5879-823b-4c8d-b2e5-5cb43c82fa81
   Components:
     []
+- !<SceneObject/0738b679-0ba5-4b52-aa41-9d702aed1dcf>
+  PrefabRemaps:
+    []
+  Name: SpiritAnimalInstantiator
+  Enabled: true
+  Layers: 1
+  LocalTransform:
+    position: {x: 0.000000, y: 0.000000, z: -40.000000}
+    rotation: {x: 0.000000, y: -0.000000, z: 0.000000}
+    scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    hasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 3fc8811e-5825-436f-8737-3b945e2e418c
+    - !<own> 64f055cd-6093-482b-811f-e066ad023fac
 - !<ScriptComponent/076b9d3d-674d-481f-83c4-c2448a167b3e>
   PrefabRemaps:
     []
@@ -3450,6 +3466,23 @@
     bottom: 0.000000
     right: 0.000000
     top: 0.000000
+- !<ScriptComponent/3fc8811e-5825-436f-8737-3b945e2e418c>
+  PrefabRemaps:
+    []
+  Name: SpiritAnimalInstantiator
+  Enabled: true
+  ScriptAsset: !<reference> a9687755-6765-494c-a284-546a5c2ceee3
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      instantiator: !<MappingBased.AssignableType> 64f055cd-6093-482b-811f-e066ad023fac
+      spiritAnimalPrefab: !<reference.ObjectPrefab> d7216a32-3225-41ab-ad49-579d33007d47
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/406fb0e1-01b8-421b-ab65-f19b5e61cd47>
   PrefabRemaps:
     []
@@ -4140,6 +4173,21 @@
     []
   Components:
     - !<own> 794c9111-beba-42a3-89b0-a7bb6e799aff
+- !<SceneObject/4de3269e-199f-4da2-ab39-19cf1bfe9994>
+  PrefabRemaps:
+    []
+  Name: SpiritAnimalParent
+  Enabled: true
+  Layers: 1
+  LocalTransform:
+    position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    hasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
 - !<SceneObject/4e49c29a-1440-4a45-a2b6-132be70b4c86>
   PrefabRemaps:
     []
@@ -5762,6 +5810,34 @@
     - !<own> 100916a2-afcd-4f21-9691-32a20f2aea4a
   Components:
     []
+- !<ScriptComponent/64f055cd-6093-482b-811f-e066ad023fac>
+  PrefabRemaps:
+    []
+  Name: Instantiator
+  Enabled: true
+  ScriptAsset: !<reference> 0f0500cb-c58a-434d-a171-94167130d106
+  ScriptInputsDefault:
+    autoInstantiate: true
+    autoInstantiatePrefabs: true
+    persistenceString: true
+    autoInstantiateOwnershipString: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      prefabs: !<reference.ObjectPrefab[]>
+        - !<reference> d7216a32-3225-41ab-ad49-579d33007d47
+      spawnerOwnsObject: true
+      spawnAsChildren: true
+      spawnUnderParent: !<reference.SceneObject> 4de3269e-199f-4da2-ab39-19cf1bfe9994
+      autoInstantiate: false
+      autoInstantiatePrefabs: !<reference.ObjectPrefab[]>
+        []
+      persistenceString: Session
+      autoInstantiateOwnershipString: Unowned
+  ScriptTypes:
+    "":
+      {}
 - !<ScriptComponent/65032730-f061-4617-a148-254e89f9b8c4>
   PrefabRemaps:
     []
@@ -6369,7 +6445,7 @@
   PrefabRemaps:
     []
   Name: Examples
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform:
     position: {x: 0.000000, y: 0.000000, z: -40.000000}
@@ -9552,6 +9628,8 @@
     scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     hasSegmentScaleCompensation: false
   Children:
+    - !<own> 0738b679-0ba5-4b52-aa41-9d702aed1dcf
+    - !<own> 4de3269e-199f-4da2-ab39-19cf1bfe9994
     - !<own> 72202ae6-5718-4c3f-8546-872afe10862f
   Components:
     []
