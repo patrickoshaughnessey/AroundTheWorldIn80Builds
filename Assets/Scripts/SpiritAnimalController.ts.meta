@@ -1,0 +1,45 @@
+- !<AssetImportMetadata/85755c65-41ff-44f2-a980-a772aeda2281>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 28f5d461-f9d8-438a-ac95-4458fb407b28
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 28f5d461-f9d8-438a-ac95-4458fb407b28
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 77b34ea1-fd85-43b4-960d-46dca4e73503
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/77b34ea1-fd85-43b4-960d-46dca4e73503>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 0767e999-f48e-4f91-9fe1-e0208679362e
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    headLock: false
+    manipulatable: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - manipulatable: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      headLock: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input AssignableType manipulatable
+    - // @input AssignableType_1 headLock

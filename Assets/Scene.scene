@@ -677,6 +677,23 @@
     - !<own> fe7f5879-823b-4c8d-b2e5-5cb43c82fa81
   Components:
     []
+- !<SceneObject/0738b679-0ba5-4b52-aa41-9d702aed1dcf>
+  PrefabRemaps:
+    []
+  Name: SpiritAnimalInstantiator
+  Enabled: true
+  Layers: 1
+  LocalTransform:
+    position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    hasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 3fc8811e-5825-436f-8737-3b945e2e418c
+    - !<own> 64f055cd-6093-482b-811f-e066ad023fac
+    - !<own> 81310b41-4ff7-427a-b5f1-7919acbed9b0
 - !<ScriptComponent/076b9d3d-674d-481f-83c4-c2448a167b3e>
   PrefabRemaps:
     []
@@ -3450,6 +3467,23 @@
     bottom: 0.000000
     right: 0.000000
     top: 0.000000
+- !<ScriptComponent/3fc8811e-5825-436f-8737-3b945e2e418c>
+  PrefabRemaps:
+    []
+  Name: SpiritAnimalInstantiator
+  Enabled: true
+  ScriptAsset: !<reference> a9687755-6765-494c-a284-546a5c2ceee3
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      instantiator: !<MappingBased.AssignableType> 64f055cd-6093-482b-811f-e066ad023fac
+      spiritAnimalPrefab: !<reference.ObjectPrefab> d7216a32-3225-41ab-ad49-579d33007d47
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/406fb0e1-01b8-421b-ab65-f19b5e61cd47>
   PrefabRemaps:
     []
@@ -4140,6 +4174,21 @@
     []
   Components:
     - !<own> 794c9111-beba-42a3-89b0-a7bb6e799aff
+- !<SceneObject/4de3269e-199f-4da2-ab39-19cf1bfe9994>
+  PrefabRemaps:
+    []
+  Name: SpiritAnimalParent
+  Enabled: true
+  Layers: 1
+  LocalTransform:
+    position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    hasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
 - !<SceneObject/4e49c29a-1440-4a45-a2b6-132be70b4c86>
   PrefabRemaps:
     []
@@ -5762,6 +5811,34 @@
     - !<own> 100916a2-afcd-4f21-9691-32a20f2aea4a
   Components:
     []
+- !<ScriptComponent/64f055cd-6093-482b-811f-e066ad023fac>
+  PrefabRemaps:
+    []
+  Name: Instantiator
+  Enabled: true
+  ScriptAsset: !<reference> 0f0500cb-c58a-434d-a171-94167130d106
+  ScriptInputsDefault:
+    autoInstantiate: true
+    autoInstantiatePrefabs: true
+    persistenceString: true
+    autoInstantiateOwnershipString: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      prefabs: !<reference.ObjectPrefab[]>
+        - !<reference> d7216a32-3225-41ab-ad49-579d33007d47
+      spawnerOwnsObject: true
+      spawnAsChildren: true
+      spawnUnderParent: !<reference.SceneObject> 4de3269e-199f-4da2-ab39-19cf1bfe9994
+      autoInstantiate: false
+      autoInstantiatePrefabs: !<reference.ObjectPrefab[]>
+        []
+      persistenceString: Session
+      autoInstantiateOwnershipString: Unowned
+  ScriptTypes:
+    "":
+      {}
 - !<ScriptComponent/65032730-f061-4617-a148-254e89f9b8c4>
   PrefabRemaps:
     []
@@ -6369,7 +6446,7 @@
   PrefabRemaps:
     []
   Name: Examples
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform:
     position: {x: 0.000000, y: 0.000000, z: -40.000000}
@@ -7380,6 +7457,16 @@
   BlendNormals: false
   BlendShapes:
     {}
+- !<DeviceTracking/81310b41-4ff7-427a-b5f1-7919acbed9b0>
+  PrefabRemaps:
+    []
+  Name: Device Tracking
+  Enabled: true
+  DeviceTrackingMode: World
+  RotationOptions: !<RotationOptions>
+    InvertRotation: false
+  SurfaceOptions: !<SurfaceOptions>
+    EnhanceWithNativeAR: false
 - !<ScriptComponent/8139e3e8-752b-4085-8c3e-ddf77d22a813>
   PrefabRemaps:
     []
@@ -7559,6 +7646,7 @@
     - 05fc7645-40f3-4c19-83b6-ac86684b96d6: ddd0fc71-fe04-459e-9035-0bc613b03915
     - 068310cb-d0d2-4507-82f6-32f614ec43c9: 0537c2e2-ddeb-4cd5-ae0f-5a9cba440ddf
     - 06957cf2-b859-41da-a34e-7df7f679b8af: 3254d9e4-b056-43cc-a95f-44f790116892
+    - 0738b679-0ba5-4b52-aa41-9d702aed1dcf: a6cf4b4a-3d22-4d2a-9a03-0f8ca9d883f7
     - 076b9d3d-674d-481f-83c4-c2448a167b3e: 4a873866-e5b8-46fd-8087-17f468a72209
     - 07870d15-552e-4edc-80bf-1ecc1fa614a3: 0f6909c5-edc9-4a70-a773-7a9ba8396fb0
     - 07e90a3d-a191-4d94-b79f-798aa18fa75c: ee80f8c8-d376-4843-ac24-dc1a2fe23458
@@ -7700,6 +7788,7 @@
     - 3f2bd443-200f-4677-b831-9922d7c66990: 5e2e0719-26f5-45e5-9419-8606cfd3bdad
     - 3f738aeb-44cf-4735-aa98-37c24f78f66a: e3f1b253-94d6-440b-b8f3-f268555d9c0c
     - 3f8985dd-88d1-44d2-9c27-100cfaccd4b4: 65db53c2-c3e4-4ade-8f91-57eb1909f0f4
+    - 3fc8811e-5825-436f-8737-3b945e2e418c: 59cefd0a-bb8e-4e24-911f-adfdf3c933a8
     - 406fb0e1-01b8-421b-ab65-f19b5e61cd47: 6ca45759-7f45-4f63-8636-f4b33ef24425
     - 40bc0f27-72cc-43bf-88fd-375e86b81550: 38329771-3e21-4099-bb3a-f2554037a7e5
     - 4171c4b0-0554-4409-9093-cbdcc524ec3e: 553e531b-5b70-457c-a691-5e0d22d568a1
@@ -7741,6 +7830,7 @@
     - 4d4a80b2-4a29-472f-be8e-6df7c56c224e: fb0c2c16-8249-4fa5-bfb3-4c033ca43e0e
     - 4d8c97d9-4b05-4abd-b543-fe74ecc52e42: 62854eab-ed1a-4872-81f5-f18962ecdb60
     - 4da7a82f-30dc-4853-9383-d50e5c1a7c59: f1d561ae-3788-4737-ac15-84b3a5eb8c6e
+    - 4de3269e-199f-4da2-ab39-19cf1bfe9994: b85355b9-7321-4a90-9a2a-616a4f6f174f
     - 4e49c29a-1440-4a45-a2b6-132be70b4c86: 77da4861-03b3-4d6a-bcf6-caf55c078fad
     - 4eb86ec3-64e9-4c39-9da9-77260033dda0: 5cede9bf-51bf-4df5-a856-15cd451615a0
     - 4f053b85-50c7-41e4-8f0e-c2833c902946: de301c15-d681-4a74-83e8-d0109aedec95
@@ -7803,6 +7893,7 @@
     - 640382cb-2aab-4f9b-b1af-69930f15e03a: 0d673dfb-75fb-47e5-9a8d-278c742f663e
     - 641d02cd-bb4c-4fac-bb5c-8c67c341b659: 1eaee693-b96f-434d-b1d0-0ca97081ff06
     - 6498b4f4-c28d-40ab-a827-426d2aa50a10: ab822cfb-9c21-435d-b352-96d6f70012f2
+    - 64f055cd-6093-482b-811f-e066ad023fac: ae2583c6-9322-4f28-95aa-5f908cb94410
     - 65032730-f061-4617-a148-254e89f9b8c4: 5cd62ac5-1cec-40aa-81a9-9111b4210658
     - 653d67ce-3c14-4fd1-964c-7a71dfc4645c: 37d370f2-f473-407d-a1d8-8f354c4fd886
     - 65646a13-de23-423f-8b8d-17721457bdfc: f9472a71-1744-4e48-854b-f8bdeb887ec1
@@ -7879,6 +7970,7 @@
     - 7f3b40f8-8f1e-4072-b4eb-d023a831e7d6: 648cf49c-2328-412b-91a7-27c4e6b46e0a
     - 7fc7903f-cbaf-4501-b0d4-d17a255842b6: 78dbf788-2c9d-43ee-8119-77665d628125
     - 812f073a-5808-4307-ae5b-118e27a9936a: 0f7cfeec-8fe6-487c-be4c-74da952a02d1
+    - 81310b41-4ff7-427a-b5f1-7919acbed9b0: ed301d0a-2e33-4946-815a-636f1579af6f
     - 8139e3e8-752b-4085-8c3e-ddf77d22a813: 2e58f2d1-de43-4bbe-9855-226b712b3b48
     - 8158514c-c044-4c07-bc3e-7f83f4bce98b: a3f646f7-66c5-4eab-b00b-184c3ee67b74
     - 816898db-9be1-47a2-833b-4b20c9985a8c: 28ec1afb-e63f-4df9-997e-fa0fde994491
@@ -9552,6 +9644,8 @@
     scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     hasSegmentScaleCompensation: false
   Children:
+    - !<own> 0738b679-0ba5-4b52-aa41-9d702aed1dcf
+    - !<own> 4de3269e-199f-4da2-ab39-19cf1bfe9994
     - !<own> 72202ae6-5718-4c3f-8546-872afe10862f
   Components:
     []
