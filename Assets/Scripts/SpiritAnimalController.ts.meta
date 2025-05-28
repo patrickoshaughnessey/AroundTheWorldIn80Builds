@@ -28,6 +28,7 @@
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
+    headLock: false
     manipulatable: false
   ScriptTypesHidden:
     {}
@@ -35,8 +36,10 @@
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
     - manipulatable: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      headLock: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input AssignableType manipulatable
+    - // @input AssignableType_1 headLock

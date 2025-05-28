@@ -1,11 +1,15 @@
 import {InteractableManipulation} from "SpectaclesInteractionKit.lspkg/Components/Interaction/InteractableManipulation/InteractableManipulation"
 import {SyncEntity} from "SpectaclesSyncKit.lspkg/Core/SyncEntity"
 import {NetworkRootInfo} from "SpectaclesSyncKit.lspkg/Core/NetworkRootInfo"
+import {Headlock} from "SpectaclesInteractionKit.lspkg/Components/Interaction/Headlock/Headlock"
 
 @component
 export class SpiritAnimalController extends BaseScriptComponent {        
     @input()
     manipulatable: InteractableManipulation
+
+    @input()
+    headLock: Headlock
 
     // Property to be set by the instantiator
     networkRootInfo: NetworkRootInfo
@@ -23,6 +27,7 @@ export class SpiritAnimalController extends BaseScriptComponent {
             // Spirit animal belongs to the other player, so I can't move it
             print("Animal doesn't belong to me, I can't' move it")
             this.manipulatable.setCanTranslate(false)
+            this.headLock.enabled = false
         }
     }
 
