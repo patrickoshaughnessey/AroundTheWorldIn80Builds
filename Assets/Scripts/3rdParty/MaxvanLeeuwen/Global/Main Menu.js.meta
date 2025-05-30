@@ -1,0 +1,55 @@
+- !<AssetImportMetadata/18aed90b-d967-4492-9b9d-82095d771edb>
+  ImportedAssetIds:
+    JavaScriptAsset: !<reference> 166482c5-f2f1-4e4a-bedd-925a4190d1b3
+  ImporterName: JavaScriptAssetImporter
+  PrimaryAsset: !<reference> 166482c5-f2f1-4e4a-bedd-925a4190d1b3
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  AssetDataMap:
+    JavaScriptAsset: !<own> f8a1f484-5940-4742-b401-00674875945c
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+  ExtraData:
+    {}
+- !<ScriptAssetData/f8a1f484-5940-4742-b401-00674875945c>
+  SvgIcon: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: ac645e5f-11fc-40f0-83e7-54b3413ab923
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    buttonTemplate: false
+    buttonsParent: false
+    cam: false
+    ctaText: false
+    logoTransform: false
+    plasticTemplate: false
+    plate: false
+    saveSlots: false
+  ScriptTypesHidden:
+    {}
+  DefaultScriptInputs:
+    - cam: !<reference.Camera> 00000000-0000-0000-0000-000000000000
+      plate: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      buttonsParent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      buttonTemplate: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
+      plasticTemplate: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      ctaText: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      logoTransform: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      saveSlots:
+        []
+  ScriptTypes:
+    -
+      {}
+  SetupScript:
+    code: ""
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000

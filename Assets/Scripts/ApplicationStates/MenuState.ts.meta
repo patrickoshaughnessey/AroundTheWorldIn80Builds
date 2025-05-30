@@ -1,0 +1,48 @@
+- !<AssetImportMetadata/53b2f89b-a9e8-4e2f-996c-cca48280818c>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 8c3f93e8-ea99-4255-a710-467462eab82c
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 8c3f93e8-ea99-4255-a710-467462eab82c
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 73475579-4238-454a-814c-dabf59e9bc13
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/73475579-4238-454a-814c-dabf59e9bc13>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 60d3a38f-4014-44d1-9cfa-58396c34725a
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    multiplayerButton: false
+    profileButton: false
+    rootObject: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      profileButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      multiplayerButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input SceneObject rootObject
+    - // @input AssignableType profileButton
+    - // @input AssignableType_1 multiplayerButton
