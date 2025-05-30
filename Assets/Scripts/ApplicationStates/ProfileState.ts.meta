@@ -1,0 +1,51 @@
+- !<AssetImportMetadata/3ef03d54-db64-43c1-88e0-a16433a735f9>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 3f0a8cf2-dcb2-4e3b-beb9-261646f4f29f
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 3f0a8cf2-dcb2-4e3b-beb9-261646f4f29f
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 7db68bec-7b35-4958-9404-984bf55e0c3d
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/7db68bec-7b35-4958-9404-984bf55e0c3d>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: c07e7501-a33e-4602-8f35-b2bb433d405a
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    defineGoalsButton: false
+    menuButton: false
+    personalityQuizButton: false
+    rootObject: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      personalityQuizButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      defineGoalsButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      menuButton: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input SceneObject rootObject
+    - // @input AssignableType personalityQuizButton
+    - // @input AssignableType_1 defineGoalsButton
+    - // @input AssignableType_2 menuButton

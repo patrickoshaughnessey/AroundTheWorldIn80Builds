@@ -1,0 +1,48 @@
+- !<AssetImportMetadata/5de4f7a7-649a-40fc-8785-90d5d5ffc268>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 53d8e187-a49a-487b-b278-d4c44619e7d3
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 53d8e187-a49a-487b-b278-d4c44619e7d3
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> c77037a4-d6e1-4002-977e-70e8f9e1ec43
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/c77037a4-d6e1-4002-977e-70e8f9e1ec43>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 222d8ec9-7fd7-4056-ae96-04dff6497dda
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    goalDefinitionButton: false
+    mainMenuButton: false
+    rootObject: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      mainMenuButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      goalDefinitionButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input SceneObject rootObject
+    - // @input AssignableType mainMenuButton
+    - // @input AssignableType_1 goalDefinitionButton

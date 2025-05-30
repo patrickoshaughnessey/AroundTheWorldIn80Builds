@@ -1,0 +1,48 @@
+- !<AssetImportMetadata/c1ca6402-4217-4a93-8b6a-804df41984b1>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 800a3140-67f3-4350-affb-454160037d60
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 800a3140-67f3-4350-affb-454160037d60
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 3e8084d0-b893-4980-949d-6d2f8f89386e
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/3e8084d0-b893-4980-949d-6d2f8f89386e>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 5ada62fc-0f6e-4ae5-891c-50e126a11cd0
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    cancelButton: false
+    rootObject: false
+    saveButton: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      saveButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      cancelButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input SceneObject rootObject
+    - // @input AssignableType saveButton
+    - // @input AssignableType_1 cancelButton

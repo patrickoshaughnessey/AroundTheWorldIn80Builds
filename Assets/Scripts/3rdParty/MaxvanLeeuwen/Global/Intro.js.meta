@@ -1,0 +1,51 @@
+- !<AssetImportMetadata/b4c5a64d-66d9-4e72-b35c-e51247211279>
+  ImportedAssetIds:
+    JavaScriptAsset: !<reference> 4ac6e46d-7f8a-455f-851c-2f77ff01dc18
+  ImporterName: JavaScriptAssetImporter
+  PrimaryAsset: !<reference> 4ac6e46d-7f8a-455f-851c-2f77ff01dc18
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  AssetDataMap:
+    JavaScriptAsset: !<own> 2755870e-512e-4f09-8a17-58567353fa43
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+  ExtraData:
+    {}
+- !<ScriptAssetData/2755870e-512e-4f09-8a17-58567353fa43>
+  SvgIcon: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 2005e65f-c90d-4f67-abb8-619032f81133
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    introObj: false
+    introSound1: false
+    introSound2: false
+    logoMat: false
+    logoObj: false
+    maxAndLiisiObj: false
+  ScriptTypesHidden:
+    {}
+  DefaultScriptInputs:
+    - introObj: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      maxAndLiisiObj: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      logoObj: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      logoMat: !<reference.Material[]>
+        []
+      introSound1: !<reference.AudioComponent> 00000000-0000-0000-0000-000000000000
+      introSound2: !<reference.AudioComponent> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  SetupScript:
+    code: ""
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
