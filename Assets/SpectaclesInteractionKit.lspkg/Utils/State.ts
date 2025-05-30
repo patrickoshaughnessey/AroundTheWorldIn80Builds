@@ -97,7 +97,10 @@ export default class State {
    * @param data optional from signal
    */
   checkSignal(signal: string, data: any): Transition | null {
+
+    print("Transitions: " + JSON.stringify(this.signalTransitions))
     for (const transition of this.signalTransitions) {
+      print("CHECKING TRANSITION: " + transition)
       if (transition.checkOnSignal!(signal, data) === true) {
         return transition
       }

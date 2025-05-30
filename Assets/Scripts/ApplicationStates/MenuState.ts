@@ -1,12 +1,14 @@
 import { BaseState } from "./BaseState"
 import { ApplicationModel } from "../ApplicationModel"
 import { PinchButton } from "SpectaclesInteractionKit.lspkg/Components/UI/PinchButton/PinchButton"
+import { ProfileState } from "./ProfileState"
+import { MultiplayerState } from "./MultiplayerState"
 
 @component
 export class MenuState extends BaseState {
-    
+
     public static readonly STATE_NAME = "Menu"
-    
+
     @input()
     profileButton: PinchButton
 
@@ -21,8 +23,7 @@ export class MenuState extends BaseState {
         if (this.profileButton) {
             if (this.profileButton.onButtonPinched) {
                 this.profileButton.onButtonPinched.add(() => {
-                    print("Profile bu   tton pinched - starting personality quiz")
-                    ApplicationModel.instance.setFirstLaunchComplete()
+                    print("Profile button pinched - opening profile")
                     this.sendSignal("OPEN_PROFILE")
                 })
             }
@@ -32,7 +33,6 @@ export class MenuState extends BaseState {
             if (this.multiplayerButton.onButtonPinched) {
                 this.multiplayerButton.onButtonPinched.add(() => {
                     print("Multiplayer button pinched - starting multiplayer")
-                    ApplicationModel.instance.setFirstLaunchComplete()
                     this.sendSignal("START_MULTIPLAYER")
                 })
             }
@@ -42,15 +42,19 @@ export class MenuState extends BaseState {
     protected getTransitions(): any[] {
         return [
             {
-                signal: "OPEN_PROFILE",
-                nextStateName: "Profile", // Will update this once PersonalityQuizState is created
+                nextStateName: ProfileState.STATE_NAME,
+                checkOnSignal: (signal: string) => {
+                    return signal === "OPEN_PROFILE"
+                },
                 onExecution: () => {
                     print("Transitioning from MenuState to Profile")
                 }
             },
             {
-                signal: "START_MULTIPLAYER",
-                nextStateName: "Multiplayer",
+                nextStateName: MultiplayerState.STATE_NAME,
+                checkOnSignal: (signal: string) => {
+                    return signal === "START_MULTIPLAYER"
+                },
                 onExecution: () => {
                     print("Transitioning from MenuState to Multiplayer")
                 }

@@ -95,6 +95,7 @@ export default class StateMachine {
    */
   sendSignal(signal: string, data: any = null) {
     if (this._currentState === null) {
+      print(">>> CURRENT STATE IS NULL!")
       return
     }
 
@@ -102,7 +103,11 @@ export default class StateMachine {
 
     let transition = this._currentState.checkSignal(signal, data)
     if (transition !== null) {
+      print(">>> EXECUTING TRANSITION!")
       this.executeTransition(transition)
+    } else {
+      print(">>> NO TRANSITION FOUND!")
+
     }
   }
 
@@ -116,9 +121,14 @@ export default class StateMachine {
   private executeTransition(transition: Transition) {
     // this.log(`Executing Transition to ${transition.nextStateName}`)
     if (transition.onExecution !== undefined) {
+      print(">>> CALLING onExecution!")
       transition.onExecution()
+    } else {
+      print(">>> onExecution UNDEFINED!")
+
     }
 
+    print(">>> ENTERING NEXT STATE: " + transition.nextStateName)
     this.enterState(transition.nextStateName)
   }
 

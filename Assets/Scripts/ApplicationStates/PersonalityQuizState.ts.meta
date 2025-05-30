@@ -1,0 +1,45 @@
+- !<AssetImportMetadata/8e48f901-e6d1-4de5-980b-2a594a9d7b35>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 5f347925-9cfd-464b-b00d-3248255e2647
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 5f347925-9cfd-464b-b00d-3248255e2647
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 7bf6bf35-8cf2-4048-94b1-ba4d5c184d7c
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/7bf6bf35-8cf2-4048-94b1-ba4d5c184d7c>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 7426b904-c675-4782-a2fd-9efbee743ee2
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    completeButton: false
+    rootObject: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      completeButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input SceneObject rootObject
+    - // @input AssignableType completeButton

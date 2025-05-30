@@ -42,6 +42,8 @@ export class ApplicationModel extends BaseScriptComponent {
     }
 
     start() {
+
+        print("Starting first state...");
         if (this.isFirstLaunch()) {
             this.applicationStateMachine.enterState(FirstUserExperienceState.STATE_NAME)
         } else {

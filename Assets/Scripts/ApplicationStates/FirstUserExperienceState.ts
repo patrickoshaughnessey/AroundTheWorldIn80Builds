@@ -1,12 +1,13 @@
 import { BaseState } from "./BaseState"
 import { ApplicationModel } from "../ApplicationModel"
 import { PinchButton } from "SpectaclesInteractionKit.lspkg/Components/UI/PinchButton/PinchButton"
+import { PersonalityQuizState } from "./PersonalityQuizState"
 
 @component
 export class FirstUserExperienceState extends BaseState {
-    
+
     public static readonly STATE_NAME = "FirstUserExperience"
-    
+
     @input()
     continueButton: PinchButton
 
@@ -15,25 +16,32 @@ export class FirstUserExperienceState extends BaseState {
     }
 
     protected initializeUI(): void {
+        print("FirstUserExperienceState initializeUI")
         if (this.continueButton) {
             print("PinchButton found: " + this.continueButton.getTypeName())
             print("Available properties: " + Object.getOwnPropertyNames(this.continueButton))
-        
+
             if (this.continueButton.onButtonPinched) {
                 this.continueButton.onButtonPinched.add(() => {
                     print("Continue button pinched - starting personality quiz")
                     ApplicationModel.instance.setFirstLaunchComplete()
                     this.sendSignal("START_QUIZ")
                 })
+            } else {
+                print("Continue button doesn't have an onButtonPinched!")
             }
+        } else {
+            print("NO CONTINUE BUTTON!")
         }
     }
 
     protected getTransitions(): any[] {
         return [
             {
-                signal: "START_QUIZ",
-                nextStateName: "PersonalityQuiz", // Will update this once PersonalityQuizState is created
+                nextStateName: PersonalityQuizState.STATE_NAME,
+                checkOnSignal: (signal: string) => {
+                    return signal === "START_QUIZ"
+                },
                 onExecution: () => {
                     print("Transitioning from FirstUserExperience to PersonalityQuiz")
                 }
