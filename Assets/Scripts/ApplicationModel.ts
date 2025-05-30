@@ -84,6 +84,11 @@ export class ApplicationModel extends BaseScriptComponent {
         print("First launch marked as complete")
     }
 
+    public setFirstLaunchTODO() {
+        this.persistentStorage.store.putBool("hasCompletedFirstLaunch", false)
+        print("Resetting first user launch flag")
+    }
+
     // public saveQuizResults(answers: string[]) {
     //     this.persistentStorage.store.putString("quizAnswers", JSON.stringify(answers))
     // }

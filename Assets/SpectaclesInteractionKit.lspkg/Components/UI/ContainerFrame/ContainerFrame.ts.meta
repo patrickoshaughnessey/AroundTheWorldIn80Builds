@@ -110,21 +110,21 @@
       isContentInteractable: false
       allowTranslation: true
       cutOut: false
-      minimumSize: !<Vec2> {x: 10.000000, y: 10.000000}
-      maximumSize: !<Vec2> {x: 300.000000, y: 300.000000}
-      useBillboarding: false
-      xOnTranslate: false
+      minimumSize: !<Vec2> {x: 8.000000, y: 8.000000}
+      maximumSize: !<Vec2> {x: 200.000000, y: 200.000000}
+      useBillboarding: true
+      xOnTranslate: true
       xAlways: false
-      yOnTranslate: false
+      yOnTranslate: true
       yAlways: false
-      useSnapping: false
-      itemSnapping: false
-      worldSnapping: false
-      showFollowButton: false
-      useFOVFollow: false
+      useSnapping: true
+      itemSnapping: true
+      worldSnapping: true
+      showFollowButton: true
+      useFOVFollow: true
       isFollowing: false
-      showCloseButton: true
-      _enableInteractionPlane: false
+      showCloseButton: false
+      _enableInteractionPlane: true
   ScriptTypes:
     -
       {}

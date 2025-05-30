@@ -16,9 +16,6 @@ export class SpiritAnimalRevealState extends BaseState {
     @input()
     goalDefinitionButton: PinchButton
 
-    @input()
-    multiplayerButton: PinchButton
-
     protected getStateName(): string {
         return SpiritAnimalRevealState.STATE_NAME
     }
@@ -38,15 +35,6 @@ export class SpiritAnimalRevealState extends BaseState {
                 this.goalDefinitionButton.onButtonPinched.add(() => {
                     print("Goal definition button pinched - going to goal definition")
                     this.sendSignal("GO_TO_GOAL_DEFINITION")
-                })
-            }
-        }
-
-        if (this.multiplayerButton) {
-            if (this.multiplayerButton.onButtonPinched) {
-                this.multiplayerButton.onButtonPinched.add(() => {
-                    print("Multiplayer button pinched - starting multiplayer")
-                    this.sendSignal("START_MULTIPLAYER")
                 })
             }
         }
@@ -70,15 +58,6 @@ export class SpiritAnimalRevealState extends BaseState {
                 },
                 onExecution: () => {
                     print("Transitioning from SpiritAnimalReveal to GoalDefinition")
-                }
-            },
-            {
-                nextStateName: MultiplayerState.STATE_NAME,
-                checkOnSignal: (signal: string) => {
-                    return signal === "START_MULTIPLAYER"
-                },
-                onExecution: () => {
-                    print("Transitioning from SpiritAnimalReveal to Multiplayer")
                 }
             }
         ]

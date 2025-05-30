@@ -30,7 +30,6 @@
   ScriptInputsHidden:
     goalDefinitionButton: false
     mainMenuButton: false
-    multiplayerButton: false
     rootObject: false
   ScriptTypesHidden:
     {}
@@ -40,7 +39,6 @@
     - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       mainMenuButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
       goalDefinitionButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
-      multiplayerButton: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
@@ -48,4 +46,3 @@
     - // @input SceneObject rootObject
     - // @input AssignableType mainMenuButton
     - // @input AssignableType_1 goalDefinitionButton
-    - // @input AssignableType_2 multiplayerButton

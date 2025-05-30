@@ -3,6 +3,7 @@ import { ApplicationModel } from "../ApplicationModel"
 import { PinchButton } from "SpectaclesInteractionKit.lspkg/Components/UI/PinchButton/PinchButton"
 import { ProfileState } from "./ProfileState"
 import { MultiplayerState } from "./MultiplayerState"
+import {FirstUserExperienceState} from "./FirstUserExperienceState"
 
 @component
 export class MenuState extends BaseState {
@@ -14,6 +15,9 @@ export class MenuState extends BaseState {
 
     @input()
     multiplayerButton: PinchButton
+
+    @input()
+    resetFUEButton: PinchButton
 
     protected getStateName(): string {
         return MenuState.STATE_NAME
@@ -37,6 +41,15 @@ export class MenuState extends BaseState {
                 })
             }
         }
+
+        if (this.resetFUEButton) {
+            if (this.resetFUEButton.onButtonPinched) {
+                this.resetFUEButton.onButtonPinched.add(() => {
+                    print("Reset FUE pinched - deleting data")
+                    this.sendSignal("RESET_FUE")
+                })
+            }
+        }
     }
 
     protected getTransitions(): any[] {
@@ -57,6 +70,16 @@ export class MenuState extends BaseState {
                 },
                 onExecution: () => {
                     print("Transitioning from MenuState to Multiplayer")
+                }
+            },
+            {
+                nextStateName: FirstUserExperienceState.STATE_NAME,
+                checkOnSignal: (signal: string) => {
+                    return signal === "RESET_FUE"
+                },
+                onExecution: () => {
+                    ApplicationModel.instance.setFirstLaunchComplete()
+                    print("Transitioning from MenuState to First User Experience")
                 }
             }
         ]

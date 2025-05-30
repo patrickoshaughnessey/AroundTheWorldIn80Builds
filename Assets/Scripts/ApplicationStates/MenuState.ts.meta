@@ -30,6 +30,7 @@
   ScriptInputsHidden:
     multiplayerButton: false
     profileButton: false
+    resetFUEButton: false
     rootObject: false
   ScriptTypesHidden:
     {}
@@ -39,6 +40,7 @@
     - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       profileButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
       multiplayerButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      resetFUEButton: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
@@ -46,3 +48,4 @@
     - // @input SceneObject rootObject
     - // @input AssignableType profileButton
     - // @input AssignableType_1 multiplayerButton
+    - // @input AssignableType_2 resetFUEButton
