@@ -28,15 +28,16 @@
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
-    rootObject: false
+    {}
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
-    - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+    -
+      {}
   ScriptTypes:
     -
       {}
   InputLines:
-    - // @input SceneObject rootObject
+    []

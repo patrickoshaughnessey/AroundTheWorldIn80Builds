@@ -4,9 +4,6 @@ import {SpiritAnimalController} from "../SpiritAnimalController"
 export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
     protected stateName: string
     
-    @input()
-    protected rootObject: SceneObject
-
     onAwake() {
         this.createEvent("OnStartEvent").bind(() => this.onStart())
     }
@@ -16,14 +13,11 @@ export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
         this.registerState()
 
         // Initialize our UI
-        this.initializeUI()
-
-        // Hide the UI until the state starts
-        this.hideUI()
+        this.initializeState()
     }
 
     protected abstract getStateName(): string
-    protected abstract initializeUI(): void
+    protected abstract initializeState(): void
 
     private registerState() {
         this.stateName = this.getStateName()
@@ -62,12 +56,10 @@ export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
     // State lifecycle methods that can be overridden
     protected onEnterState() {
         print(`Entered ${this.stateName} state`)
-        this.showUI()
     }
     
     protected onExitState() {
         print(`Exited ${this.stateName} state`)
-        this.hideUI()
     }
     
     protected onUpdateState() {
@@ -77,22 +69,7 @@ export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
     protected onSignalReceived() {
         // Override in child classes if needed
     }
-    
-    // UI Management
-    protected showUI() {
-        if (this.rootObject) {
-            this.rootObject.enabled = true
-        }
-    }
-    
-    protected hideUI() {
-        if (this.rootObject) {
-            this.rootObject.enabled = false
-        } else {
-            print("No root object defined!")
-        }
-    }
-    
+
     // Utility method to send signals to state machine
     protected sendSignal(signal: string, data: any = null) {
         print("=== SENDING SIGNAL ===")

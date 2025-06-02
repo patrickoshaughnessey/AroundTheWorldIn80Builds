@@ -11,9 +11,9 @@ export class IdleState extends BaseSpiritAnimalState {
         return IdleState.STATE_NAME
     }
 
-    protected initializeUI(): void {
+    protected initializeState(): void {
         // Initialize any UI elements specific to this state
-        print("IdleState: initializeUI")
+        print("IdleState: initializeState")
     }
 
     protected getTransitions(): any[] {

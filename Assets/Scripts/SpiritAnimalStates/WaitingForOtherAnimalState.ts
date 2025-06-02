@@ -23,9 +23,9 @@ export class WaitingForOtherAnimalState extends BaseSpiritAnimalState {
         return WaitingForOtherAnimalState.STATE_NAME
     }
 
-    protected initializeUI(): void {
+    protected initializeState(): void {
         // Initialize any UI elements specific to this state
-        print("WaitingForOtherAnimalState: initializeUI")
+        print("WaitingForOtherAnimalState: initializeState")
     }
 
     protected getTransitions(): any[] {

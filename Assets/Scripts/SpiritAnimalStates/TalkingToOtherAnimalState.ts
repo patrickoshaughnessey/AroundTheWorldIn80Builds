@@ -30,9 +30,9 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
         return TalkingToOtherAnimalState.STATE_NAME
     }
 
-    protected initializeUI(): void {
+    protected initializeState(): void {
         // Initialize any UI elements specific to this state
-        print("TalkingToOtherAnimalState: initializeUI")
+        print("TalkingToOtherAnimalState: initializeState")
     }
 
     protected getTransitions(): any[] {

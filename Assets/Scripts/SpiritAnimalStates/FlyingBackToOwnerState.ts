@@ -23,9 +23,9 @@ export class FlyingBackToOwnerState extends BaseSpiritAnimalState {
         return FlyingBackToOwnerState.STATE_NAME
     }
 
-    protected initializeUI(): void {
+    protected initializeState(): void {
         // Initialize any UI elements specific to this state
-        print("FlyingBackToOwnerState: initializeUI")
+        print("FlyingBackToOwnerState: initializeState")
     }
 
     protected getTransitions(): any[] {
