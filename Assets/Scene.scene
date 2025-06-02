@@ -2948,7 +2948,7 @@
       {}
   ScriptTypes:
     "":
-    {}
+      {}
 - !<SceneObject/1cb2c3cf-cac9-45c3-b2dc-253899fc817c>
   PrefabRemaps:
     []
@@ -16570,7 +16570,7 @@
         - !<reference> d2135ba1-4f7e-4e03-ab69-757d7d4aaab8
   ScriptTypes:
     "":
-    {}
+      {}
 - !<ScriptComponent/be75712d-77aa-412f-9d36-5268e8668b6c>
   PrefabRemaps:
     []
@@ -19013,7 +19013,7 @@
       editEventCallbacks: false
       customFunctionForOnButtonPinched: !<reference.ScriptComponent> 00000000-0000-0000-0000-000000000000
       onButtonPinchedFunctionNames: !<string[]>
-    []
+        []
   ScriptTypes:
     "":
       {}
