@@ -7,15 +7,19 @@ import State, {StateConfig, Transition} from "./State"
 
 import {LensConfig} from "./LensConfig"
 import {DispatchedUpdateEvent} from "./UpdateDispatcher"
+import {EventDispatcher} from "./EventDispatcher"
 
 const TAG = "StateMachine"
 
 export default class StateMachine {
   private name: string
   private _currentState: State | null = null
+  private _previousState: State | null = null
   private states: any = {}
   private stateCount = 0
   private verboseLogs = false
+
+  public onStateChanged: EventDispatcher<State> = new EventDispatcher<State>()
 
   private log: NativeLogger
   private lateUpdateEvent: DispatchedUpdateEvent
@@ -48,6 +52,10 @@ export default class StateMachine {
     return this._currentState
   }
 
+  get previousState(): State | null {
+    return this._previousState
+  }
+
   /**
    * Add a new state to the state machine.
    * @param config StateConfig. State names are Unique
@@ -78,9 +86,13 @@ export default class StateMachine {
 
     // this.log(`Entering State - ${stateName}`)
     let newState = this.states[stateName] as State
+    this._previousState = this._currentState
     this._currentState = newState
     this._currentState.stateElapsedTime = 0
     this._currentState.stateStartTime = getTime()
+
+    // Dispatch the state changed event
+    this.onStateChanged.dispatch(this._currentState)
 
     if (skipOnEnter) {
       return
