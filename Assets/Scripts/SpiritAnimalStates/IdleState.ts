@@ -5,7 +5,7 @@ import { WaitingForOtherAnimalState } from "./WaitingForOtherAnimalState"
 @component
 export class IdleState extends BaseSpiritAnimalState {
 
-    public static readonly STATE_NAME = "Idle"
+    public static readonly STATE_NAME = "SAIdle"
 
     protected getStateName(): string {
         return IdleState.STATE_NAME
@@ -13,7 +13,7 @@ export class IdleState extends BaseSpiritAnimalState {
 
     protected initializeState(): void {
         // Initialize any UI elements specific to this state
-        print("IdleState: initializeState")
+        print("IdleState: initializeUI")
     }
 
     protected getTransitions(): any[] {

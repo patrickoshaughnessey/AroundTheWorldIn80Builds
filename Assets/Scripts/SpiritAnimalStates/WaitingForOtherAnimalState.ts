@@ -12,11 +12,11 @@ export class WaitingForOtherAnimalState extends BaseSpiritAnimalState {
 
     onAwake(): void {
         super.onAwake()
-        this.delayedEvent = LensConfig.getInstance().updateDispatcher.createDelayedEvent()
-        this.delayedEvent.bind(() => {
-            print("Other animal has arrived")
-            this.sendSignal("OTHER_ANIMAL_ARRIVED")
-        })
+        // this.delayedEvent = LensConfig.getInstance().updateDispatcher.createDelayedEvent()
+        // this.delayedEvent.bind(() => {
+        //     print("Other animal has arrived")
+        //     this.sendSignal("OTHER_ANIMAL_ARRIVED")
+        // })
     }
 
     protected getStateName(): string {

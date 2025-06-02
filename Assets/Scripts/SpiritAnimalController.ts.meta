@@ -30,6 +30,7 @@
   ScriptInputsHidden:
     headLock: false
     manipulatable: false
+    stateDebugText: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -37,9 +38,11 @@
   DefaultScriptInputs:
     - manipulatable: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
       headLock: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      stateDebugText: !<reference.Text> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input AssignableType manipulatable
     - // @input AssignableType_1 headLock
+    - // @input Component.Text stateDebugText

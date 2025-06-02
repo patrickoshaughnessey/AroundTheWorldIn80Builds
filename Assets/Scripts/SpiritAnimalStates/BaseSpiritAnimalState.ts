@@ -3,7 +3,11 @@ import {SpiritAnimalController} from "../SpiritAnimalController"
 
 export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
     protected stateName: string
-    
+
+    protected stateDebugText: Text
+
+    protected controller: SpiritAnimalController
+
     onAwake() {
         this.createEvent("OnStartEvent").bind(() => this.onStart())
     }
@@ -38,14 +42,12 @@ export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
         }
 
         print(`Registering spirit animal state: ${this.stateName}`)
-        print("stateConfig: " + JSON.stringify(stateConfig, null, 2))
-        print(`getTransitions() returned: ${JSON.stringify(transitions)}`)
-        print(`Transitions array length: ${transitions.length}`)
 
         // Get the SpiritAnimalController instance and register the state
-        const controller = this.getSceneObject().getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController
-        if (controller && controller.spiritAnimalStateMachine) {
-            controller.spiritAnimalStateMachine.addState(stateConfig)
+        this.controller = this.getSceneObject().getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController
+        if (this.controller && this.controller.spiritAnimalStateMachine) {
+            this.controller.spiritAnimalStateMachine.addState(stateConfig)
+            print(`Spirit animal state registered: ${this.stateName}`)
         } else {
             print(`Error: Could not find SpiritAnimalController or state machine is not initialized`)
         }
@@ -56,6 +58,9 @@ export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
     // State lifecycle methods that can be overridden
     protected onEnterState() {
         print(`Entered ${this.stateName} state`)
+        if (this.controller.stateDebugText) {
+            this.controller.stateDebugText.text = this.stateName
+        }
     }
     
     protected onExitState() {

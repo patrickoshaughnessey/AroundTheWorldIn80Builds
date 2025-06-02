@@ -19,11 +19,11 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
 
     onAwake(): void {
         super.onAwake()
-        this.delayedEvent = LensConfig.getInstance().updateDispatcher.createDelayedEvent()
-        this.delayedEvent.bind(() => {
-            print("Spirit animal has finished talking")
-            this.sendSignal("DONE_TALKING")
-        })
+        // this.delayedEvent = LensConfig.getInstance().updateDispatcher.createDelayedEvent()
+        // this.delayedEvent.bind(() => {
+        //     print("Spirit animal has finished talking")
+        //     this.sendSignal("DONE_TALKING")
+        // })
     }
 
     protected getStateName(): string {

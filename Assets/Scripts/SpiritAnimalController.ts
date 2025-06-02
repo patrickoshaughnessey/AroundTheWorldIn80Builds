@@ -13,6 +13,9 @@ export class SpiritAnimalController extends BaseScriptComponent {
     @input()
     headLock: Headlock
 
+    @input()
+    public stateDebugText: Text
+
     // Property to be set by the instantiator
     networkRootInfo: NetworkRootInfo
 
@@ -42,6 +45,8 @@ export class SpiritAnimalController extends BaseScriptComponent {
         } else {
             print("Error: Spirit animal state machine is not initialized")
         }
+
+        this.stateDebugText = this.getSceneObject().getComponent("Component.Text") as Text
     }
 
     onAwake() {

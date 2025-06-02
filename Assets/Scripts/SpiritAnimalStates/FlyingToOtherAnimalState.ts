@@ -6,17 +6,17 @@ import { DispatchedDelayedEvent } from "SpectaclesInteractionKit.lspkg/Utils/Upd
 @component
 export class FlyingToOtherAnimalState extends BaseSpiritAnimalState {
 
-    public static readonly STATE_NAME = "FlyingToOtherAnimal"
+    public static readonly STATE_NAME = "SAFlyingToOtherAnimal"
 
     private delayedEvent: DispatchedDelayedEvent
 
     onAwake(): void {
         super.onAwake()
-        this.delayedEvent = LensConfig.getInstance().updateDispatcher.createDelayedEvent()
-        this.delayedEvent.bind(() => {
-            print("Spirit animal has arrived at other animal")
-            this.sendSignal("ARRIVED_AT_OTHER_ANIMAL")
-        })
+        // this.delayedEvent = LensConfig.getInstance().updateDispatcher.createDelayedEvent()
+        // this.delayedEvent.bind(() => {
+        //     print("Spirit animal has arrived at other animal")
+        //     this.sendSignal("ARRIVED_AT_OTHER_ANIMAL")
+        // })
     }
 
     protected getStateName(): string {
