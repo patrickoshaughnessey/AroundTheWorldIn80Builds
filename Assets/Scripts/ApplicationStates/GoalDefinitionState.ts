@@ -1,7 +1,7 @@
 import { BaseState } from "./BaseState"
-import { ApplicationModel } from "../ApplicationModel"
 import { PinchButton } from "SpectaclesInteractionKit.lspkg/Components/UI/PinchButton/PinchButton"
 import { ProfileState } from "./ProfileState"
+import {MenuState} from "./MenuState";
 
 @component
 export class GoalDefinitionState extends BaseState {
@@ -41,7 +41,7 @@ export class GoalDefinitionState extends BaseState {
     protected getTransitions(): any[] {
         return [
             {
-                nextStateName: ProfileState.STATE_NAME,
+                nextStateName: MenuState.STATE_NAME,
                 checkOnSignal: (signal: string) => {
                     return signal === "SAVE_GOALS"
                 },

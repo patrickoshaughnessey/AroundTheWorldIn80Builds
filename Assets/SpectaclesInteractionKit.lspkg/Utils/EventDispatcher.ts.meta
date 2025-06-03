@@ -1,20 +1,20 @@
-- !<AssetImportMetadata/3b8090a1-3643-43ae-961b-d7730a01dcc8>
+- !<AssetImportMetadata/2c8926db-9092-4353-afa2-acbf19c54446>
   ImportedAssetIds:
-    TypeScriptAsset: !<reference> aa6d5733-0d01-4a3e-af5a-1ae704965a4b
+    TypeScriptAsset: !<reference> 693da3ed-853f-4300-b989-da44207d9007
   ImporterName: TypeScriptAssetImporter
-  PrimaryAsset: !<reference> aa6d5733-0d01-4a3e-af5a-1ae704965a4b
+  PrimaryAsset: !<reference> 693da3ed-853f-4300-b989-da44207d9007
   PackageType: NotAPackage
   PackagePolicy: CannotBeUnpacked
   ExtraData:
     {}
   AssetDataMap:
-    TypeScriptAsset: !<own> 0ddf4122-f24b-4c45-94d6-41eec055504d
+    TypeScriptAsset: !<own> 22a2eab3-d659-46c6-b759-d2b8d0ae1251
   DependentFiles:
     []
   ImporterSettings: !<AssetImporterSettings>
     {}
   CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
-- !<TypeScriptAssetData/0ddf4122-f24b-4c45-94d6-41eec055504d>
+- !<TypeScriptAssetData/22a2eab3-d659-46c6-b759-d2b8d0ae1251>
   SvgIcon: ""
   SetupScript:
     code: ""
@@ -23,23 +23,21 @@
   VersionMajor: 0
   VersionMinor: 0
   VersionPatch: 0
-  ComponentUid: e4ab794a-ac9b-42f2-bf6a-43baa2fe5708
+  ComponentUid: e892a2ca-aec9-4c58-af8d-bad199635279
   ExportUid: 00000000-0000-0000-0000-000000000000
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
-    chatService: false
-    speechInputService: false
+    {}
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
-    - chatService: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
-      speechInputService: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+    -
+      {}
   ScriptTypes:
     -
       {}
   InputLines:
-    - // @input AssignableType chatService
-    - // @input AssignableType_1 speechInputService
+    []

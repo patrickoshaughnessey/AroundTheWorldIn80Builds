@@ -1,0 +1,51 @@
+- !<AssetImportMetadata/92d4608d-7984-4785-b5cc-7f63894e17e0>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 597cf1fc-d76c-46c2-9cbe-9d3570c7e693
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 597cf1fc-d76c-46c2-9cbe-9d3570c7e693
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> dfa8be1d-8222-46c8-97c4-5f9995b1e5ea
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/dfa8be1d-8222-46c8-97c4-5f9995b1e5ea>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 683f0807-10f2-45f3-bf71-a9ed46e685fb
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    spiritAnimalController: false
+    statusText: false
+    testFirstPathButton: false
+    testSecondPathButton: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - spiritAnimalController: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      testFirstPathButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      testSecondPathButton: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      statusText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input AssignableType spiritAnimalController
+    - // @input AssignableType_1 testFirstPathButton
+    - // @input AssignableType_2 testSecondPathButton
+    - // @input Component.Text statusText

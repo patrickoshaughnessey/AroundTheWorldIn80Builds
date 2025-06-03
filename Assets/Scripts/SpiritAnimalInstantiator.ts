@@ -26,7 +26,7 @@ export class SpiritAnimalInstantiator extends BaseScriptComponent {
                 options,
                 // onSuccess
                 (networkRootInfo: NetworkRootInfo) => {
-                    print("networkRootINfo: " + networkRootInfo)
+                    print("networkRootInfo: " + networkRootInfo)
                     const newObj = networkRootInfo.instantiatedObject;
                     print('instantiated new object: ' + newObj)
 

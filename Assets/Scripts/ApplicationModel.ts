@@ -1,6 +1,8 @@
 import StateMachine from "SpectaclesInteractionKit.lspkg/Utils/StateMachine"
 import {FirstUserExperienceState} from "./ApplicationStates/FirstUserExperienceState";
 import {MenuState} from "./ApplicationStates/MenuState";
+import { OpenAIChatService } from "./OpenAIChatService"
+import { SpiritAnimalSpeechInput } from "./SpiritAnimalSpeechInput"
 declare global {
     var DoDelay: any;
 }
@@ -14,6 +16,13 @@ export class ApplicationModel extends BaseScriptComponent {
 
     // Persistent storage reference
     public persistentStorage: PersistentStorageSystem
+
+    // AI Services
+    @input
+    public chatService: OpenAIChatService
+
+    @input
+    public speechInputService: SpiritAnimalSpeechInput
 
     // Singleton getter
     static get instance(): ApplicationModel {
