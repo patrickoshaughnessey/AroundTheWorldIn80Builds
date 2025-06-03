@@ -29,26 +29,17 @@
   MaxVisibility: Editable
   ScriptInputsHidden:
     completeButton: false
-    feedbackText: false
-    recordButton: false
     rootObject: false
-    speechInputService: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
     - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
-      recordButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
-      completeButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
-      speechInputService: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
-      feedbackText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      completeButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input SceneObject rootObject
-    - // @input AssignableType recordButton
-    - // @input AssignableType_1 completeButton
-    - // @input AssignableType_2 speechInputService
-    - // @input Component.Text feedbackText
+    - // @input AssignableType completeButton

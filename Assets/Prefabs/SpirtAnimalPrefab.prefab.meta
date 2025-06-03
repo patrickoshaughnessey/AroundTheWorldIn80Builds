@@ -249,8 +249,7 @@
     {}
   ScriptInputs:
     "":
-      manipulatable: !<MappingBased.AssignableType> b072f0a8-f688-4ce8-a294-8fe4a3321648
-      headLock: !<MappingBased.AssignableType_1> 0697f32f-e9c4-4aec-a46f-a4d369e6000a
+      {}
   ScriptTypes:
     "":
       {}

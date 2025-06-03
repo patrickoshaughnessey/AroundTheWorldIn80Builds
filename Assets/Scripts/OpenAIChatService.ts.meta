@@ -29,14 +29,17 @@
   MaxVisibility: Editable
   ScriptInputsHidden:
     openAIAPIKey: false
+    textToSpeechService: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
     - openAIAPIKey: YOUR_OPENAI_API_KEY_HERE
+      textToSpeechService: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - '// @input string openAIAPIKey = "YOUR_OPENAI_API_KEY_HERE"'
+    - // @input AssignableType textToSpeechService

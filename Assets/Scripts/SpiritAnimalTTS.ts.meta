@@ -29,7 +29,6 @@
   MaxVisibility: Editable
   ScriptInputsHidden:
     audioOutputAsset: false
-    debugTextOutput: false
     openAIAPIKey: false
   ScriptTypesHidden:
     {}
@@ -38,11 +37,9 @@
   DefaultScriptInputs:
     - openAIAPIKey: YOUR_OPENAI_API_KEY_HERE
       audioOutputAsset: !<reference.Asset> 00000000-0000-0000-0000-000000000000
-      debugTextOutput: !<reference.Text> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - '// @input string openAIAPIKey = "YOUR_OPENAI_API_KEY_HERE"'
     - // @input Asset.Asset audioOutputAsset
-    - // @input Component.Text debugTextOutput

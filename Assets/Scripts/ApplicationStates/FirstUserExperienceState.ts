@@ -1,7 +1,7 @@
-import { BaseState } from "./BaseState"
-import { ApplicationModel } from "../ApplicationModel"
-import { PinchButton } from "SpectaclesInteractionKit.lspkg/Components/UI/PinchButton/PinchButton"
-import { PersonalityQuizState } from "./PersonalityQuizState"
+import {BaseState} from "./BaseState"
+import {ApplicationModel} from "../ApplicationModel"
+import {PinchButton} from "SpectaclesInteractionKit.lspkg/Components/UI/PinchButton/PinchButton"
+import {PersonalityQuizState} from "./PersonalityQuizState"
 
 @component
 export class FirstUserExperienceState extends BaseState {

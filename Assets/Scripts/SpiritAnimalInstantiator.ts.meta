@@ -28,6 +28,7 @@
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
+    aiServicesHolder: false
     instantiator: false
     spiritAnimalPrefab: false
   ScriptTypesHidden:
@@ -37,9 +38,11 @@
   DefaultScriptInputs:
     - instantiator: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
       spiritAnimalPrefab: !<reference.ObjectPrefab> 00000000-0000-0000-0000-000000000000
+      aiServicesHolder: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input AssignableType instantiator
     - // @input Asset.ObjectPrefab spiritAnimalPrefab
+    - // @input SceneObject aiServicesHolder
