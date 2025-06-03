@@ -29,6 +29,7 @@
   MaxVisibility: Editable
   ScriptInputsHidden:
     headLock: false
+    interactable: false
     manipulatable: false
     stateDebugText: false
   ScriptTypesHidden:
@@ -37,12 +38,14 @@
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
     - manipulatable: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
-      headLock: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      interactable: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      headLock: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
       stateDebugText: !<reference.Text> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input AssignableType manipulatable
-    - // @input AssignableType_1 headLock
+    - // @input AssignableType_1 interactable
+    - // @input AssignableType_2 headLock
     - // @input Component.Text stateDebugText

@@ -390,7 +390,8 @@
   ScriptInputs:
     "":
       manipulatable: !<MappingBased.AssignableType> b072f0a8-f688-4ce8-a294-8fe4a3321648
-      headLock: !<MappingBased.AssignableType_1> 0697f32f-e9c4-4aec-a46f-a4d369e6000a
+      interactable: !<MappingBased.AssignableType_1> ce7180bf-3725-4998-8cf6-59933cbec9cb
+      headLock: !<MappingBased.AssignableType_2> 0697f32f-e9c4-4aec-a46f-a4d369e6000a
       stateDebugText: !<reference.Text> 3c66c7d0-7fae-45ac-9cdd-9023bae69c69
   ScriptTypes:
     "":
@@ -450,7 +451,6 @@
     minimumScaleFactor: true
     maximumScaleFactor: true
     enableTranslation: true
-    enableRotation: true
     showStretchZProperties: true
     zStretchFactorMin: true
     zStretchFactorMax: true
@@ -473,7 +473,7 @@
       minimumScaleFactor: 0.250000
       maximumScaleFactor: !<float> 20.000000
       enableTranslation: true
-      enableRotation: true
+      enableRotation: false
       enableScale: false
       enableStretchZ: false
       showStretchZProperties: false

@@ -4,11 +4,23 @@ import {NetworkRootInfo} from "SpectaclesSyncKit.lspkg/Core/NetworkRootInfo"
 import {Headlock} from "SpectaclesInteractionKit.lspkg/Components/Interaction/Headlock/Headlock"
 import StateMachine from "SpectaclesInteractionKit.lspkg/Utils/StateMachine"
 import {IdleState} from "./SpiritAnimalStates/IdleState"
+import {Interactable} from "SpectaclesInteractionKit.lspkg/Components/Interaction/Interactable/Interactable"
+import {InteractorEvent} from "SpectaclesInteractionKit.lspkg/Core/Interactor/InteractorEvent"
+import {EventDispatcher} from "SpectaclesInteractionKit.lspkg/Utils/EventDispatcher"
+
+// Define the event data type
+interface SpiritAnimalEventData {
+    senderId: string  // This will be the networkId
+    timestamp: number
+}
 
 @component
-export class SpiritAnimalController extends BaseScriptComponent {        
+export class SpiritAnimalController extends BaseScriptComponent {
     @input()
     manipulatable: InteractableManipulation
+
+    @input()
+    interactable: Interactable
 
     @input()
     headLock: Headlock
@@ -23,19 +35,32 @@ export class SpiritAnimalController extends BaseScriptComponent {
     public spiritAnimalStateMachine: StateMachine
 
     syncEntity: SyncEntity
-    sceneObj: SceneObject
+
+    private isMySpiritAnimal: boolean = false
+    private networkId: string = ""
+    
 
     onReady() {
-        print("Spirit Animal Controller is ready");    
+        print("Spirit Animal Controller is ready");
+
+        // Get the network ID from the networkRootInfo
+        if (this.networkRootInfo) {
+            this.networkId = this.networkRootInfo.networkId
+            print("Spirit animal network ID: " + this.networkId)
+        } else {
+            print("Warning: No networkRootInfo available, using fallback ID")
+            this.networkId = "fallback_" + Math.random().toString(36).substr(2, 9)
+        }
 
         if (this.networkRootInfo && this.networkRootInfo.locallyCreated) {
             print("Animal belongs to me, I can move it")
             this.manipulatable.setCanTranslate(true)
+            this.isMySpiritAnimal = true
         } else {
-            // Spirit animal belongs to the other player, so I can't move it
-            print("Animal doesn't belong to me, I can't' move it")
+            print("Animal doesn't belong to me, I can't move it")
             this.manipulatable.setCanTranslate(false)
             this.headLock.enabled = false
+            this.interactable.onTriggerStart.add(this.onOtherAnimalClicked)
         }
 
         // Start the state machine with the Idle state
@@ -72,4 +97,9 @@ export class SpiritAnimalController extends BaseScriptComponent {
             this.spiritAnimalStateMachine.destroy()
         }
     }
+    
+    private onOtherAnimalClicked = (e: InteractorEvent) => {
+        print("Other animal clicked - sending global event")
+        }
+        
 }
