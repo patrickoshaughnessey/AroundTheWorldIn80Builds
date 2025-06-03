@@ -1,0 +1,73 @@
+- !<ObjectPrefab/3514a139-eab2-4cb7-9d0b-2f87d2c2ca33>
+  PackagePath: ""
+  objects:
+    - !<own> 80b8b51c-5eca-451b-8196-4db1b36e4b55
+  LazyLoading: false
+  RetainAssets: true
+- !<ScriptComponent/2128f5e3-3e52-4cd2-b739-2f1b80dc76ac>
+  PrefabRemaps:
+    []
+  Name: SpiritAnimalTTS
+  Enabled: true
+  ScriptAsset: !<reference> f2f8638e-9504-4baf-9f25-718398bab717
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      openAIAPIKey: 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
+      audioOutputAsset: !<reference.Asset> c9030ea5-391c-4c3b-b5ae-758f16a197d4
+  ScriptTypes:
+    "":
+      {}
+- !<SceneObject/80b8b51c-5eca-451b-8196-4db1b36e4b55>
+  PrefabRemaps:
+    []
+  Name: AIServices
+  Enabled: true
+  Layers: 1
+  LocalTransform:
+    position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    hasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 85cf8ceb-286d-4a48-a1fc-38817299c36f
+    - !<own> 2128f5e3-3e52-4cd2-b739-2f1b80dc76ac
+    - !<own> ca16ad5e-7289-48a6-acd5-2f205ecbcaea
+- !<ScriptComponent/85cf8ceb-286d-4a48-a1fc-38817299c36f>
+  PrefabRemaps:
+    []
+  Name: OpenAIChatService
+  Enabled: true
+  ScriptAsset: !<reference> eedf3ebd-df00-4c0c-a3b4-ba60bf47a54c
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      openAIAPIKey: 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
+      textToSpeechService: !<MappingBased.AssignableType> 2128f5e3-3e52-4cd2-b739-2f1b80dc76ac
+  ScriptTypes:
+    "":
+      {}
+- !<ScriptComponent/ca16ad5e-7289-48a6-acd5-2f205ecbcaea>
+  PrefabRemaps:
+    []
+  Name: SpiritAnimalSpeechInput
+  Enabled: true
+  ScriptAsset: !<reference> 68b51b30-17b0-487b-93c3-737da0c6cefe
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      {}
+  ScriptTypes:
+    "":
+      {}

@@ -1,20 +1,20 @@
-- !<AssetImportMetadata/3b8090a1-3643-43ae-961b-d7730a01dcc8>
+- !<AssetImportMetadata/dc66033f-a0d1-4ef0-8f6d-79149580072b>
   ImportedAssetIds:
-    TypeScriptAsset: !<reference> aa6d5733-0d01-4a3e-af5a-1ae704965a4b
+    TypeScriptAsset: !<reference> f2f8638e-9504-4baf-9f25-718398bab717
   ImporterName: TypeScriptAssetImporter
-  PrimaryAsset: !<reference> aa6d5733-0d01-4a3e-af5a-1ae704965a4b
+  PrimaryAsset: !<reference> f2f8638e-9504-4baf-9f25-718398bab717
   PackageType: NotAPackage
   PackagePolicy: CannotBeUnpacked
   ExtraData:
     {}
   AssetDataMap:
-    TypeScriptAsset: !<own> 0ddf4122-f24b-4c45-94d6-41eec055504d
+    TypeScriptAsset: !<own> 8abce3c0-827b-42a7-9f0b-df3797c5a770
   DependentFiles:
     []
   ImporterSettings: !<AssetImporterSettings>
     {}
   CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
-- !<TypeScriptAssetData/0ddf4122-f24b-4c45-94d6-41eec055504d>
+- !<TypeScriptAssetData/8abce3c0-827b-42a7-9f0b-df3797c5a770>
   SvgIcon: ""
   SetupScript:
     code: ""
@@ -23,23 +23,23 @@
   VersionMajor: 0
   VersionMinor: 0
   VersionPatch: 0
-  ComponentUid: e4ab794a-ac9b-42f2-bf6a-43baa2fe5708
+  ComponentUid: 19170748-7ded-45f4-97bf-5655b556f600
   ExportUid: 00000000-0000-0000-0000-000000000000
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
-    chatService: false
-    speechInputService: false
+    audioOutputAsset: false
+    openAIAPIKey: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
-    - chatService: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
-      speechInputService: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+    - openAIAPIKey: YOUR_OPENAI_API_KEY_HERE
+      audioOutputAsset: !<reference.Asset> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
-    - // @input AssignableType chatService
-    - // @input AssignableType_1 speechInputService
+    - '// @input string openAIAPIKey = "YOUR_OPENAI_API_KEY_HERE"'
+    - // @input Asset.Asset audioOutputAsset
