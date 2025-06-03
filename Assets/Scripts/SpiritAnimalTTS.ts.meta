@@ -1,0 +1,48 @@
+- !<AssetImportMetadata/dc66033f-a0d1-4ef0-8f6d-79149580072b>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> f2f8638e-9504-4baf-9f25-718398bab717
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> f2f8638e-9504-4baf-9f25-718398bab717
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 8abce3c0-827b-42a7-9f0b-df3797c5a770
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/8abce3c0-827b-42a7-9f0b-df3797c5a770>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 19170748-7ded-45f4-97bf-5655b556f600
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    audioOutputAsset: false
+    debugTextOutput: false
+    openAIAPIKey: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - openAIAPIKey: YOUR_OPENAI_API_KEY_HERE
+      audioOutputAsset: !<reference.Asset> 00000000-0000-0000-0000-000000000000
+      debugTextOutput: !<reference.Text> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input string openAIAPIKey = "YOUR_OPENAI_API_KEY_HERE"'
+    - // @input Asset.Asset audioOutputAsset
+    - // @input Component.Text debugTextOutput

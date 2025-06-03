@@ -78,7 +78,7 @@ export class MenuState extends BaseState {
                     return signal === "RESET_FUE"
                 },
                 onExecution: () => {
-                    ApplicationModel.instance.setFirstLaunchComplete()
+                    ApplicationModel.instance.setFirstLaunchTODO()
                     print("Transitioning from MenuState to First User Experience")
                 }
             }

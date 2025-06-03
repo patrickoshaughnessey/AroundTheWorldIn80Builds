@@ -1,20 +1,20 @@
-- !<AssetImportMetadata/85755c65-41ff-44f2-a980-a772aeda2281>
+- !<AssetImportMetadata/c4713bdb-cf79-46f8-92ed-e3432f434ab2>
   ImportedAssetIds:
-    TypeScriptAsset: !<reference> 28f5d461-f9d8-438a-ac95-4458fb407b28
+    TypeScriptAsset: !<reference> eedf3ebd-df00-4c0c-a3b4-ba60bf47a54c
   ImporterName: TypeScriptAssetImporter
-  PrimaryAsset: !<reference> 28f5d461-f9d8-438a-ac95-4458fb407b28
+  PrimaryAsset: !<reference> eedf3ebd-df00-4c0c-a3b4-ba60bf47a54c
   PackageType: NotAPackage
   PackagePolicy: CannotBeUnpacked
   ExtraData:
     {}
   AssetDataMap:
-    TypeScriptAsset: !<own> 77b34ea1-fd85-43b4-960d-46dca4e73503
+    TypeScriptAsset: !<own> 11765bfe-128d-423b-a94f-86260b98f11a
   DependentFiles:
     []
   ImporterSettings: !<AssetImporterSettings>
     {}
   CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
-- !<TypeScriptAssetData/77b34ea1-fd85-43b4-960d-46dca4e73503>
+- !<TypeScriptAssetData/11765bfe-128d-423b-a94f-86260b98f11a>
   SvgIcon: ""
   SetupScript:
     code: ""
@@ -23,21 +23,20 @@
   VersionMajor: 0
   VersionMinor: 0
   VersionPatch: 0
-  ComponentUid: 0767e999-f48e-4f91-9fe1-e0208679362e
+  ComponentUid: e714f6c6-9133-4f53-9ade-5b98a6e8addc
   ExportUid: 00000000-0000-0000-0000-000000000000
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
-    {}
+    openAIAPIKey: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
-    -
-      {}
+    - openAIAPIKey: YOUR_OPENAI_API_KEY_HERE
   ScriptTypes:
     -
       {}
   InputLines:
-    []
+    - '// @input string openAIAPIKey = "YOUR_OPENAI_API_KEY_HERE"'

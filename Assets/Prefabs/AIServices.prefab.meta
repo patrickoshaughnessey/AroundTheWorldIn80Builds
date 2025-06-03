@@ -1,0 +1,97 @@
+- !<AssetImportMetadata/30d9f1a9-0f02-4824-b221-70700a619b64>
+  ImportedAssetIds:
+    ObjectPrefab: !<reference> 3514a139-eab2-4cb7-9d0b-2f87d2c2ca33
+  ImporterName: ObjectPrefabImporter
+  PrimaryAsset: !<reference> 3514a139-eab2-4cb7-9d0b-2f87d2c2ca33
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    ObjectPrefab: !<own> b3e7bbce-2b72-4abb-a759-5ed04266bf4a
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<ObjectPrefab/446d6fe6-4d4d-40b8-891a-ec598272f930>
+  PackagePath: ""
+  objects:
+    - !<own> bf1af29e-9960-44da-919f-ccd050883b1a
+  LazyLoading: false
+  RetainAssets: true
+- !<ScriptComponent/5c89fe66-5ff9-4cff-ae7d-e9a4795b7d4e>
+  PrefabRemaps:
+    []
+  Name: SpiritAnimalSpeechInput
+  Enabled: true
+  ScriptAsset: !<reference> 68b51b30-17b0-487b-93c3-737da0c6cefe
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      {}
+  ScriptTypes:
+    "":
+      {}
+- !<ScriptComponent/682e51c0-b39d-46f1-880e-f00dfad15229>
+  PrefabRemaps:
+    []
+  Name: SpiritAnimalTTS
+  Enabled: true
+  ScriptAsset: !<reference> f2f8638e-9504-4baf-9f25-718398bab717
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      openAIAPIKey: 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
+      audioOutputAsset: !<reference.Asset> c9030ea5-391c-4c3b-b5ae-758f16a197d4
+  ScriptTypes:
+    "":
+      {}
+- !<ObjectPrefabAssetData/b3e7bbce-2b72-4abb-a759-5ed04266bf4a>
+  SourceRemaps:
+    - 2128f5e3-3e52-4cd2-b739-2f1b80dc76ac: 682e51c0-b39d-46f1-880e-f00dfad15229
+    - 3514a139-eab2-4cb7-9d0b-2f87d2c2ca33: 446d6fe6-4d4d-40b8-891a-ec598272f930
+    - 80b8b51c-5eca-451b-8196-4db1b36e4b55: bf1af29e-9960-44da-919f-ccd050883b1a
+    - 85cf8ceb-286d-4a48-a1fc-38817299c36f: f3a05215-9542-4030-a03f-4e2cfcba8402
+    - ca16ad5e-7289-48a6-acd5-2f205ecbcaea: 5c89fe66-5ff9-4cff-ae7d-e9a4795b7d4e
+  SourceState: !<own> 446d6fe6-4d4d-40b8-891a-ec598272f930
+- !<SceneObject/bf1af29e-9960-44da-919f-ccd050883b1a>
+  PrefabRemaps:
+    []
+  Name: AIServices
+  Enabled: true
+  Layers: 1
+  LocalTransform:
+    position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    hasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> f3a05215-9542-4030-a03f-4e2cfcba8402
+    - !<own> 682e51c0-b39d-46f1-880e-f00dfad15229
+    - !<own> 5c89fe66-5ff9-4cff-ae7d-e9a4795b7d4e
+- !<ScriptComponent/f3a05215-9542-4030-a03f-4e2cfcba8402>
+  PrefabRemaps:
+    []
+  Name: OpenAIChatService
+  Enabled: true
+  ScriptAsset: !<reference> eedf3ebd-df00-4c0c-a3b4-ba60bf47a54c
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      openAIAPIKey: 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
+      textToSpeechService: !<MappingBased.AssignableType> 682e51c0-b39d-46f1-880e-f00dfad15229
+  ScriptTypes:
+    "":
+      {}

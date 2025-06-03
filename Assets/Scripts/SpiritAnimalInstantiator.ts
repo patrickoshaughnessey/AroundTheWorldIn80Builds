@@ -3,6 +3,8 @@ import {InstantiationOptions} from "SpectaclesSyncKit.lspkg/Components/Instantia
 import {SyncEntity} from "SpectaclesSyncKit.lspkg/Core/SyncEntity"
 import {NetworkRootInfo} from "SpectaclesSyncKit.lspkg/Core/NetworkRootInfo"
 import {SpiritAnimalController} from "./SpiritAnimalController"
+import { OpenAIChatService } from "./OpenAIChatService"
+import { SpiritAnimalSpeechInput } from "./SpiritAnimalSpeechInput"
 
 @component
 export class SpiritAnimalInstantiator extends BaseScriptComponent {
@@ -11,6 +13,9 @@ export class SpiritAnimalInstantiator extends BaseScriptComponent {
 
     @input()
     spiritAnimalPrefab: ObjectPrefab
+
+    @input()
+    aiServicesHolder: SceneObject
 
     syncEntity: SyncEntity
     sceneObj: SceneObject
@@ -36,6 +41,30 @@ export class SpiritAnimalInstantiator extends BaseScriptComponent {
                     if (controller) {
                         print("Found SpiritAnimalController, setting networkRootInfo")
                         controller.networkRootInfo = networkRootInfo;
+
+                        // --- Assign AI Services ---
+                        if (this.aiServicesHolder) {
+                            const chatService = this.aiServicesHolder.getComponent(OpenAIChatService.getTypeName()) as OpenAIChatService;
+                            const speechInputService = this.aiServicesHolder.getComponent(SpiritAnimalSpeechInput.getTypeName()) as SpiritAnimalSpeechInput;
+
+                            if (chatService) {
+                                controller.chatService = chatService;
+                                print("SpiritAnimalInstantiator: Assigned ChatService to new animal.");
+                            } else {
+                                print("SpiritAnimalInstantiator: WARN - Could not find OpenAIChatService on aiServicesHolder.");
+                            }
+
+                            if (speechInputService) {
+                                controller.speechInputService = speechInputService;
+                                print("SpiritAnimalInstantiator: Assigned SpeechInputService to new animal.");
+                            } else {
+                                print("SpiritAnimalInstantiator: WARN - Could not find SpiritAnimalSpeechInput on aiServicesHolder.");
+                            }
+                        } else {
+                            print("SpiritAnimalInstantiator: WARN - aiServicesHolder not assigned in Inspector. Cannot assign AI services to new animal.");
+                        }
+                        // --- End Assign AI Services ---
+
                     } else {
                         print("Could not find SpiritAnimalController on instantiated object")
                     }
