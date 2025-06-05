@@ -28,21 +28,30 @@
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
-    cancelButton: false
+    goalTextDisplay: false
+    promptTextDisplay: false
     rootObject: false
-    saveButton: false
+    startRecordGoalButton: false
+    stopRecordGoalButton: false
+    submitGoalButton: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
     - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
-      saveButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
-      cancelButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      promptTextDisplay: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      goalTextDisplay: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      startRecordGoalButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      stopRecordGoalButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      submitGoalButton: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input SceneObject rootObject
-    - // @input AssignableType saveButton
-    - // @input AssignableType_1 cancelButton
+    - // @input Component.Text promptTextDisplay
+    - // @input Component.Text goalTextDisplay
+    - // @input AssignableType startRecordGoalButton
+    - // @input AssignableType_1 stopRecordGoalButton
+    - // @input AssignableType_2 submitGoalButton
