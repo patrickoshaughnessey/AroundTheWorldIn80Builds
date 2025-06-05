@@ -28,8 +28,8 @@
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
-    goalDefinitionButton: false
-    mainMenuButton: false
+    continueButton: false
+    personalityDisplayText: false
     rootObject: false
   ScriptTypesHidden:
     {}
@@ -37,12 +37,12 @@
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
     - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
-      mainMenuButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
-      goalDefinitionButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      continueButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      personalityDisplayText: !<reference.Text> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input SceneObject rootObject
-    - // @input AssignableType mainMenuButton
-    - // @input AssignableType_1 goalDefinitionButton
+    - // @input AssignableType continueButton
+    - // @input Component.Text personalityDisplayText
