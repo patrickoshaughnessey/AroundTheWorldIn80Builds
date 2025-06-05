@@ -133,9 +133,24 @@ export class ApplicationModel extends BaseScriptComponent {
         return null;
     }
 
+    public saveUserGoal(goal: string) {
+        let data = this.getSavedQuizAnswers() || {};
+        data["UserGoal"] = goal;
+        this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(data));
+        print(`Saved User Goal: ${goal}`);
+    }
+
+    public getUserGoal(): string | null {
+        const data = this.getSavedQuizAnswers();
+        if (data && data["UserGoal"]) {
+            return data["UserGoal"];
+        }
+        return null;
+    }
+
     public clearQuizAnswers() {
         this.persistentStorage.store.remove("quizAnswersObject");
-        print("Quiz answers and personality color cleared");
+        print("Quiz answers, personality color, and user goal cleared");
     }
 
     public clearAllSavedData() {
