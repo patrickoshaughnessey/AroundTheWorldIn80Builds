@@ -6,7 +6,7 @@ import StateMachine from "SpectaclesInteractionKit.lspkg/Utils/StateMachine"
 import {IdleState} from "./SpiritAnimalStates/IdleState"
 import {Interactable} from "SpectaclesInteractionKit.lspkg/Components/Interaction/Interactable/Interactable"
 import {InteractorEvent} from "SpectaclesInteractionKit.lspkg/Core/Interactor/InteractorEvent"
-import {EventDispatcher} from "SpectaclesInteractionKit.lspkg/Utils/EventDispatcher"
+import {Instantiator} from "../SpectaclesSyncKit.lspkg/Components/Instantiator";
 
 // Define the event data type
 interface SpiritAnimalEventData {
@@ -27,6 +27,12 @@ export class SpiritAnimalController extends BaseScriptComponent {
 
     @input()
     public stateDebugText: Text
+
+    @input()
+    public modelInstantiator: Instantiator
+
+    @input
+    private spiritAnimalPrefabs: ObjectPrefab[] = []
 
     // Property to be set by the instantiator
     networkRootInfo: NetworkRootInfo
