@@ -98,33 +98,35 @@ export class ApplicationModel extends BaseScriptComponent {
         print("Resetting first user launch flag")
     }
 
-    // public saveQuizResults(answers: string[]) {
-    //     this.persistentStorage.store.putString("quizAnswers", JSON.stringify(answers))
-    // }
-    //
-    // public saveSpiritAnimal(animalType: string) {
-    //     this.persistentStorage.store.putString("spiritAnimal", animalType)
-    // }
-    //
-    // public getSavedSpiritAnimal(): string | null {
-    //     if (this.persistentStorage.store.has("spiritAnimal")) {
-    //         return this.persistentStorage.store.getString("spiritAnimal")
-    //     }
-    //     return null
-    // }
-    //
-    // public getSavedQuizResults(): string[] | null {
-    //     if (this.persistentStorage.store.has("quizAnswers")) {
-    //         const answersJson = this.persistentStorage.store.getString("quizAnswers")
-    //         return JSON.parse(answersJson)
-    //     }
-    //     return null
-    // }
+    public saveQuizAnswer(question: string, answer: string) {
+        let answers = this.getSavedQuizAnswers() || {};
+        answers[question] = answer;
+        this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(answers));
+        print(`Saved answer for: ${question}`);
+    }
+
+    public getSavedQuizAnswers(): {[key: string]: string} | null {
+        if (this.persistentStorage.store.has("quizAnswersObject")) {
+            const answersJson = this.persistentStorage.store.getString("quizAnswersObject");
+            try {
+                return JSON.parse(answersJson);
+            } catch (e) {
+                print("Error parsing quiz answers: " + e);
+                return null;
+            }
+        }
+        return null;
+    }
+
+    public clearQuizAnswers() {
+        this.persistentStorage.store.remove("quizAnswersObject");
+        print("Quiz answers cleared");
+    }
 
     public clearAllSavedData() {
-        this.persistentStorage.store.remove("hasCompletedFirstLaunch")
-        // this.persistentStorage.store.remove("quizAnswers")
-        // this.persistentStorage.store.remove("spiritAnimal")
-        print("All saved data cleared")
+        this.persistentStorage.store.remove("hasCompletedFirstLaunch");
+        this.clearQuizAnswers(); // Also clear quiz answers
+        // this.persistentStorage.store.remove("quizAnswers") // Old key, already handled by clearQuizAnswers if it was quizAnswersObject
+        print("All saved data cleared");
     }
 }
