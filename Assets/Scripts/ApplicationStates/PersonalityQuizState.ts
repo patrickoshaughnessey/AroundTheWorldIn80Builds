@@ -40,6 +40,7 @@ export class PersonalityQuizState extends BaseState {
     private currentQuestionIndex: number = 0;
     private currentAnswerText: string = "";
     private isListeningForAnswer: boolean = false;
+    private isAnalyzingAnswers: boolean = false;
 
     protected getStateName(): string {
         return PersonalityQuizState.STATE_NAME
@@ -137,7 +138,7 @@ export class PersonalityQuizState extends BaseState {
         print("PersonalityQuizState: Transcription handled. isListeningForAnswer is now false.");
     }
     
-    private submitCurrentAnswer = () => {
+    private submitCurrentAnswer = async () => {
         if (this.currentQuestionIndex < this.questions.length) {
             const question = this.questions[this.currentQuestionIndex];
             if (this.currentAnswerText.trim() === "") {
@@ -157,8 +158,101 @@ export class PersonalityQuizState extends BaseState {
             if (this.currentQuestionIndex < this.questions.length) {
                 this.displayCurrentQuestion();
             } else {
-                print("PersonalityQuizState: All questions answered. Transitioning to SpiritAnimalRevealState.");
+                print("PersonalityQuizState: All questions answered. Starting personality analysis.");
+                if (this.questionTextDisplay) this.questionTextDisplay.text = "Analyzing your answers...";
+                if (this.answerTextDisplay) this.answerTextDisplay.text = "Please wait.";
+                this.setButtonsInteractive(false);
+
+                await this.analyzeAndSavePersonality();
                 this.sendSignal("REVEAL_SPIRIT_ANIMAL");
+            }
+        }
+    }
+
+    private async analyzeAndSavePersonality(): Promise<void> {
+        if (this.isAnalyzingAnswers) {
+            print("PersonalityQuizState: Analysis already in progress.");
+            return;
+        }
+        this.isAnalyzingAnswers = true;
+
+        if (!ApplicationModel.instance || !ApplicationModel.instance.chatService || !ApplicationModel.instance.getSavedQuizAnswers) {
+            print("PersonalityQuizState: ERROR - ApplicationModel or required services/methods not available for analysis.");
+            if (this.questionTextDisplay) this.questionTextDisplay.text = "Error during analysis setup.";
+            this.isAnalyzingAnswers = false;
+            this.setButtonsInteractive(true);
+            return;
+        }
+        const savedAnswers = ApplicationModel.instance.getSavedQuizAnswers();
+        if (!savedAnswers) {
+            print("PersonalityQuizState: ERROR - No saved answers found to analyze.");
+            if (this.questionTextDisplay) this.questionTextDisplay.text = "Could not retrieve answers for analysis.";
+            this.isAnalyzingAnswers = false;
+            this.setButtonsInteractive(true);
+            return;
+        }
+        let promptContent = "Based on the following user's answers to a personality quiz, please assign one of the following four personality colors: \n";
+        promptContent += "🟡 Gold (The Organizer - responsible, dependable, loves structure), \n";
+        promptContent += "🔵 Blue (The Harmonizer - compassionate, empathetic, loves connection), \n";
+        promptContent += "🟠 Orange (The Adventurer - energetic, spontaneous, loves excitement), or \n";
+        promptContent += "🟢 Green (The Conceptualizer - curious, analytical, loves ideas).\n";
+        promptContent += "Please only return the name of the assigned color (e.g., 'Gold', 'Blue', 'Orange', or 'Green') and nothing else. Avoid any introductory phrases or explanations.\n";
+        promptContent += "\nQuiz Answers:\n";
+
+        for (const question in savedAnswers) {
+            if (question !== "PersonalityColor") {
+                promptContent += "Q: " + question + "\nA: " + savedAnswers[question] + "\n";
+            }
+        }
+
+        print("PersonalityQuizState: Sending prompt to OpenAI: " + promptContent);
+
+        try {
+            const aiResponse = await ApplicationModel.instance.chatService.ask(promptContent);
+            if (aiResponse) {
+                print("PersonalityQuizState: Raw AI Response: " + aiResponse);
+                const validColors = ["Gold", "Blue", "Orange", "Green"];
+                let assignedColor: string | null = null;
+
+                for (const color of validColors) {
+                    if (aiResponse.includes(color)) {
+                        assignedColor = color;
+                        break;
+                    }
+                }
+
+                if (assignedColor) {
+                    ApplicationModel.instance.savePersonalityColor(assignedColor);
+                    print(`PersonalityQuizState: Successfully assigned and saved color: ${assignedColor}`);
+                    if (this.questionTextDisplay) this.questionTextDisplay.text = "Analysis Complete!";
+                    if (this.answerTextDisplay) this.answerTextDisplay.text = "Your personality color is: " + assignedColor;
+                } else {
+                    print("PersonalityQuizState: ERROR - AI response did not contain a valid color. Response: " + aiResponse);
+                    if (this.questionTextDisplay) this.questionTextDisplay.text = "Could not determine personality from response.";
+                    ApplicationModel.instance.savePersonalityColor("Blue");
+                    if (this.answerTextDisplay) this.answerTextDisplay.text = "Could not determine color. Defaulting...";
+                }
+            } else {
+                print("PersonalityQuizState: ERROR - Received null or empty response from AI service.");
+                if (this.questionTextDisplay) this.questionTextDisplay.text = "Error receiving AI analysis.";
+                ApplicationModel.instance.savePersonalityColor("Blue");
+                if (this.answerTextDisplay) this.answerTextDisplay.text = "Error: AI response empty. Defaulting...";
+            }
+        } catch (error) {
+            print("PersonalityQuizState: ERROR - Exception during AI personality analysis: " + error);
+            if (this.questionTextDisplay) this.questionTextDisplay.text = "Exception during AI analysis.";
+            ApplicationModel.instance.savePersonalityColor("Blue");
+            if (this.answerTextDisplay) this.answerTextDisplay.text = "Error: Analysis exception. Defaulting...";
+        } finally {
+            this.isAnalyzingAnswers = false;
+        }
+    }
+
+    private setButtonsInteractive(interactive: boolean): void {
+        const buttons = [this.submitAnswerButton, this.startRecordButton, this.stopRecordButton];
+        for (const button of buttons) {
+            if (button && button.getSceneObject()) {
+                button.getSceneObject().enabled = interactive;
             }
         }
     }
@@ -183,10 +277,12 @@ export class PersonalityQuizState extends BaseState {
         this.currentQuestionIndex = 0;
         this.currentAnswerText = "";
         this.isListeningForAnswer = false;
+        this.isAnalyzingAnswers = false;
         
         this.initializeUI();
 
         this.displayCurrentQuestion();
+        this.setButtonsInteractive(true);
     }
 
     protected onExitState(): void {
@@ -199,5 +295,6 @@ export class PersonalityQuizState extends BaseState {
             this.speechInputService.onTranscriptionReady = null;
             this.isListeningForAnswer = false;
         }
+        this.setButtonsInteractive(true);
     }
 }

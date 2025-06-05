@@ -118,15 +118,29 @@ export class ApplicationModel extends BaseScriptComponent {
         return null;
     }
 
+    public savePersonalityColor(color: string) {
+        let answers = this.getSavedQuizAnswers() || {};
+        answers["PersonalityColor"] = color;
+        this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(answers));
+        print(`Saved Personality Color: ${color}`);
+    }
+
+    public getPersonalityColor(): string | null {
+        const answers = this.getSavedQuizAnswers();
+        if (answers && answers["PersonalityColor"]) {
+            return answers["PersonalityColor"];
+        }
+        return null;
+    }
+
     public clearQuizAnswers() {
         this.persistentStorage.store.remove("quizAnswersObject");
-        print("Quiz answers cleared");
+        print("Quiz answers and personality color cleared");
     }
 
     public clearAllSavedData() {
         this.persistentStorage.store.remove("hasCompletedFirstLaunch");
-        this.clearQuizAnswers(); // Also clear quiz answers
-        // this.persistentStorage.store.remove("quizAnswers") // Old key, already handled by clearQuizAnswers if it was quizAnswersObject
+        this.clearQuizAnswers();
         print("All saved data cleared");
     }
 }
