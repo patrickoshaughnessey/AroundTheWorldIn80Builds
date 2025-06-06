@@ -82,8 +82,12 @@ export class SpiritAnimalSpeechInput extends BaseScriptComponent {
             print("SpiritAnimalSpeechInput: Final transcription: " + eventData.transcription);
             if(this.debugTextOutput) this.debugTextOutput.text = "STT: " + eventData.transcription;
 
+            print(`SpiritAnimalSpeechInput: About to call onTranscriptionReady. Is it assigned? ${!!this.onTranscriptionReady}. Transcription content: "${eventData.transcription}"`);
+
             if (this.onTranscriptionReady) {
                 this.onTranscriptionReady(eventData.transcription);
+            } else {
+                print("SpiritAnimalSpeechInput: WARN - onTranscriptionReady was not assigned! Cannot send transcription.");
             }
             // It's good practice to stop listening after a final transcription to avoid continuous listening by default
             this.stopListening(); 

@@ -4,21 +4,6 @@
     - !<own> 1eaba587-e82d-4994-8045-2e6e70c9e1ee
   LazyLoading: false
   RetainAssets: true
-- !<SceneObject/0b0abcbf-43c0-42d7-9ed2-a1879c6f0e9d>
-  PrefabRemaps:
-    []
-  Name: SnapGhost_Mesh
-  Enabled: true
-  Layers: 1
-  LocalTransform:
-    position: {x: 0.000000, y: 0.000000, z: 0.000000}
-    rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
-    scale: {x: 3.000000, y: 3.000000, z: 3.000000}
-    hasSegmentScaleCompensation: false
-  Children:
-    []
-  Components:
-    - !<own> 745f5985-6de5-44bf-aa72-781680a5db6e
 - !<ScriptComponent/114226ac-9c38-410e-a221-df18fcf49484>
   PrefabRemaps:
     []
@@ -87,6 +72,7 @@
     - !<own> ab135089-71ef-452c-b0b9-49695980ded6
     - !<own> 114226ac-9c38-410e-a221-df18fcf49484
     - !<own> 91c36d0e-a5e6-4fc8-b0e1-40eb84dcb313
+    - !<own> 3943b96b-5fb7-4341-a49a-d4d1acb26e10
 - !<ScriptComponent/29b1c186-19f7-4431-a4b1-755de1c97507>
   PrefabRemaps:
     []
@@ -100,6 +86,35 @@
   ScriptInputs:
     "":
       {}
+  ScriptTypes:
+    "":
+      {}
+- !<ScriptComponent/3943b96b-5fb7-4341-a49a-d4d1acb26e10>
+  PrefabRemaps:
+    []
+  Name: Instantiator
+  Enabled: true
+  ScriptAsset: !<reference> 0f0500cb-c58a-434d-a171-94167130d106
+  ScriptInputsDefault:
+    autoInstantiate: true
+    autoInstantiatePrefabs: true
+    persistenceString: true
+    autoInstantiateOwnershipString: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      prefabs: !<reference.ObjectPrefab[]>
+        - !<reference> ec22373f-4c40-4e14-9e52-a98dc9aac56c
+        - !<reference> 88add1d3-9f08-4123-81b0-da1784af132e
+      spawnerOwnsObject: true
+      spawnAsChildren: true
+      spawnUnderParent: !<reference.SceneObject> c9c7f117-4642-41d7-92ec-9f6535d7780f
+      autoInstantiate: false
+      autoInstantiatePrefabs: !<reference.ObjectPrefab[]>
+        []
+      persistenceString: Session
+      autoInstantiateOwnershipString: Unowned
   ScriptTypes:
     "":
       {}
@@ -150,26 +165,6 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
-- !<RenderMeshVisual/745f5985-6de5-44bf-aa72-781680a5db6e>
-  PrefabRemaps:
-    []
-  Name: Render Mesh Visual
-  Enabled: true
-  RenderOrder: 0
-  StretchMode: Stretch
-  VerticalAlignment: Center
-  HorizontalAlignment: Center
-  MeshShadowMode: None
-  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
-  ShadowDensity: 1.000000
-  Materials:
-    - !<reference> cd792550-f229-4d19-8c71-be8ddd4f725c
-  Mesh: !<reference> 111c4052-9be4-4b83-b93f-fa7d6a60bb48
-  Skin: !<reference> 00000000-0000-0000-0000-000000000000
-  BlendShapesEnabled: true
-  BlendNormals: false
-  BlendShapes:
-    {}
 - !<ScriptComponent/7949a5a1-ec51-4f26-a137-a7cedf392d27>
   PrefabRemaps:
     []
@@ -225,6 +220,7 @@
     - !<own> d7d7bd12-6e8a-4b6d-960a-5745a903b9e5
     - !<own> 1a1da8db-b609-4a98-8235-a5c5d7547303
     - !<own> e9b9d208-fb93-4097-a7f4-54ed40c3b6b7
+    - !<own> a16342cb-96e4-4648-84b0-263be947c286
 - !<ScriptComponent/91c36d0e-a5e6-4fc8-b0e1-40eb84dcb313>
   PrefabRemaps:
     []
@@ -238,6 +234,23 @@
   ScriptInputs:
     "":
       {}
+  ScriptTypes:
+    "":
+      {}
+- !<ScriptComponent/a16342cb-96e4-4648-84b0-263be947c286>
+  PrefabRemaps:
+    []
+  Name: OutlineFeedbackMeshCollector
+  Enabled: true
+  ScriptAsset: !<reference> e1be2841-7fd4-4f73-82f4-9e58f762e81e
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      outlineFeedback: !<MappingBased.AssignableType> e9b9d208-fb93-4097-a7f4-54ed40c3b6b7
+      rootObject: !<reference.SceneObject> c9c7f117-4642-41d7-92ec-9f6535d7780f
   ScriptTypes:
     "":
       {}
@@ -285,7 +298,7 @@
     scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     hasSegmentScaleCompensation: false
   Children:
-    - !<own> 0b0abcbf-43c0-42d7-9ed2-a1879c6f0e9d
+    []
   Components:
     - !<own> f1e9e942-6a87-468e-a2ca-b4a70e702fde
 - !<ScriptComponent/d68c6290-9a9f-4f9c-9748-0cfa291d1d0d>
@@ -304,6 +317,10 @@
       interactable: !<MappingBased.AssignableType_1> f168d40f-d1cf-453c-bd9d-715e520a18af
       headLock: !<MappingBased.AssignableType_2> 7949a5a1-ec51-4f26-a137-a7cedf392d27
       stateDebugText: !<reference.Text> f1e9e942-6a87-468e-a2ca-b4a70e702fde
+      modelInstantiator: !<MappingBased.AssignableType_3> 3943b96b-5fb7-4341-a49a-d4d1acb26e10
+      spiritAnimalPrefabs: !<reference.ObjectPrefab[]>
+        - !<reference> ec22373f-4c40-4e14-9e52-a98dc9aac56c
+        - !<reference> 88add1d3-9f08-4123-81b0-da1784af132e
   ScriptTypes:
     "":
       {}
@@ -386,6 +403,7 @@
     targetOutlineMaterial: true
     hoveringColor: true
     activatingColor: true
+    meshVisuals: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
@@ -393,9 +411,9 @@
       targetOutlineMaterial: !<reference.Material> 7ac80b6c-979a-4a00-a694-099f296be161
       hoveringColor: !<Vec4> {x: 1.000000, y: 1.000000, z: 0.040000, w: 1.000000}
       activatingColor: !<Vec4> {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
-      outlineWeight: 0.050000
+      outlineWeight: 0.200000
       meshVisuals: !<reference.RenderMeshVisual[]>
-        - !<reference> 745f5985-6de5-44bf-aa72-781680a5db6e
+        []
   ScriptTypes:
     "":
       {}

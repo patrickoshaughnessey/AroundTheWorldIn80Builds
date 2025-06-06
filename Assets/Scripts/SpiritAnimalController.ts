@@ -6,7 +6,9 @@ import StateMachine from "SpectaclesInteractionKit.lspkg/Utils/StateMachine"
 import {IdleState} from "./SpiritAnimalStates/IdleState"
 import {Interactable} from "SpectaclesInteractionKit.lspkg/Components/Interaction/Interactable/Interactable"
 import {InteractorEvent} from "SpectaclesInteractionKit.lspkg/Core/Interactor/InteractorEvent"
-import {EventDispatcher} from "SpectaclesInteractionKit.lspkg/Utils/EventDispatcher"
+import {Instantiator} from "../SpectaclesSyncKit.lspkg/Components/Instantiator";
+import {InstantiationOptions} from "SpectaclesSyncKit.lspkg/Components/Instantiator";
+import {SessionController} from "../SpectaclesSyncKit.lspkg/Core/SessionController";
 
 // Define the event data type
 interface SpiritAnimalEventData {
@@ -28,6 +30,12 @@ export class SpiritAnimalController extends BaseScriptComponent {
     @input()
     public stateDebugText: Text
 
+    @input()
+    public modelInstantiator: Instantiator
+
+    @input
+    private spiritAnimalPrefabs: ObjectPrefab[] = []
+
     // Property to be set by the instantiator
     networkRootInfo: NetworkRootInfo
 
@@ -38,7 +46,7 @@ export class SpiritAnimalController extends BaseScriptComponent {
 
     private isMySpiritAnimal: boolean = false
     private networkId: string = ""
-    
+
 
     onReady() {
         print("Spirit Animal Controller is ready");
@@ -56,6 +64,15 @@ export class SpiritAnimalController extends BaseScriptComponent {
             print("Animal belongs to me, I can move it")
             this.manipulatable.setCanTranslate(true)
             this.isMySpiritAnimal = true
+
+            // We now instantiate the geometry for our animal
+            if (SessionController.getInstance().isHost()) {
+                // TODO: Instantiate the right animal based upon our personality. for now, spawn spiritanimal.gold.blue for host
+                this.spawnSpiritAnimal("spiritanimal.gold.blue")
+            } else {
+                // TODO: Instantiate the right animal based upon our personality. for now, spawn spiritanimal.gold.orange for guest
+                this.spawnSpiritAnimal("spiritanimal.gold.orange")
+            }
         } else {
             print("Animal doesn't belong to me, I can't move it")
             this.manipulatable.setCanTranslate(false)
@@ -97,9 +114,58 @@ export class SpiritAnimalController extends BaseScriptComponent {
             this.spiritAnimalStateMachine.destroy()
         }
     }
-    
+
     private onOtherAnimalClicked = (e: InteractorEvent) => {
         print("Other animal clicked - sending global event")
+    }
+
+    private spawnSpiritAnimalWhenReady(animalNamed: string) {
+        if (this.modelInstantiator.isReady()) {
+            this.spawnSpiritAnimal(animalNamed)
+        } else {
+            print("Instantiator is not ready to instantiate the animal geometry")
+            this.modelInstantiator.notifyOnReady(() => {
+                this.spawnSpiritAnimal(animalNamed)
+            })
         }
-        
+    }
+
+    private findMeshesRecursive(currentObject: SceneObject, meshVisualsList: RenderMeshVisual[]): void {
+        if (!currentObject) {
+            return;
+        }
+
+        const meshVisuals = currentObject.getComponents("RenderMeshVisual") as RenderMeshVisual[];
+        if (meshVisuals) {
+            for (const meshVisual of meshVisuals) {
+                meshVisualsList.push(meshVisual);
+            }
+        }
+
+        const childrenCount = currentObject.getChildrenCount();
+        for (let i = 0; i < childrenCount; i++) {
+            const child = currentObject.getChild(i);
+            this.findMeshesRecursive(child, meshVisualsList);
+        }
+    }
+
+    private spawnSpiritAnimal(animalNamed: string) {
+        print("Instantiating animal geometry");
+        for (const prefab of this.spiritAnimalPrefabs) {
+            if (animalNamed === prefab.name) {
+                const options = new InstantiationOptions();
+                options.localScale = new vec3(2, 2, 2);
+                this.modelInstantiator.instantiate(
+                    prefab,
+                    options,
+                    // onSuccess
+                    (networkRootInfo: NetworkRootInfo) => {
+                        print("spirit animal model networkRootInfo: " + networkRootInfo);
+                        const newObj = networkRootInfo.instantiatedObject;
+                        print('instantiated spirit animal model: ' + newObj);
+                    }
+                );
+            }
+        }
+    }
 }

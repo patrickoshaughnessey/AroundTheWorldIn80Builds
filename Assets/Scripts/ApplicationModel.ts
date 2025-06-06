@@ -98,33 +98,64 @@ export class ApplicationModel extends BaseScriptComponent {
         print("Resetting first user launch flag")
     }
 
-    // public saveQuizResults(answers: string[]) {
-    //     this.persistentStorage.store.putString("quizAnswers", JSON.stringify(answers))
-    // }
-    //
-    // public saveSpiritAnimal(animalType: string) {
-    //     this.persistentStorage.store.putString("spiritAnimal", animalType)
-    // }
-    //
-    // public getSavedSpiritAnimal(): string | null {
-    //     if (this.persistentStorage.store.has("spiritAnimal")) {
-    //         return this.persistentStorage.store.getString("spiritAnimal")
-    //     }
-    //     return null
-    // }
-    //
-    // public getSavedQuizResults(): string[] | null {
-    //     if (this.persistentStorage.store.has("quizAnswers")) {
-    //         const answersJson = this.persistentStorage.store.getString("quizAnswers")
-    //         return JSON.parse(answersJson)
-    //     }
-    //     return null
-    // }
+    public saveQuizAnswer(question: string, answer: string) {
+        let answers = this.getSavedQuizAnswers() || {};
+        answers[question] = answer;
+        this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(answers));
+        print(`Saved answer for: ${question}`);
+    }
+
+    public getSavedQuizAnswers(): {[key: string]: string} | null {
+        if (this.persistentStorage.store.has("quizAnswersObject")) {
+            const answersJson = this.persistentStorage.store.getString("quizAnswersObject");
+            try {
+                return JSON.parse(answersJson);
+            } catch (e) {
+                print("Error parsing quiz answers: " + e);
+                return null;
+            }
+        }
+        return null;
+    }
+
+    public savePersonalityColor(color: string) {
+        let answers = this.getSavedQuizAnswers() || {};
+        answers["PersonalityColor"] = color;
+        this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(answers));
+        print(`Saved Personality Color: ${color}`);
+    }
+
+    public getPersonalityColor(): string | null {
+        const answers = this.getSavedQuizAnswers();
+        if (answers && answers["PersonalityColor"]) {
+            return answers["PersonalityColor"];
+        }
+        return null;
+    }
+
+    public saveUserGoal(goal: string) {
+        let data = this.getSavedQuizAnswers() || {};
+        data["UserGoal"] = goal;
+        this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(data));
+        print(`Saved User Goal: ${goal}`);
+    }
+
+    public getUserGoal(): string | null {
+        const data = this.getSavedQuizAnswers();
+        if (data && data["UserGoal"]) {
+            return data["UserGoal"];
+        }
+        return null;
+    }
+
+    public clearQuizAnswers() {
+        this.persistentStorage.store.remove("quizAnswersObject");
+        print("Quiz answers, personality color, and user goal cleared");
+    }
 
     public clearAllSavedData() {
-        this.persistentStorage.store.remove("hasCompletedFirstLaunch")
-        // this.persistentStorage.store.remove("quizAnswers")
-        // this.persistentStorage.store.remove("spiritAnimal")
-        print("All saved data cleared")
+        this.persistentStorage.store.remove("hasCompletedFirstLaunch");
+        this.clearQuizAnswers();
+        print("All saved data cleared");
     }
 }

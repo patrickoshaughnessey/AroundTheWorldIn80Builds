@@ -1,20 +1,20 @@
-- !<AssetImportMetadata/5de4f7a7-649a-40fc-8785-90d5d5ffc268>
+- !<AssetImportMetadata/d16ee551-eab6-44b6-95a2-6ce3d66c6e5b>
   ImportedAssetIds:
-    TypeScriptAsset: !<reference> 53d8e187-a49a-487b-b278-d4c44619e7d3
+    TypeScriptAsset: !<reference> e1be2841-7fd4-4f73-82f4-9e58f762e81e
   ImporterName: TypeScriptAssetImporter
-  PrimaryAsset: !<reference> 53d8e187-a49a-487b-b278-d4c44619e7d3
+  PrimaryAsset: !<reference> e1be2841-7fd4-4f73-82f4-9e58f762e81e
   PackageType: NotAPackage
   PackagePolicy: CannotBeUnpacked
   ExtraData:
     {}
   AssetDataMap:
-    TypeScriptAsset: !<own> c77037a4-d6e1-4002-977e-70e8f9e1ec43
+    TypeScriptAsset: !<own> 4e71253d-dd9d-4b8c-8fdd-b1e8b18fbd4c
   DependentFiles:
     []
   ImporterSettings: !<AssetImporterSettings>
     {}
   CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
-- !<TypeScriptAssetData/c77037a4-d6e1-4002-977e-70e8f9e1ec43>
+- !<TypeScriptAssetData/4e71253d-dd9d-4b8c-8fdd-b1e8b18fbd4c>
   SvgIcon: ""
   SetupScript:
     code: ""
@@ -23,26 +23,23 @@
   VersionMajor: 0
   VersionMinor: 0
   VersionPatch: 0
-  ComponentUid: 222d8ec9-7fd7-4056-ae96-04dff6497dda
+  ComponentUid: c4aefd15-a854-4e84-b853-d6490f5403a6
   ExportUid: 00000000-0000-0000-0000-000000000000
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
-    continueButton: false
-    personalityDisplayText: false
+    outlineFeedback: false
     rootObject: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
-    - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
-      continueButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
-      personalityDisplayText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+    - outlineFeedback: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
+    - // @input AssignableType outlineFeedback
     - // @input SceneObject rootObject
-    - // @input AssignableType continueButton
-    - // @input Component.Text personalityDisplayText

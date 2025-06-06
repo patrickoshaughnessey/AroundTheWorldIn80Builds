@@ -28,18 +28,30 @@
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
-    completeButton: false
+    answerTextDisplay: false
+    questionTextDisplay: false
     rootObject: false
+    startRecordButton: false
+    stopRecordButton: false
+    submitAnswerButton: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
     - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
-      completeButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      submitAnswerButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      startRecordButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      stopRecordButton: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      questionTextDisplay: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      answerTextDisplay: !<reference.Text> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input SceneObject rootObject
-    - // @input AssignableType completeButton
+    - // @input AssignableType submitAnswerButton
+    - // @input AssignableType_1 startRecordButton
+    - // @input AssignableType_2 stopRecordButton
+    - // @input Component.Text questionTextDisplay
+    - // @input Component.Text answerTextDisplay
