@@ -13667,7 +13667,7 @@
     - eba4485f-e111-473c-807b-14db1f9e1b90: e50f45b7-80fd-4663-9b8a-da45a288f13e
     - ebbcf1d1-d90c-4081-96a7-8c8f926e937c: e41d320a-2c23-475f-8ee1-6bb919c15fb1
   Name: SpeechTestHarness
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform:
     position: {x: -50.000000, y: 0.000000, z: 0.000000}
