@@ -5,6 +5,7 @@ import { OpenAIChatService } from "./OpenAIChatService"
 import { SpiritAnimalSpeechInput } from "./SpiritAnimalSpeechInput"
 import {NetworkRootInfo} from "SpectaclesSyncKit.lspkg/Core/NetworkRootInfo";
 import {SpiritAnimalController} from "./SpiritAnimalController";
+import { RealtimeDataService, UserSpiritAnimalData } from "./RealtimeDataService";
 declare global {
     var DoDelay: any;
 }
@@ -33,6 +34,9 @@ export class ApplicationModel extends BaseScriptComponent {
 
     @input
     public speechInputService: SpiritAnimalSpeechInput;
+
+    @input
+    public realtimeDataService: RealtimeDataService;
 
     myAnimal: NetworkRootInfo = null;
 
@@ -126,6 +130,13 @@ export class ApplicationModel extends BaseScriptComponent {
         answers[question] = answer;
         this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(answers));
         print(`Saved answer for: ${question}`);
+
+        // Also save to realtime store
+        if (this.realtimeDataService) {
+            // We need to get all answers to update the whole object in the realtime store
+            const allCurrentAnswers = this.getSavedQuizAnswers();
+            this.realtimeDataService.updateLocalUserData({ quizAnswers: allCurrentAnswers });
+        }
     }
 
     public getSavedQuizAnswers(): {[key: string]: string} | null {
@@ -146,6 +157,11 @@ export class ApplicationModel extends BaseScriptComponent {
         answers["PersonalityColor"] = color;
         this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(answers));
         print(`Saved Personality Color: ${color}`);
+
+        // Also save to realtime store
+        if (this.realtimeDataService) {
+            this.realtimeDataService.updateLocalUserData({ personalityColor: color });
+        }
     }
 
     public getPersonalityColor(): string | null {
@@ -161,6 +177,11 @@ export class ApplicationModel extends BaseScriptComponent {
         data["UserGoal"] = goal;
         this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(data));
         print(`Saved User Goal: ${goal}`);
+
+        // Also save to realtime store
+        if (this.realtimeDataService) {
+            this.realtimeDataService.updateLocalUserData({ userGoal: goal });
+        }
     }
 
     public getUserGoal(): string | null {
