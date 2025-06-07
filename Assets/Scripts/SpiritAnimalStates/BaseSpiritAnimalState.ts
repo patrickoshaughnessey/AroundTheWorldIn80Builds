@@ -92,4 +92,9 @@ export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
         
         print("=== SIGNAL SENT ===")
     }
+
+    // Convenience method to check if this is my spirit animal
+    protected isMyAnimal(): boolean {
+        return this.controller?.syncEntity?.networkRoot?.locallyCreated || false;
+    }
 }

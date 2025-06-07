@@ -3,8 +3,18 @@ import {FirstUserExperienceState} from "./ApplicationStates/FirstUserExperienceS
 import {MenuState} from "./ApplicationStates/MenuState";
 import { OpenAIChatService } from "./OpenAIChatService"
 import { SpiritAnimalSpeechInput } from "./SpiritAnimalSpeechInput"
+import {NetworkRootInfo} from "SpectaclesSyncKit.lspkg/Core/NetworkRootInfo";
+import {SpiritAnimalController} from "./SpiritAnimalController";
 declare global {
     var DoDelay: any;
+}
+
+export interface InteractionData {
+    initiatorID: string;
+    receiverID: string;
+    initiatorAnimalNetworkId: string;
+    receiverAnimalNetworkId: string;
+    meetingLocation: vec3
 }
 
 @component
@@ -12,17 +22,30 @@ export class ApplicationModel extends BaseScriptComponent {
     private static _instance: ApplicationModel;
 
     // Add the application state machine
-    public applicationStateMachine: StateMachine
+    public applicationStateMachine: StateMachine;
 
     // Persistent storage reference
-    public persistentStorage: PersistentStorageSystem
+    public persistentStorage: PersistentStorageSystem;
 
     // AI Services
     @input
-    public chatService: OpenAIChatService
+    public chatService: OpenAIChatService;
 
     @input
-    public speechInputService: SpiritAnimalSpeechInput
+    public speechInputService: SpiritAnimalSpeechInput;
+
+    myAnimal: NetworkRootInfo = null;
+
+    get myAnimalController(): SpiritAnimalController {
+        return this.myAnimal?.instantiatedObject?.getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController;
+    }
+
+    get myAnimalGeometryParent(): SceneObject {
+        return ApplicationModel.instance.myAnimalController?.spiritAnimalGeometryParent;
+    }
+
+    lastClickedAnimal: NetworkRootInfo = null;
+    currentInteractionData: InteractionData;
 
     // Singleton getter
     static get instance(): ApplicationModel {

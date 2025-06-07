@@ -32,6 +32,7 @@
     interactable: false
     manipulatable: false
     modelInstantiator: false
+    spiritAnimalGeometryParent: false
     spiritAnimalPrefabs: false
     stateDebugText: false
   ScriptTypesHidden:
@@ -44,6 +45,7 @@
       headLock: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
       stateDebugText: !<reference.Text> 00000000-0000-0000-0000-000000000000
       modelInstantiator: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
+      spiritAnimalGeometryParent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       spiritAnimalPrefabs: !<reference.ObjectPrefab[]>
         []
   ScriptTypes:
@@ -55,4 +57,5 @@
     - // @input AssignableType_2 headLock
     - // @input Component.Text stateDebugText
     - // @input AssignableType_3 modelInstantiator
+    - // @input SceneObject spiritAnimalGeometryParent
     - "// @input Asset.ObjectPrefab[] spiritAnimalPrefabs = {}"

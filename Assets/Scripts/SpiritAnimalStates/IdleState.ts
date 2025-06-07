@@ -1,6 +1,5 @@
 import { BaseSpiritAnimalState } from "./BaseSpiritAnimalState"
-import { FlyingToOtherAnimalState } from "./FlyingToOtherAnimalState"
-import { WaitingForOtherAnimalState } from "./WaitingForOtherAnimalState"
+import { FlyingToMeetingLocation } from "./FlyingToMeetingLocation"
 
 @component
 export class IdleState extends BaseSpiritAnimalState {
@@ -19,21 +18,12 @@ export class IdleState extends BaseSpiritAnimalState {
     protected getTransitions(): any[] {
         return [
             {
-                nextStateName: FlyingToOtherAnimalState.STATE_NAME,
+                nextStateName: FlyingToMeetingLocation.STATE_NAME,
                 checkOnSignal: (signal: string) => {
-                    return signal === "FLY_TO_ANIMAL"
+                    return signal === "FLY_TO_MEETING_LOCATION"
                 },
                 onExecution: () => {
-                    print("Transitioning from Idle to FlyingToOtherAnimal")
-                }
-            },
-            {
-                nextStateName: WaitingForOtherAnimalState.STATE_NAME,
-                checkOnSignal: (signal: string) => {
-                    return signal === "RECEIVE_OTHER_ANIMAL"
-                },
-                onExecution: () => {
-                    print("Transitioning from Idle to WaitingForOtherAnimal")
+                    print("Transitioning from Idle to FlyingToMeetingLocation")
                 }
             }
         ]
@@ -42,6 +32,14 @@ export class IdleState extends BaseSpiritAnimalState {
     protected onEnterState(): void {
         super.onEnterState()
         print("Spirit animal is now idle")
+
+        if (this.controller.headLock) {
+            this.controller.headLock.enabled = this.isMyAnimal();
+        }
+
+        if (this.controller.manipulatable && this.isMyAnimal()) {
+            this.controller.manipulatable.enabled = true;
+        }
     }
 
     protected onExitState(): void {

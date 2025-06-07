@@ -17,14 +17,14 @@ viewConfig:
     viewport: Maximized
     output: Live
     stereoOutputEye: Center
-    deviceTypeOverride: Spectacles
+    deviceTypeOverride: Unknown
   cameraType: Front
 metaInfo:
   hints:
     []
   tags:
     []
-  lensName: Specs Starter
+  lensName: B.O.N.D
   lensDescriptors:
     - EXPERIMENTAL_API
   lensApplicability:

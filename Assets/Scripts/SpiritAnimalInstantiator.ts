@@ -31,14 +31,14 @@ export class SpiritAnimalInstantiator extends BaseScriptComponent {
                     print('instantiated new object: ' + newObj)
 
                     // Find the SpiritAnimalController component and set its networkRootInfo
-                    const controller = newObj.getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController;
+                    // const controller = newObj.getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController;
 
-                    if (controller) {
-                        print("Found SpiritAnimalController, setting networkRootInfo")
-                        controller.networkRootInfo = networkRootInfo;
-                    } else {
-                        print("Could not find SpiritAnimalController on instantiated object")
-                    }
+                    // if (controller) {
+                    //     print("Found SpiritAnimalController, setting networkRootInfo")
+                    //     controller.networkRootInfo = networkRootInfo;
+                    // } else {
+                    //     print("Could not find SpiritAnimalController on instantiated object")
+                    // }
                 }
             );            
         } else {
