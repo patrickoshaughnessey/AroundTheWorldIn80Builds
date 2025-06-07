@@ -4,8 +4,17 @@ import {MenuState} from "./ApplicationStates/MenuState";
 import { OpenAIChatService } from "./OpenAIChatService"
 import { SpiritAnimalSpeechInput } from "./SpiritAnimalSpeechInput"
 import {NetworkRootInfo} from "SpectaclesSyncKit.lspkg/Core/NetworkRootInfo";
+import {SpiritAnimalController} from "./SpiritAnimalController";
 declare global {
     var DoDelay: any;
+}
+
+export interface InteractionData {
+    initiatorID: string;
+    receiverID: string;
+    initiatorAnimalNetworkId: string;
+    receiverAnimalNetworkId: string;
+    meetingLocation: vec3
 }
 
 @component
@@ -26,7 +35,17 @@ export class ApplicationModel extends BaseScriptComponent {
     public speechInputService: SpiritAnimalSpeechInput;
 
     myAnimal: NetworkRootInfo = null;
+
+    get myAnimalController(): SpiritAnimalController {
+        return this.myAnimal?.instantiatedObject?.getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController;
+    }
+
+    get myAnimalGeometryParent(): SceneObject {
+        return ApplicationModel.instance.myAnimalController?.spiritAnimalGeometryParent;
+    }
+
     lastClickedAnimal: NetworkRootInfo = null;
+    currentInteractionData: InteractionData;
 
     // Singleton getter
     static get instance(): ApplicationModel {

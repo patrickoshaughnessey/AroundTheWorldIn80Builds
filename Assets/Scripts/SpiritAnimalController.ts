@@ -9,22 +9,13 @@ import {InteractorEvent} from "SpectaclesInteractionKit.lspkg/Core/Interactor/In
 import {Instantiator} from "../SpectaclesSyncKit.lspkg/Components/Instantiator";
 import {InstantiationOptions} from "SpectaclesSyncKit.lspkg/Components/Instantiator";
 import {SessionController} from "../SpectaclesSyncKit.lspkg/Core/SessionController";
-import {ApplicationModel} from "./ApplicationModel";
+import {ApplicationModel, InteractionData} from "./ApplicationModel";
 
 // Define the event data type
 interface SpiritAnimalEventData {
     senderId: string  // This will be the networkId
     timestamp: number
 }
-
-export interface InteractionData {
-    initiatorID: string;
-    receiverID: string;
-    initiatorAnimalNetworkId: string;
-    receiverAnimalNetworkId: string;
-    meetingLocation: vec3
-}
-
 
 @component
 export class SpiritAnimalController extends BaseScriptComponent {
@@ -94,18 +85,18 @@ export class SpiritAnimalController extends BaseScriptComponent {
 
 
     private onOtherAnimalClicked = (e: InteractorEvent) => {
+        // TODO: Move click on animal logic into the state machine, so that clicks can be interpreted differently for different states?
         print("Other animal clicked: " + this.syncEntity.networkRoot + "  - sending global event");
         ApplicationModel.instance.lastClickedAnimal = this.syncEntity.networkRoot;
 
         // Calculate middle point between the two animals
-        const myAnimalController = ApplicationModel.instance.myAnimal.instantiatedObject.getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController;
-        const myPosition = myAnimalController.spiritAnimalGeometryParent.getTransform().getWorldPosition();
-        const clickedPosition = this.spiritAnimalGeometryParent.getTransform().getWorldPosition();
+        const myAnimalPosition = ApplicationModel.instance.myAnimalGeometryParent?.getTransform().getWorldPosition();
+        const clickedAnimalPosition = this.spiritAnimalGeometryParent.getTransform().getWorldPosition();
 
         const meetingPoint = new vec3(
-            (myPosition.x + clickedPosition.x) / 2,
-            (myPosition.y + clickedPosition.y) / 2,
-            (myPosition.z + clickedPosition.z) / 2
+            (myAnimalPosition.x + clickedAnimalPosition.x) / 2,
+            (myAnimalPosition.y + clickedAnimalPosition.y) / 2,
+            (myAnimalPosition.z + clickedAnimalPosition.z) / 2
         );
 
         print(`Meeting location calculated: ${meetingPoint.toString()}`);
@@ -123,6 +114,9 @@ export class SpiritAnimalController extends BaseScriptComponent {
             "): Initiating request to interact with: " + interactionData.receiverAnimalNetworkId + ", with owner (" + interactionData.receiverID + ")")
 
         this.syncEntity.sendEvent("interactionInitiated", interactionData)
+
+        ApplicationModel.instance.currentInteractionData = interactionData;
+        ApplicationModel.instance.myAnimalController.spiritAnimalStateMachine.sendSignal("FLY_TO_MEETING_LOCATION")
     }
 
     onAwake() {
@@ -139,15 +133,10 @@ export class SpiritAnimalController extends BaseScriptComponent {
         this.syncEntity.notifyOnReady(() => {
             this.syncEntity.onEventReceived.add("interactionInitiated", (messageInfo) => {
                 let interactionData = messageInfo.data as InteractionData;
-                if (ApplicationModel.instance.myAnimal.networkId == interactionData.receiverAnimalNetworkId) {
+                if (this.syncEntity.networkRoot.networkId == interactionData.receiverAnimalNetworkId) {
                     print("Animal (" + this.syncEntity.networkRoot?.networkId + ") : Received request to interact from: " + interactionData.initiatorID)
-                    this.spiritAnimalStateMachine.sendSignal("FLY_TO_MEETING_LOCATION", interactionData)
-                }
-                else if (ApplicationModel.instance.myAnimal.networkId == interactionData.initiatorAnimalNetworkId) {
-                    print("Animal (" + this.syncEntity.networkRoot?.networkId + ") : Initiated request to interact with: " + interactionData.receiverID)
-                    this.spiritAnimalStateMachine.sendSignal("FLY_TO_MEETING_LOCATION", interactionData)
-                } else {
-                    print(">>>> DIDN'T MATCH EITHER!!! <<<<. " + JSON.stringify(messageInfo.data) + ", " + ApplicationModel.instance.myAnimal.networkId + ", " + this.syncEntity.networkRoot?.networkId);
+                    ApplicationModel.instance.currentInteractionData = interactionData;
+                    this.spiritAnimalStateMachine.sendSignal("FLY_TO_MEETING_LOCATION")
                 }
             });
 
