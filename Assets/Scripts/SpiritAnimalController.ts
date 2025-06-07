@@ -9,12 +9,22 @@ import {InteractorEvent} from "SpectaclesInteractionKit.lspkg/Core/Interactor/In
 import {Instantiator} from "../SpectaclesSyncKit.lspkg/Components/Instantiator";
 import {InstantiationOptions} from "SpectaclesSyncKit.lspkg/Components/Instantiator";
 import {SessionController} from "../SpectaclesSyncKit.lspkg/Core/SessionController";
+import {ApplicationModel} from "./ApplicationModel";
 
 // Define the event data type
 interface SpiritAnimalEventData {
     senderId: string  // This will be the networkId
     timestamp: number
 }
+
+export interface InteractionData {
+    initiatorID: string;
+    receiverID: string;
+    initiatorAnimalNetworkId: string;
+    receiverAnimalNetworkId: string;
+    meetingLocation: vec3
+}
+
 
 @component
 export class SpiritAnimalController extends BaseScriptComponent {
@@ -33,11 +43,11 @@ export class SpiritAnimalController extends BaseScriptComponent {
     @input()
     public modelInstantiator: Instantiator
 
+    @input()
+    public spiritAnimalGeometryParent: SceneObject
+
     @input
     private spiritAnimalPrefabs: ObjectPrefab[] = []
-
-    // Property to be set by the instantiator
-    networkRootInfo: NetworkRootInfo
 
     // State machine for spirit animal behavior
     public spiritAnimalStateMachine: StateMachine
@@ -45,25 +55,16 @@ export class SpiritAnimalController extends BaseScriptComponent {
     syncEntity: SyncEntity
 
     private isMySpiritAnimal: boolean = false
-    private networkId: string = ""
-
 
     onReady() {
         print("Spirit Animal Controller is ready");
 
-        // Get the network ID from the networkRootInfo
-        if (this.networkRootInfo) {
-            this.networkId = this.networkRootInfo.networkId
-            print("Spirit animal network ID: " + this.networkId)
-        } else {
-            print("Warning: No networkRootInfo available, using fallback ID")
-            this.networkId = "fallback_" + Math.random().toString(36).substr(2, 9)
-        }
+        if (this.syncEntity.networkRoot && this.syncEntity.networkRoot.locallyCreated) {
+            print("Animal belongs to me, I can move it, and my connection id is: " + SessionController.getInstance().getLocalConnectionId())
 
-        if (this.networkRootInfo && this.networkRootInfo.locallyCreated) {
-            print("Animal belongs to me, I can move it")
             this.manipulatable.setCanTranslate(true)
             this.isMySpiritAnimal = true
+            ApplicationModel.instance.myAnimal = this.syncEntity.networkRoot;
 
             // We now instantiate the geometry for our animal
             if (SessionController.getInstance().isHost()) {
@@ -91,6 +92,39 @@ export class SpiritAnimalController extends BaseScriptComponent {
         this.stateDebugText = this.getSceneObject().getComponent("Component.Text") as Text
     }
 
+
+    private onOtherAnimalClicked = (e: InteractorEvent) => {
+        print("Other animal clicked: " + this.syncEntity.networkRoot + "  - sending global event");
+        ApplicationModel.instance.lastClickedAnimal = this.syncEntity.networkRoot;
+
+        // Calculate middle point between the two animals
+        const myAnimalController = ApplicationModel.instance.myAnimal.instantiatedObject.getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController;
+        const myPosition = myAnimalController.spiritAnimalGeometryParent.getTransform().getWorldPosition();
+        const clickedPosition = this.spiritAnimalGeometryParent.getTransform().getWorldPosition();
+
+        const meetingPoint = new vec3(
+            (myPosition.x + clickedPosition.x) / 2,
+            (myPosition.y + clickedPosition.y) / 2,
+            (myPosition.z + clickedPosition.z) / 2
+        );
+
+        print(`Meeting location calculated: ${meetingPoint.toString()}`);
+
+        const interactionData: InteractionData = {
+            initiatorID: ApplicationModel.instance.myAnimal.getOwnerId(),
+            receiverID: this.syncEntity.networkRoot?.getOwnerId() || "",
+            initiatorAnimalNetworkId: ApplicationModel.instance.myAnimal.networkId,
+            receiverAnimalNetworkId: this.syncEntity.networkRoot?.networkId || "",
+            meetingLocation: meetingPoint
+        }
+
+        print("Sending Interaction Data: " + JSON.stringify(interactionData));
+        print("Animal (" + interactionData.initiatorAnimalNetworkId + ") with owner (" + interactionData.initiatorID +
+            "): Initiating request to interact with: " + interactionData.receiverAnimalNetworkId + ", with owner (" + interactionData.receiverID + ")")
+
+        this.syncEntity.sendEvent("interactionInitiated", interactionData)
+    }
+
     onAwake() {
         // Create new sync entity for this script
         this.syncEntity = new SyncEntity(this)
@@ -103,7 +137,20 @@ export class SpiritAnimalController extends BaseScriptComponent {
 
         // Check sync entity is ready before using it
         this.syncEntity.notifyOnReady(() => {
-            print("SyncEntity is ready with networkRoot: " + this.syncEntity.networkRoot)
+            this.syncEntity.onEventReceived.add("interactionInitiated", (messageInfo) => {
+                let interactionData = messageInfo.data as InteractionData;
+                if (ApplicationModel.instance.myAnimal.networkId == interactionData.receiverAnimalNetworkId) {
+                    print("Animal (" + this.syncEntity.networkRoot?.networkId + ") : Received request to interact from: " + interactionData.initiatorID)
+                    this.spiritAnimalStateMachine.sendSignal("FLY_TO_MEETING_LOCATION", interactionData)
+                }
+                else if (ApplicationModel.instance.myAnimal.networkId == interactionData.initiatorAnimalNetworkId) {
+                    print("Animal (" + this.syncEntity.networkRoot?.networkId + ") : Initiated request to interact with: " + interactionData.receiverID)
+                    this.spiritAnimalStateMachine.sendSignal("FLY_TO_MEETING_LOCATION", interactionData)
+                } else {
+                    print(">>>> DIDN'T MATCH EITHER!!! <<<<. " + JSON.stringify(messageInfo.data) + ", " + ApplicationModel.instance.myAnimal.networkId + ", " + this.syncEntity.networkRoot?.networkId);
+                }
+            });
+
             this.onReady()
         })
     }
@@ -113,10 +160,6 @@ export class SpiritAnimalController extends BaseScriptComponent {
         if (this.spiritAnimalStateMachine) {
             this.spiritAnimalStateMachine.destroy()
         }
-    }
-
-    private onOtherAnimalClicked = (e: InteractorEvent) => {
-        print("Other animal clicked - sending global event")
     }
 
     private spawnSpiritAnimalWhenReady(animalNamed: string) {

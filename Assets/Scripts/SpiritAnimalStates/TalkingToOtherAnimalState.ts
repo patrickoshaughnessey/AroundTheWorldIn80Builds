@@ -1,10 +1,8 @@
 import { BaseSpiritAnimalState } from "./BaseSpiritAnimalState"
 import { FlyingBackToOwnerState } from "./FlyingBackToOwnerState"
 import { IdleState } from "./IdleState"
-import { FlyingToOtherAnimalState } from "./FlyingToOtherAnimalState"
-import { WaitingForOtherAnimalState } from "./WaitingForOtherAnimalState"
+import { FlyingToMeetingLocation } from "./FlyingToMeetingLocation"
 import { SpiritAnimalController } from "../SpiritAnimalController"
-import { LensConfig } from "SpectaclesInteractionKit.lspkg/Utils/LensConfig"
 import { DispatchedDelayedEvent } from "SpectaclesInteractionKit.lspkg/Utils/UpdateDispatcher"
 
 @component
@@ -67,7 +65,7 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
         const controller = this.getSceneObject().getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController
         if (controller && controller.spiritAnimalStateMachine) {
             const previousState = controller.spiritAnimalStateMachine.previousState?.name
-            this.initiatedInteraction = previousState === FlyingToOtherAnimalState.STATE_NAME
+            this.initiatedInteraction = previousState === FlyingToMeetingLocation.STATE_NAME
             print(`Spirit animal ${this.initiatedInteraction ? 'initiated' : 'received'} the interaction`)
         }
 

@@ -3,6 +3,7 @@ import {FirstUserExperienceState} from "./ApplicationStates/FirstUserExperienceS
 import {MenuState} from "./ApplicationStates/MenuState";
 import { OpenAIChatService } from "./OpenAIChatService"
 import { SpiritAnimalSpeechInput } from "./SpiritAnimalSpeechInput"
+import {NetworkRootInfo} from "SpectaclesSyncKit.lspkg/Core/NetworkRootInfo";
 declare global {
     var DoDelay: any;
 }
@@ -12,17 +13,20 @@ export class ApplicationModel extends BaseScriptComponent {
     private static _instance: ApplicationModel;
 
     // Add the application state machine
-    public applicationStateMachine: StateMachine
+    public applicationStateMachine: StateMachine;
 
     // Persistent storage reference
-    public persistentStorage: PersistentStorageSystem
+    public persistentStorage: PersistentStorageSystem;
 
     // AI Services
     @input
-    public chatService: OpenAIChatService
+    public chatService: OpenAIChatService;
 
     @input
-    public speechInputService: SpiritAnimalSpeechInput
+    public speechInputService: SpiritAnimalSpeechInput;
+
+    myAnimal: NetworkRootInfo = null;
+    lastClickedAnimal: NetworkRootInfo = null;
 
     // Singleton getter
     static get instance(): ApplicationModel {
