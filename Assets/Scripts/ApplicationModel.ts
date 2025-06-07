@@ -152,22 +152,34 @@ export class ApplicationModel extends BaseScriptComponent {
         return null;
     }
 
-    public savePersonalityColor(color: string) {
-        let answers = this.getSavedQuizAnswers() || {};
-        answers["PersonalityColor"] = color;
-        this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(answers));
-        print(`Saved Personality Color: ${color}`);
+    public savePersonalityColors(primaryColor: string, secondaryColor: string) {
+        let data = this.getSavedQuizAnswers() || {};
+        data["primaryPersonalityColor"] = primaryColor;
+        data["secondaryPersonalityColor"] = secondaryColor;
+        this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(data));
+        print(`Saved Personality Colors: Primary=${primaryColor}, Secondary=${secondaryColor}`);
 
         // Also save to realtime store
         if (this.realtimeDataService) {
-            this.realtimeDataService.updateLocalUserData({ personalityColor: color });
+            this.realtimeDataService.updateLocalUserData({
+                primaryPersonalityColor: primaryColor,
+                secondaryPersonalityColor: secondaryColor
+            });
         }
     }
 
-    public getPersonalityColor(): string | null {
-        const answers = this.getSavedQuizAnswers();
-        if (answers && answers["PersonalityColor"]) {
-            return answers["PersonalityColor"];
+    public getPrimaryPersonalityColor(): string | null {
+        const data = this.getSavedQuizAnswers();
+        if (data && data["primaryPersonalityColor"]) {
+            return data["primaryPersonalityColor"];
+        }
+        return null;
+    }
+
+    public getSecondaryPersonalityColor(): string | null {
+        const data = this.getSavedQuizAnswers();
+        if (data && data["secondaryPersonalityColor"]) {
+            return data["secondaryPersonalityColor"];
         }
         return null;
     }
@@ -194,7 +206,7 @@ export class ApplicationModel extends BaseScriptComponent {
 
     public clearQuizAnswers() {
         this.persistentStorage.store.remove("quizAnswersObject");
-        print("Quiz answers, personality color, and user goal cleared");
+        print("Quiz answers, personality colors, and user goal cleared");
     }
 
     public clearAllSavedData() {

@@ -3,7 +3,8 @@ import { SessionController } from "SpectaclesSyncKit.lspkg/Core/SessionControlle
 // Interface defining the structure of the data we'll store for each user
 export interface UserSpiritAnimalData {
     userId: string;
-    personalityColor?: string;
+    primaryPersonalityColor?: string;
+    secondaryPersonalityColor?: string;
     quizAnswers?: { [key: string]: string };
     userGoal?: string;
 }
