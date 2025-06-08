@@ -57,7 +57,7 @@ export class RealtimeDataService extends BaseScriptComponent {
 
     private startService = (): void => {
         print("RealtimeDataService: Session connected. Starting service.");
-        this.localUserId = SessionController.getInstance().getLocalUserInfo().connectionId;
+        this.localUserId = SessionController.getInstance()?.getLocalUserInfo()?.connectionId;
         this.createOrFindRealtimeStore(() => {
             this.isStoreInitialized = true;
             print(`RealtimeDataService: Store '${this.STORE_ID}' is ready. Local User ID: ${this.localUserId}`);
