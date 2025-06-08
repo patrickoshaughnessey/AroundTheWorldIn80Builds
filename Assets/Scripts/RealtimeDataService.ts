@@ -49,7 +49,7 @@ export class RealtimeDataService extends BaseScriptComponent {
         const sessionController = SessionController.getInstance();
         if (!sessionController || !sessionController.getSession()) {
             print("RealtimeDataService: Session not created yet. Waiting for creation.");
-            sessionController.onSessionCreated.add(this.startService);
+            sessionController.notifyOnStartColocated(this.startService);
             return;
         }
         this.startService();
@@ -57,9 +57,9 @@ export class RealtimeDataService extends BaseScriptComponent {
 
     private startService = (): void => {
         print("RealtimeDataService: Session connected. Starting service.");
-        this.localUserId = SessionController.getInstance()?.getLocalUserInfo()?.connectionId;
         this.createOrFindRealtimeStore(() => {
             this.isStoreInitialized = true;
+            this.localUserId = SessionController.getInstance()?.getLocalUserInfo()?.connectionId;
             print(`RealtimeDataService: Store '${this.STORE_ID}' is ready. Local User ID: ${this.localUserId}`);
             
             this.loadInitialData();
