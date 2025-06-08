@@ -1,4 +1,5 @@
 import { SessionController } from "SpectaclesSyncKit.lspkg/Core/SessionController"
+import {ApplicationModel} from "./ApplicationModel";
 
 // Interface defining the structure of the data we'll store for each user
 export interface UserSpiritAnimalData {
@@ -19,7 +20,7 @@ export class RealtimeDataService extends BaseScriptComponent {
     private localUserId: string = "";
 
     // A map to hold all users' data locally for easy access
-    private allUsersData: Map<string, UserSpiritAnimalData> = new Map();
+    private allUsersData: Map<string, UserSpiritAnimalData> = new Map<string, UserSpiritAnimalData>();
     
     // Callbacks for subscribers
     public onDataUpdated: ((allData: Map<string, UserSpiritAnimalData>) => void) | null = null;
@@ -49,7 +50,7 @@ export class RealtimeDataService extends BaseScriptComponent {
         const sessionController = SessionController.getInstance();
         if (!sessionController || !sessionController.getSession()) {
             print("RealtimeDataService: Session not created yet. Waiting for creation.");
-            sessionController.onSessionCreated.add(this.startService);
+            sessionController.notifyOnStartColocated(this.startService);
             return;
         }
         this.startService();
@@ -57,11 +58,13 @@ export class RealtimeDataService extends BaseScriptComponent {
 
     private startService = (): void => {
         print("RealtimeDataService: Session connected. Starting service.");
-        this.localUserId = SessionController.getInstance()?.getLocalUserInfo()?.connectionId;
         this.createOrFindRealtimeStore(() => {
             this.isStoreInitialized = true;
+            this.localUserId = SessionController.getInstance()?.getLocalUserInfo()?.connectionId;
             print(`RealtimeDataService: Store '${this.STORE_ID}' is ready. Local User ID: ${this.localUserId}`);
-            
+
+            ApplicationModel.instance.shareAllMyData()
+
             this.loadInitialData();
 
             // Subscribe to future updates
@@ -130,6 +133,7 @@ export class RealtimeDataService extends BaseScriptComponent {
     }
 
     private onStoreUpdate = (session: MultiplayerSession, store: GeneralDataStore, key: string, updateInfo: ConnectedLensModule.RealtimeStoreUpdateInfo): void => {
+        print(`RealtimeDataService: onStoreUpdate.`);
         if (!this.realtimeStore || session.getRealtimeStoreInfo(store).storeId !== this.STORE_ID) return;
 
         // The key is the userId in our new model
@@ -137,11 +141,12 @@ export class RealtimeDataService extends BaseScriptComponent {
         
         try {
             const dataString = this.realtimeStore.getString(userId);
+            print(`RealtimeDataService: Received dataString ${dataString}.`);
             if (dataString && dataString.length > 0) {
                 const data: UserSpiritAnimalData = JSON.parse(dataString);
                 this.allUsersData.set(userId, data);
-                print(`RealtimeDataService: Received update for user ${userId}.`);
-                
+                print(`RealtimeDataService: Received update for user ${userId}. ${JSON.stringify(data)}`);
+                print(`RealtimeDataService: All user data now: ${JSON.stringify(this.allUsersData)}`);
                 // Notify subscribers
                 if (this.onDataUpdated) {
                     this.onDataUpdated(this.allUsersData);
@@ -159,6 +164,7 @@ export class RealtimeDataService extends BaseScriptComponent {
             return;
         }
 
+        print("RealtimeDataService: Updating user (" + this.localUserId + ") data with: " + JSON.stringify(data));
         // Get existing data or create new object
         const existingData = this.allUsersData.get(this.localUserId) || { userId: this.localUserId };
         // Merge new data into existing data
@@ -181,5 +187,19 @@ export class RealtimeDataService extends BaseScriptComponent {
 
     public getAllUsersData(): Map<string, UserSpiritAnimalData> {
         return this.allUsersData;
+    }
+
+    public getDataForUser(userId: string): UserSpiritAnimalData | null {
+        let data = this.allUsersData.get(userId);
+        if (data) {
+            print(`RealtimeDataService: found data for user ${userId}`);
+            return data;
+        }
+        if (!data && this.realtimeStore) {
+            data = JSON.parse(this.realtimeStore.getString(userId));
+            print(`RealtimeDataService: data not in memory, got from store: ${JSON.stringify(data)}`);
+            return data;
+        }
+        return null;
     }
 } 

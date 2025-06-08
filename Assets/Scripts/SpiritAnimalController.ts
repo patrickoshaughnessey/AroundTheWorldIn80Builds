@@ -10,6 +10,7 @@ import {Instantiator} from "../SpectaclesSyncKit.lspkg/Components/Instantiator";
 import {InstantiationOptions} from "SpectaclesSyncKit.lspkg/Components/Instantiator";
 import {SessionController} from "../SpectaclesSyncKit.lspkg/Core/SessionController";
 import {ApplicationModel, InteractionData} from "./ApplicationModel";
+import {RealtimeDataService} from "./RealtimeDataService";
 
 // Define the event data type
 interface SpiritAnimalEventData {
@@ -121,6 +122,7 @@ export class SpiritAnimalController extends BaseScriptComponent {
         print("Animal (" + interactionData.initiatorAnimalNetworkId + ") with owner (" + interactionData.initiatorID +
             "): Initiating request to interact with: " + interactionData.receiverAnimalNetworkId + ", with owner (" + interactionData.receiverID + ")")
 
+        print("SpiritAnimalController: Info we have on clicked animal ( " + interactionData.receiverID + "): \n" + JSON.stringify(RealtimeDataService.instance.getDataForUser(interactionData.receiverID)))
         this.syncEntity.sendEvent("interactionInitiated", interactionData)
 
         ApplicationModel.instance.currentInteractionData = interactionData;
@@ -190,7 +192,7 @@ export class SpiritAnimalController extends BaseScriptComponent {
     }
 
     private spawnSpiritAnimal(animalNamed: string) {
-        print("Instantiating animal geometry");
+        print(`SpiritAnimalController: Instantiating animal geometry named: ${animalNamed}`);
         for (const prefab of this.spiritAnimalPrefabs) {
             if (animalNamed === prefab.name) {
                 const options = new InstantiationOptions();

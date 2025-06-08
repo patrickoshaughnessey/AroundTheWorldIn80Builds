@@ -6,6 +6,7 @@ import { SpiritAnimalSpeechInput } from "./SpiritAnimalSpeechInput"
 import {NetworkRootInfo} from "SpectaclesSyncKit.lspkg/Core/NetworkRootInfo";
 import {SpiritAnimalController} from "./SpiritAnimalController";
 import { RealtimeDataService, UserSpiritAnimalData } from "./RealtimeDataService";
+import {SessionController} from "SpectaclesSyncKit.lspkg/Core/SessionController";
 declare global {
     var DoDelay: any;
 }
@@ -39,6 +40,7 @@ export class ApplicationModel extends BaseScriptComponent {
     public realtimeDataService: RealtimeDataService;
 
     myAnimal: NetworkRootInfo = null;
+    myData: UserSpiritAnimalData;
 
     get myAnimalController(): SpiritAnimalController {
         return this.myAnimal?.instantiatedObject?.getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController;
@@ -130,6 +132,7 @@ export class ApplicationModel extends BaseScriptComponent {
         answers[question] = answer;
         this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(answers));
         print(`Saved answer for: ${question}`);
+        print(`After save: ${this.getSavedQuizAnswers()}`);
 
         // Also save to realtime store
         if (this.realtimeDataService) {
@@ -158,6 +161,7 @@ export class ApplicationModel extends BaseScriptComponent {
         data["secondaryPersonalityColor"] = secondaryColor;
         this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(data));
         print(`Saved Personality Colors: Primary=${primaryColor}, Secondary=${secondaryColor}`);
+        print(`After save: ${this.getPrimaryPersonalityColor()}, ${this.getSecondaryPersonalityColor()}`);
 
         // Also save to realtime store
         if (this.realtimeDataService) {
@@ -189,6 +193,7 @@ export class ApplicationModel extends BaseScriptComponent {
         data["UserGoal"] = goal;
         this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(data));
         print(`Saved User Goal: ${goal}`);
+        print(`After save: ${this.getUserGoal()}`);
 
         // Also save to realtime store
         if (this.realtimeDataService) {
@@ -213,5 +218,34 @@ export class ApplicationModel extends BaseScriptComponent {
         this.persistentStorage.store.remove("hasCompletedFirstLaunch");
         this.clearQuizAnswers();
         print("All saved data cleared");
+    }
+
+    public shareAllMyData() {
+        if (this.realtimeDataService) {
+            const localUserId = SessionController.getInstance()?.getLocalUserInfo()?.connectionId;
+            print("ApplicationModel: Sharing the data we have on user: " + localUserId);
+
+            const allCurrentAnswers = this.getSavedQuizAnswers();
+            if (allCurrentAnswers) {
+                this.realtimeDataService.updateLocalUserData({ quizAnswers: allCurrentAnswers });
+            }
+
+            const goal = this.getUserGoal()
+            if (goal) {
+                this.realtimeDataService.updateLocalUserData({ userGoal: goal });
+            }
+
+            const primaryColor = this.getPrimaryPersonalityColor()
+            const secondaryColor = this.getSecondaryPersonalityColor()
+
+            if (primaryColor && secondaryColor) {
+                this.realtimeDataService.updateLocalUserData({
+                    primaryPersonalityColor: primaryColor,
+                    secondaryPersonalityColor: secondaryColor
+                });
+            }
+        } else {
+            print("ApplicationModel: NO REALTIME DATA SERVICE")
+        }
     }
 }
