@@ -1,0 +1,91 @@
+- !<AssetImportMetadata/4b648f5c-279a-cce2-d878-d1d9bed1a4da>
+  ImportedAssetIds:
+    JavaScriptAsset: !<reference> 59ddfe59-d06a-4d16-8b07-8dafcfad9543
+  ImporterName: JavaScriptAssetImporter
+  PrimaryAsset: !<reference> 59ddfe59-d06a-4d16-8b07-8dafcfad9543
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  AssetDataMap:
+    JavaScriptAsset: !<own> 53d61abd-6c04-45f5-b309-76a14bec1b4b
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+  ExtraData:
+    {}
+- !<ScriptAssetData/53d61abd-6c04-45f5-b309-76a14bec1b4b>
+  SvgIcon: |
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="3" width="24" height="10" rx="4" stroke="#3EA9F1" stroke-width="2"/>
+    <rect x="4" y="18" width="24" height="10" rx="4" stroke="#3EA9F1" stroke-width="2"/>
+    </svg>
+
+  Description: |
+    Vertical Layout - a container type widget that allows to arrange child layout elements vertically according to specified settings. Requires Screen Transform Component
+    
+    Alignment - Ledt/Center/Right - specifies the horizontal positioning of the children layout elements
+    
+    Direction - Specifies the order of child layout elements - Left To Right or reverse
+    
+    Grow Weight -  specifies how much of the remaining space in the flex container should be assigned to the item
+    
+    Shrink Weight -  specifies how much layout element shrinks if the size of all flex items is larger than the container
+    
+    Paddings - specifies a distance in world units from the container screen rectangle
+    
+    Margins - specifies a spacing around each layout element
+    
+    Override Settings - allows to override individual settings of each layout element. See Layout Element properties description 
+
+  InternalVersion: 4
+  VersionMajor: 4
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 0005ebf6-f45a-af9f-0000-000000010abd
+  ExportUid: 8d292849-ef4c-4fb3-a90a-ae2a0c5f497f
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    alignment: false
+    direction: false
+    growWeight: false
+    growWeightOverride: false
+    marginsVec: false
+    maximumSize: false
+    minimumSize: false
+    overrideGrowWeight: false
+    overrideMaximumSize: false
+    overrideMinimumSize: false
+    overrideRequestedSize: false
+    overrideShrinkWeight: false
+    paddingsVec: false
+    requestedSize: false
+    shrinkWeight: false
+    shrinkWeightOverride: false
+  ScriptTypesHidden:
+    {}
+  DefaultScriptInputs:
+    - alignment: 0
+      direction: 0
+      growWeight: !<float> 1.000000
+      shrinkWeight: !<float> 1.000000
+      paddingsVec: !<Vec4> {x: 0.000000, y: 0.000000, z: 0.000000, w: 0.000000}
+      marginsVec: !<Vec4> {x: 0.000000, y: 0.000000, z: 0.000000, w: 0.000000}
+      overrideRequestedSize: false
+      requestedSize: !<Vec2> {x: 0.000000, y: 0.000000}
+      overrideMinimumSize: false
+      minimumSize: !<Vec2> {x: 0.000000, y: 0.000000}
+      overrideMaximumSize: false
+      maximumSize: !<Vec2> {x: 0.000000, y: 0.000000}
+      overrideGrowWeight: false
+      growWeightOverride: !<float> 1.000000
+      overrideShrinkWeight: false
+      shrinkWeightOverride: !<float> 1.000000
+  ScriptTypes:
+    -
+      {}
+  SetupScript:
+    code: ""
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
