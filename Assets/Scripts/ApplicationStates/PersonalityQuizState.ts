@@ -27,14 +27,16 @@ export class PersonalityQuizState extends BaseState {
     private speechInputService: SpiritAnimalSpeechInput 
 
     private readonly questions: string[] = [
-        "When you're part of a team project, what role do you naturally take on and how do you make sure things go well?",
-        "Tell me about a time you felt truly proud of something you did. What made that moment meaningful to you?",
-        "What kind of situations or environments drain your energy the fastest and why?",
-        "How do you typically make a big decision? Walk me through your process.",
-        "If you had a full day to do anything you want, with no obligations, how would you spend it?",
-        "What kind of feedback or recognition feels most rewarding to you?",
-        "What is your profession, how would you describe your interest?",
-        "What are your hobbies and interests?"
+        "What is your primary color?",
+        "What is your secondary color?"
+        // "When you're part of a team project, what role do you naturally take on and how do you make sure things go well?",
+        // "Tell me about a time you felt truly proud of something you did. What made that moment meaningful to you?",
+        // "What kind of situations or environments drain your energy the fastest and why?",
+        // "How do you typically make a big decision? Walk me through your process.",
+        // "If you had a full day to do anything you want, with no obligations, how would you spend it?",
+        // "What kind of feedback or recognition feels most rewarding to you?",
+        // "What is your profession, how would you describe your interest?",
+        // "What are your hobbies and interests?"
     ];
 
     private currentQuestionIndex: number = 0;

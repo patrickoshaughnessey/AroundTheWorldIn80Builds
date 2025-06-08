@@ -58,12 +58,20 @@ export class SpiritAnimalController extends BaseScriptComponent {
             ApplicationModel.instance.myAnimal = this.syncEntity.networkRoot;
 
             // We now instantiate the geometry for our animal
-            if (SessionController.getInstance().isHost()) {
-                // TODO: Instantiate the right animal based upon our personality. for now, spawn spiritanimal.gold.blue for host
-                this.spawnSpiritAnimal("spiritanimal.gold.blue")
+            const primaryColor = ApplicationModel.instance.getPrimaryPersonalityColor()
+            const secondaryColor = ApplicationModel.instance.getSecondaryPersonalityColor()
+
+            if (primaryColor && secondaryColor) {
+                const prefabName = "spiritanimal." + primaryColor.toLowerCase() + "." + secondaryColor.toLowerCase();
+                print("SpiritAnimalController: Spawning: " + prefabName)
+                this.spawnSpiritAnimal(prefabName)
             } else {
-                // TODO: Instantiate the right animal based upon our personality. for now, spawn spiritanimal.gold.orange for guest
-                this.spawnSpiritAnimal("spiritanimal.gold.orange")
+                // Fallbacks if user hasn't filled out survey, or some other issue arises
+                if (SessionController.getInstance().isHost()) {
+                    this.spawnSpiritAnimal("spiritanimal.gold.orange")
+                } else {
+                    this.spawnSpiritAnimal("spiritanimal.blue.green")
+                }
             }
         } else {
             print("Animal doesn't belong to me, I can't move it")
