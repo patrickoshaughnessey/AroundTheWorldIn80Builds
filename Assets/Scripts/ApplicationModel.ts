@@ -6,6 +6,7 @@ import { SpiritAnimalSpeechInput } from "./SpiritAnimalSpeechInput"
 import {NetworkRootInfo} from "SpectaclesSyncKit.lspkg/Core/NetworkRootInfo";
 import {SpiritAnimalController} from "./SpiritAnimalController";
 import { RealtimeDataService, UserSpiritAnimalData } from "./RealtimeDataService";
+import {SessionController} from "SpectaclesSyncKit.lspkg/Core/SessionController";
 declare global {
     var DoDelay: any;
 }
@@ -213,5 +214,34 @@ export class ApplicationModel extends BaseScriptComponent {
         this.persistentStorage.store.remove("hasCompletedFirstLaunch");
         this.clearQuizAnswers();
         print("All saved data cleared");
+    }
+
+    public shareAllMyData() {
+        if (this.realtimeDataService) {
+            const localUserId = SessionController.getInstance()?.getLocalUserInfo()?.connectionId;
+            print("ApplicationModel: Sharing the data we have on user: " + localUserId);
+
+            const allCurrentAnswers = this.getSavedQuizAnswers();
+            if (allCurrentAnswers) {
+                this.realtimeDataService.updateLocalUserData({ quizAnswers: allCurrentAnswers });
+            }
+
+            const goal = this.getUserGoal()
+            if (goal) {
+                this.realtimeDataService.updateLocalUserData({ userGoal: goal });
+            }
+
+            const primaryColor = this.getPrimaryPersonalityColor()
+            const secondaryColor = this.getSecondaryPersonalityColor()
+
+            if (primaryColor && secondaryColor) {
+                this.realtimeDataService.updateLocalUserData({
+                    primaryPersonalityColor: primaryColor,
+                    secondaryPersonalityColor: secondaryColor
+                });
+            }
+        } else {
+            print("ApplicationModel: NO REALTIME DATA SERVICE")
+        }
     }
 }

@@ -1,4 +1,5 @@
 import { SessionController } from "SpectaclesSyncKit.lspkg/Core/SessionController"
+import {ApplicationModel} from "./ApplicationModel";
 
 // Interface defining the structure of the data we'll store for each user
 export interface UserSpiritAnimalData {
@@ -61,7 +62,9 @@ export class RealtimeDataService extends BaseScriptComponent {
             this.isStoreInitialized = true;
             this.localUserId = SessionController.getInstance()?.getLocalUserInfo()?.connectionId;
             print(`RealtimeDataService: Store '${this.STORE_ID}' is ready. Local User ID: ${this.localUserId}`);
-            
+
+            ApplicationModel.instance.shareAllMyData()
+
             this.loadInitialData();
 
             // Subscribe to future updates
@@ -130,6 +133,7 @@ export class RealtimeDataService extends BaseScriptComponent {
     }
 
     private onStoreUpdate = (session: MultiplayerSession, store: GeneralDataStore, key: string, updateInfo: ConnectedLensModule.RealtimeStoreUpdateInfo): void => {
+        print(`RealtimeDataService: onStoreUpdate.`);
         if (!this.realtimeStore || session.getRealtimeStoreInfo(store).storeId !== this.STORE_ID) return;
 
         // The key is the userId in our new model
@@ -137,6 +141,7 @@ export class RealtimeDataService extends BaseScriptComponent {
         
         try {
             const dataString = this.realtimeStore.getString(userId);
+            print(`RealtimeDataService: Received dataString ${dataString}.`);
             if (dataString && dataString.length > 0) {
                 const data: UserSpiritAnimalData = JSON.parse(dataString);
                 this.allUsersData.set(userId, data);
@@ -159,6 +164,7 @@ export class RealtimeDataService extends BaseScriptComponent {
             return;
         }
 
+        print("RealtimeDataService: Updating user (" + this.localUserId + ") data with: " + JSON.stringify(data));
         // Get existing data or create new object
         const existingData = this.allUsersData.get(this.localUserId) || { userId: this.localUserId };
         // Merge new data into existing data
