@@ -191,16 +191,16 @@ export class PersonalityQuizState extends BaseState {
             this.setButtonsInteractive(true);
             return;
         }
-        let promptContent = "Based on the following user's answers to a personality quiz, please assign one of the following four personality colors: \n";
+        let promptContent = "Based on the following user's answers to a personality quiz, please identify their primary and secondary personality colors from this list: \n";
         promptContent += "🟡 Gold (The Organizer - responsible, dependable, loves structure), \n";
         promptContent += "🔵 Blue (The Harmonizer - compassionate, empathetic, loves connection), \n";
         promptContent += "🟠 Orange (The Adventurer - energetic, spontaneous, loves excitement), or \n";
         promptContent += "🟢 Green (The Conceptualizer - curious, analytical, loves ideas).\n";
-        promptContent += "Please only return the name of the assigned color (e.g., 'Gold', 'Blue', 'Orange', or 'Green') and nothing else. Avoid any introductory phrases or explanations.\n";
+        promptContent += "Your response MUST be in the format 'Primary: [Color], Secondary: [Color]'. Example: 'Primary: Gold, Secondary: Blue'. Do not include any other text, explanations, or punctuation.\n";
         promptContent += "\nQuiz Answers:\n";
 
         for (const question in savedAnswers) {
-            if (question !== "PersonalityColor") {
+            if (question !== "primaryPersonalityColor" && question !== "secondaryPersonalityColor" && question !== "UserGoal") {
                 promptContent += "Q: " + question + "\nA: " + savedAnswers[question] + "\n";
             }
         }
@@ -211,37 +211,33 @@ export class PersonalityQuizState extends BaseState {
             const aiResponse = await ApplicationModel.instance.chatService.ask(promptContent);
             if (aiResponse) {
                 print("PersonalityQuizState: Raw AI Response: " + aiResponse);
-                const validColors = ["Gold", "Blue", "Orange", "Green"];
-                let assignedColor: string | null = null;
+                
+                const regex = /Primary: (Gold|Blue|Orange|Green), Secondary: (Gold|Blue|Orange|Green)/;
+                const match = aiResponse.match(regex);
 
-                for (const color of validColors) {
-                    if (aiResponse.includes(color)) {
-                        assignedColor = color;
-                        break;
-                    }
-                }
-
-                if (assignedColor) {
-                    ApplicationModel.instance.savePersonalityColor(assignedColor);
-                    print(`PersonalityQuizState: Successfully assigned and saved color: ${assignedColor}`);
+                if (match && match.length === 3) {
+                    const primaryColor = match[1];
+                    const secondaryColor = match[2];
+                    ApplicationModel.instance.savePersonalityColors(primaryColor, secondaryColor);
+                    print(`PersonalityQuizState: Successfully assigned and saved colors: Primary=${primaryColor}, Secondary=${secondaryColor}`);
                     if (this.questionTextDisplay) this.questionTextDisplay.text = "Analysis Complete!";
-                    if (this.answerTextDisplay) this.answerTextDisplay.text = "Your personality color is: " + assignedColor;
+                    if (this.answerTextDisplay) this.answerTextDisplay.text = `Your colors: ${primaryColor} & ${secondaryColor}`;
                 } else {
-                    print("PersonalityQuizState: ERROR - AI response did not contain a valid color. Response: " + aiResponse);
+                    print("PersonalityQuizState: ERROR - AI response did not match expected format. Response: " + aiResponse);
                     if (this.questionTextDisplay) this.questionTextDisplay.text = "Could not determine personality from response.";
-                    ApplicationModel.instance.savePersonalityColor("Blue");
-                    if (this.answerTextDisplay) this.answerTextDisplay.text = "Could not determine color. Defaulting...";
+                    ApplicationModel.instance.savePersonalityColors("Blue", "Green");
+                    if (this.answerTextDisplay) this.answerTextDisplay.text = "Could not determine colors. Defaulting...";
                 }
             } else {
                 print("PersonalityQuizState: ERROR - Received null or empty response from AI service.");
                 if (this.questionTextDisplay) this.questionTextDisplay.text = "Error receiving AI analysis.";
-                ApplicationModel.instance.savePersonalityColor("Blue");
+                ApplicationModel.instance.savePersonalityColors("Blue", "Green");
                 if (this.answerTextDisplay) this.answerTextDisplay.text = "Error: AI response empty. Defaulting...";
             }
-        } catch (error) {
-            print("PersonalityQuizState: ERROR - Exception during AI personality analysis: " + error);
+        } catch (error: any) {
+            print("PersonalityQuizState: ERROR - Exception during AI personality analysis: " + error.message);
             if (this.questionTextDisplay) this.questionTextDisplay.text = "Exception during AI analysis.";
-            ApplicationModel.instance.savePersonalityColor("Blue");
+            ApplicationModel.instance.savePersonalityColors("Blue", "Green");
             if (this.answerTextDisplay) this.answerTextDisplay.text = "Error: Analysis exception. Defaulting...";
         } finally {
             this.isAnalyzingAnswers = false;

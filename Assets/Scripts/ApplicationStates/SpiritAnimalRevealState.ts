@@ -59,19 +59,21 @@ export class SpiritAnimalRevealState extends BaseState {
         print("SpiritAnimalRevealState: Entering state.")
         this.initializeUI()
 
-        let assignedColor: string | null = null
+        let primaryColor: string | null = null
+        let secondaryColor: string | null = null
         let displayText = ""
 
         if (ApplicationModel.instance) {
-            assignedColor = ApplicationModel.instance.getPersonalityColor()
+            primaryColor = ApplicationModel.instance.getPrimaryPersonalityColor()
+            secondaryColor = ApplicationModel.instance.getSecondaryPersonalityColor()
         }
 
-        if (assignedColor && this.personalityDescriptions[assignedColor]) {
-            displayText = this.personalityDescriptions[assignedColor]
-            print(`SpiritAnimalRevealState: Displaying personality - ${assignedColor}: ${displayText}`)
+        if (primaryColor && secondaryColor) {
+            displayText = `Primary Color: ${primaryColor}\nSecondary Color: ${secondaryColor}`
+            print(`SpiritAnimalRevealState: Displaying personality - Primary: ${primaryColor}, Secondary: ${secondaryColor}`)
         } else {
-            displayText = this.personalityDescriptions["Default"] // Fallback if no color or unknown color
-            print("SpiritAnimalRevealState: No valid personality color found or ApplicationModel not ready. Displaying default message.")
+            displayText = this.personalityDescriptions["Default"] // Fallback if colors not found
+            print("SpiritAnimalRevealState: No valid primary/secondary colors found. Displaying default message.")
         }
 
         if (this.personalityDisplayText) {

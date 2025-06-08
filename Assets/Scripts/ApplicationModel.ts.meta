@@ -29,6 +29,7 @@
   MaxVisibility: Editable
   ScriptInputsHidden:
     chatService: false
+    realtimeDataService: false
     speechInputService: false
   ScriptTypesHidden:
     {}
@@ -37,9 +38,11 @@
   DefaultScriptInputs:
     - chatService: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
       speechInputService: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      realtimeDataService: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input AssignableType chatService
     - // @input AssignableType_1 speechInputService
+    - // @input AssignableType_2 realtimeDataService
