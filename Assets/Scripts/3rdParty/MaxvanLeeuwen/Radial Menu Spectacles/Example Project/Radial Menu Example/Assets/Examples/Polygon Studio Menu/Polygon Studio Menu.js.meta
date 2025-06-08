@@ -1,0 +1,67 @@
+- !<AssetImportMetadata/024b9ba9-8eb2-492d-9d53-1142c98cb61f>
+  ImportedAssetIds:
+    JavaScriptAsset: !<reference> 05916a28-6390-4372-8950-03c991780f28
+  ImporterName: JavaScriptAssetImporter
+  PrimaryAsset: !<reference> 05916a28-6390-4372-8950-03c991780f28
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  AssetDataMap:
+    JavaScriptAsset: !<own> a6e9a527-b18c-4a84-bd93-8a2b95d117c3
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+  ExtraData:
+    {}
+- !<ScriptAssetData/a6e9a527-b18c-4a84-bd93-8a2b95d117c3>
+  SvgIcon: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: ed0098f0-d5c2-4b38-9c96-f48345e11ba0
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    addMeshButton: false
+    buttons: false
+    colorButton: false
+    colorPalette: false
+    colorPalettePaint: false
+    exitButton: false
+    removeButton: false
+    snappingButton: false
+    subBoxMeshButton: false
+    subColorTemplateButton: false
+    subDolphinMeshButton: false
+    subSphereMeshButton: false
+    subTorusMeshButton: false
+    subTriangleMeshButton: false
+  ScriptTypesHidden:
+    {}
+  DefaultScriptInputs:
+    - buttons: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      colorPalette:
+        []
+      colorPalettePaint: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      exitButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      colorButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      removeButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      snappingButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      addMeshButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      subColorTemplateButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      subTriangleMeshButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      subSphereMeshButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      subBoxMeshButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      subTorusMeshButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      subDolphinMeshButton: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  SetupScript:
+    code: ""
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
