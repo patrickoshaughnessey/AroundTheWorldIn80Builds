@@ -25,7 +25,7 @@ export class SpiritAnimalSpeechInput extends BaseScriptComponent {
             return;
         }
         this.voiceMLModule.onListeningEnabled.add(() => {
-            print("SpiritAnimalSpeechInput: VoiceML system service is enabled.");
+            // print("SpiritAnimalSpeechInput: VoiceML system service is enabled.");
         });
     }
 
