@@ -40,6 +40,7 @@ export class ApplicationModel extends BaseScriptComponent {
     public realtimeDataService: RealtimeDataService;
 
     myAnimal: NetworkRootInfo = null;
+    myData: UserSpiritAnimalData;
 
     get myAnimalController(): SpiritAnimalController {
         return this.myAnimal?.instantiatedObject?.getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController;
@@ -131,6 +132,7 @@ export class ApplicationModel extends BaseScriptComponent {
         answers[question] = answer;
         this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(answers));
         print(`Saved answer for: ${question}`);
+        print(`After save: ${this.getSavedQuizAnswers()}`);
 
         // Also save to realtime store
         if (this.realtimeDataService) {
@@ -159,6 +161,7 @@ export class ApplicationModel extends BaseScriptComponent {
         data["secondaryPersonalityColor"] = secondaryColor;
         this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(data));
         print(`Saved Personality Colors: Primary=${primaryColor}, Secondary=${secondaryColor}`);
+        print(`After save: ${this.getPrimaryPersonalityColor()}, ${this.getSecondaryPersonalityColor()}`);
 
         // Also save to realtime store
         if (this.realtimeDataService) {
@@ -190,6 +193,7 @@ export class ApplicationModel extends BaseScriptComponent {
         data["UserGoal"] = goal;
         this.persistentStorage.store.putString("quizAnswersObject", JSON.stringify(data));
         print(`Saved User Goal: ${goal}`);
+        print(`After save: ${this.getUserGoal()}`);
 
         // Also save to realtime store
         if (this.realtimeDataService) {

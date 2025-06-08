@@ -20,7 +20,7 @@ export class RealtimeDataService extends BaseScriptComponent {
     private localUserId: string = "";
 
     // A map to hold all users' data locally for easy access
-    private allUsersData: Map<string, UserSpiritAnimalData> = new Map();
+    private allUsersData: Map<string, UserSpiritAnimalData> = new Map<string, UserSpiritAnimalData>();
     
     // Callbacks for subscribers
     public onDataUpdated: ((allData: Map<string, UserSpiritAnimalData>) => void) | null = null;
@@ -145,8 +145,8 @@ export class RealtimeDataService extends BaseScriptComponent {
             if (dataString && dataString.length > 0) {
                 const data: UserSpiritAnimalData = JSON.parse(dataString);
                 this.allUsersData.set(userId, data);
-                print(`RealtimeDataService: Received update for user ${userId}.`);
-                
+                print(`RealtimeDataService: Received update for user ${userId}. ${JSON.stringify(data)}`);
+                print(`RealtimeDataService: All user data now: ${JSON.stringify(this.allUsersData)}`);
                 // Notify subscribers
                 if (this.onDataUpdated) {
                     this.onDataUpdated(this.allUsersData);
@@ -187,5 +187,19 @@ export class RealtimeDataService extends BaseScriptComponent {
 
     public getAllUsersData(): Map<string, UserSpiritAnimalData> {
         return this.allUsersData;
+    }
+
+    public getDataForUser(userId: string): UserSpiritAnimalData | null {
+        let data = this.allUsersData.get(userId);
+        if (data) {
+            print(`RealtimeDataService: found data for user ${userId}`);
+            return data;
+        }
+        if (!data && this.realtimeStore) {
+            data = JSON.parse(this.realtimeStore.getString(userId));
+            print(`RealtimeDataService: data not in memory, got from store: ${JSON.stringify(data)}`);
+            return data;
+        }
+        return null;
     }
 } 
