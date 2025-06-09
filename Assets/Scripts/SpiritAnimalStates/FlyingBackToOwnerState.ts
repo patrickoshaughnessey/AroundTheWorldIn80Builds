@@ -1,36 +1,24 @@
 import { BaseSpiritAnimalState } from "./BaseSpiritAnimalState"
 import { IdleState } from "./IdleState"
 
+declare global {
+    var DoDelay: any;
+}
+
 @component
 export class FlyingBackToOwnerState extends BaseSpiritAnimalState {
 
-    public static readonly STATE_NAME = "FlyingBackToOwner"
-
-    onAwake(): void {
-        super.onAwake()
-        // this.delayedEvent = LensConfig.getInstance().updateDispatcher.createDelayedEvent()
-        // this.delayedEvent.bind(() => {
-        //     print("Spirit animal has arrived back at owner")
-        //     this.sendSignal("ARRIVED_AT_OWNER")
-        // })
-    }
+    public static readonly STATE_NAME = "SAFlyingBackToOwner"
 
     public getStateName(): string {
         return FlyingBackToOwnerState.STATE_NAME
-    }
-
-    protected initializeState(): void {
-        // Initialize any UI elements specific to this state
-        print("FlyingBackToOwnerState: initializeState")
     }
 
     protected getTransitions(): any[] {
         return [
             {
                 nextStateName: IdleState.STATE_NAME,
-                checkOnSignal: (signal: string) => {
-                    return signal === "ARRIVED_AT_OWNER"
-                },
+                checkOnSignal: (signal: string) => signal === "ARRIVED_AT_OWNER",
                 onExecution: () => {
                     print("Transitioning from FlyingBackToOwner to Idle")
                 }
@@ -41,6 +29,17 @@ export class FlyingBackToOwnerState extends BaseSpiritAnimalState {
     protected onEnterState(): void {
         super.onEnterState()
         print("Spirit animal is now flying back to owner")
+
+        // Disable manipulation while flying
+        if (this.controller.manipulatable) {
+            this.controller.manipulatable.enabled = false;
+        }
+
+        // Simulate flight time with a delay
+        new DoDelay(() => {
+            print("Spirit animal has arrived back at owner");
+            this.sendSignal("ARRIVED_AT_OWNER");
+        }).byTime(3); // 3-second flight
     }
 
     protected onExitState(): void {

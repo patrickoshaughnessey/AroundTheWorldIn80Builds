@@ -1,0 +1,70 @@
+- !<AssetImportMetadata/61c56056-b377-4a64-968e-856a4b97a799>
+  ImportedAssetIds:
+    JavaScriptAsset: !<reference> 34933dba-9f12-471e-8989-21b4488eaf0f
+  ImporterName: JavaScriptAssetImporter
+  PrimaryAsset: !<reference> 34933dba-9f12-471e-8989-21b4488eaf0f
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    AssetLibraryId: 4YPSGjIyUplv0LDtvMRGIx
+  AssetDataMap:
+    JavaScriptAsset: !<own> b1bd3db5-84e4-49cd-bac7-d44ba25b794d
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<ScriptAssetData/b1bd3db5-84e4-49cd-bac7-d44ba25b794d>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 4f804d2c-ee43-409d-96df-4060ac53b591
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    advanced: false
+    appearDelay: false
+    appearDuration: false
+    camera: false
+    disableHiding: false
+    disappearDuration: false
+    hideIfCapture: false
+    hideOnCamSwitch: false
+    hintType: false
+    image: false
+    mesh: false
+    repeatCount: false
+    screenDuration: false
+    showOnce: false
+    text: false
+    tweenPrintDebugLog: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - hintType: image
+      text: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      image: !<reference.Image> 00000000-0000-0000-0000-000000000000
+      mesh: !<reference.RenderMeshVisual> 00000000-0000-0000-0000-000000000000
+      camera: 0
+      appearDelay: !<float> 0.000000
+      appearDuration: 0.800000
+      screenDuration: !<float> 2.000000
+      disappearDuration: 0.800000
+      repeatCount: 3
+      advanced: false
+      tweenPrintDebugLog: false
+      disableHiding: false
+      showOnce: false
+      hideIfCapture: true
+      hideOnCamSwitch: true
+  ScriptTypes:
+    -
+      {}

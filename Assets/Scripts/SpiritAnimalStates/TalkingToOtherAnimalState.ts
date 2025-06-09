@@ -3,7 +3,6 @@ import { FlyingBackToOwnerState } from "./FlyingBackToOwnerState"
 import { IdleState } from "./IdleState"
 import { ApplicationModel } from "../ApplicationModel"
 import { RealtimeDataService, UserSpiritAnimalData } from "../RealtimeDataService"
-import { SpiritAnimalTTS } from "../SpiritAnimalTTS"
 
 @component
 export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
@@ -13,10 +12,6 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
     // Track whether this animal initiated the interaction or received it
     private initiatedInteraction: boolean = false
     private isAnalyzing: boolean = false // Prevent multiple analyses
-
-    onAwake(): void {
-        super.onAwake()
-    }
 
     public getStateName(): string {
         return TalkingToOtherAnimalState.STATE_NAME
@@ -60,7 +55,7 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
         const interactionData = ApplicationModel.instance.currentInteractionData
         if (!interactionData) {
             print("TalkingToOtherAnimalState: ERROR - No interaction data found. Aborting and returning to owner.")
-            this.spiritAnimalController.spiritAnimalStateMachine.sendSignal("DONE_TALKING")
+            this.controller.spiritAnimalStateMachine.sendSignal("DONE_TALKING")
             return
         }
 
@@ -78,7 +73,7 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
             if (!initiatorData || !receiverData) {
                 print("TalkingToOtherAnimalState: ERROR - Could not retrieve data for one or both users.")
                 this.isAnalyzing = false
-                this.spiritAnimalController.spiritAnimalStateMachine.sendSignal("DONE_TALKING")
+                this.controller.spiritAnimalStateMachine.sendSignal("DONE_TALKING")
                 return
             }
 
@@ -104,8 +99,8 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
                 this.isAnalyzing = false
                 // Wait a moment after speaking before flying back
                 new DoDelay(() => {
-                    if (this.spiritAnimalController) {
-                        this.spiritAnimalController.spiritAnimalStateMachine.sendSignal("DONE_TALKING")
+                    if (this.controller) {
+                        this.controller.spiritAnimalStateMachine.sendSignal("DONE_TALKING")
                     }
                 }).byTime(5.0) // 5 second delay to allow for speech
             }
@@ -113,8 +108,8 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
             // If we are the receiver, we just wait a bit and then go home.
             // A more advanced implementation could have us listen for the result to be spoken.
             new DoDelay(() => {
-                if (this.spiritAnimalController) {
-                    this.spiritAnimalController.spiritAnimalStateMachine.sendSignal("FLY_BACK_HOME") // A different signal for receivers
+                if (this.controller) {
+                    this.controller.spiritAnimalStateMachine.sendSignal("FLY_BACK_HOME") // A different signal for receivers
                 }
             }).byTime(10.0) // Wait for 10 seconds
         }

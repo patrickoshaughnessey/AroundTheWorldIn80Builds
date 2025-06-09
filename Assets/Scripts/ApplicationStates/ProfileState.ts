@@ -4,6 +4,7 @@ import { PinchButton } from "SpectaclesInteractionKit.lspkg/Components/UI/PinchB
 import { PersonalityQuizState } from "./PersonalityQuizState"
 import { GoalDefinitionState } from "./GoalDefinitionState"
 import { MenuState } from "./MenuState"
+import {ContainerFrame} from "SpectaclesInteractionKit.lspkg/Components/UI/ContainerFrame/ContainerFrame";
 
 @component
 export class ProfileState extends BaseState {
@@ -17,7 +18,7 @@ export class ProfileState extends BaseState {
     defineGoalsButton: PinchButton
 
     @input()
-    menuButton: PinchButton
+    containerFrame: ContainerFrame
 
     protected getStateName(): string {
         return ProfileState.STATE_NAME
@@ -42,13 +43,11 @@ export class ProfileState extends BaseState {
             }
         }
 
-        if (this.menuButton) {
-            if (this.menuButton.onButtonPinched) {
-                this.menuButton.onButtonPinched.add(() => {
-                    print("Menu button pinched - returning to menu")
-                    this.sendSignal("GO_TO_MENU")
-                })
-            }
+        if (this.containerFrame && this.containerFrame.closeButton) {
+            this.containerFrame.closeButton.onTrigger.add(() => {
+                print("Close button pressed - returning to menu")
+                this.sendSignal("GO_TO_MENU")
+            });
         }
     }
 

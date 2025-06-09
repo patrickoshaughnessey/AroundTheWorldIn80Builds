@@ -12,8 +12,6 @@ import {SessionController} from "../SpectaclesSyncKit.lspkg/Core/SessionControll
 import {ApplicationModel, InteractionData} from "./ApplicationModel";
 import {RealtimeDataService} from "./RealtimeDataService";
 import { BaseSpiritAnimalState } from "./SpiritAnimalStates/BaseSpiritAnimalState";
-import { TalkingToOtherAnimalState } from "./SpiritAnimalStates/TalkingToOtherAnimalState";
-import { FlyingBackToOwnerState } from "./SpiritAnimalStates/FlyingBackToOwnerState";
 
 // Define the event data type
 interface SpiritAnimalEventData {
@@ -180,8 +178,8 @@ export class SpiritAnimalController extends BaseScriptComponent {
         }
 
         for (const state of states) {
-            state.spiritAnimalController = this; // Assign the controller reference
-            this.spiritAnimalStateMachine.addState(state);
+            state.controller = this; // Assign the controller reference
+            this.spiritAnimalStateMachine.addState(state.getConfig());
             print(`SpiritAnimalController: Added state ${state.getStateName()} to state machine.`);
         }
     }

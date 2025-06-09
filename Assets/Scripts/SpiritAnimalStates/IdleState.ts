@@ -6,26 +6,15 @@ export class IdleState extends BaseSpiritAnimalState {
 
     public static readonly STATE_NAME = "SAIdle"
 
-    onAwake(): void {
-        super.onAwake()
-    }
-
     public getStateName(): string {
         return IdleState.STATE_NAME
-    }
-
-    protected initializeState(): void {
-        // Initialize any UI elements specific to this state
-        print("IdleState: initializeUI")
     }
 
     protected getTransitions(): any[] {
         return [
             {
                 nextStateName: FlyingToMeetingLocation.STATE_NAME,
-                checkOnSignal: (signal: string) => {
-                    return signal === "FLY_TO_MEETING_LOCATION"
-                },
+                checkOnSignal: (signal: string) => signal === "FLY_TO_MEETING_LOCATION",
                 onExecution: () => {
                     print("Transitioning from Idle to FlyingToMeetingLocation")
                 }

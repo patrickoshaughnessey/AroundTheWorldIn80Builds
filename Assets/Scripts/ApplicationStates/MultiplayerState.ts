@@ -3,6 +3,7 @@ import { ApplicationModel } from "../ApplicationModel"
 import { PinchButton } from "SpectaclesInteractionKit.lspkg/Components/UI/PinchButton/PinchButton"
 import {SessionController} from "SpectaclesSyncKit.lspkg/Core/SessionController";
 import { MenuState } from "./MenuState";
+import {ContainerFrame} from "SpectaclesInteractionKit.lspkg/Components/UI/ContainerFrame/ContainerFrame";
 
 @component
 export class MultiplayerState extends BaseState {
@@ -10,20 +11,20 @@ export class MultiplayerState extends BaseState {
     public static readonly STATE_NAME = "Multiplayer"
 
     @input()
-    menuButton: PinchButton
+    containerFrame: ContainerFrame
 
     protected getStateName(): string {
         return MultiplayerState.STATE_NAME
     }
 
     protected initializeUI(): void {
-        if (this.menuButton) {
-            if (this.menuButton.onButtonPinched) {
-                this.menuButton.onButtonPinched.add(() => {
-                    print("Menu button pinched - returning to menu")
-                    this.sendSignal("GO_TO_MENU")
-                })
-            }
+        if (this.containerFrame && this.containerFrame.closeButton) {
+            this.containerFrame.closeButton.onTrigger.add(() => {
+                print("Menu button pinched - returning to menu")
+                this.sendSignal("GO_TO_MENU")
+            })
+        } else {
+            print("MultiplayerState: WARN - Container Frame or Close Button not assigned.")
         }
     }
 

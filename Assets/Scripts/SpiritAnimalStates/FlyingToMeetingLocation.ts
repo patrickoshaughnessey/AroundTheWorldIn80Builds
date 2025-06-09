@@ -11,10 +11,6 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
 
     private GAP = 2.0;
 
-    onAwake(): void {
-        super.onAwake()
-    }
-
     public getStateName(): string {
         return FlyingToMeetingLocation.STATE_NAME
     }
@@ -28,9 +24,7 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
         return [
             {
                 nextStateName: TalkingToOtherAnimalState.STATE_NAME,
-                checkOnSignal: (signal: string) => {
-                    return signal === "ARRIVED_AT_MEETING_LOCATION"
-                },
+                checkOnSignal: (signal: string) => signal === "ARRIVED_AT_MEETING_LOCATION",
                 onExecution: () => {
                     print(`Animal (${this.controller?.syncEntity?.networkId}): Transitioning from FlyingToMeetingLocation to TalkingToOtherAnimal`)
                 }
