@@ -28,8 +28,8 @@
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
+    containerFrame: false
     defineGoalsButton: false
-    menuButton: false
     personalityQuizButton: false
     rootObject: false
   ScriptTypesHidden:
@@ -40,7 +40,7 @@
     - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       personalityQuizButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
       defineGoalsButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
-      menuButton: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      containerFrame: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
@@ -48,4 +48,4 @@
     - // @input SceneObject rootObject
     - // @input AssignableType personalityQuizButton
     - // @input AssignableType_1 defineGoalsButton
-    - // @input AssignableType_2 menuButton
+    - // @input AssignableType_2 containerFrame

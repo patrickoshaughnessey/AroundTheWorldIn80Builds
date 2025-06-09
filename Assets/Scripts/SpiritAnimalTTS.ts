@@ -159,16 +159,18 @@ export class SpiritAnimalTTS extends BaseScriptComponent {
         while (currentPosition < numSamples) {
             try {
                 const chunkSize = Math.min(frameSize, numSamples - currentPosition);
+                const chunk = float32Data.subarray(currentPosition, currentPosition + chunkSize);
                 // Create a shape for the current chunk. enqueueAudioFrame expects vec3 for shape.
                 const shape = new vec3(chunkSize, 1, 1); 
                 
-                audioOutput.enqueueAudioFrame(float32Data.subarray(currentPosition, currentPosition + chunkSize), shape);
+                audioOutput.enqueueAudioFrame(chunk, shape);
                 currentPosition += chunkSize;
             } catch (e: any) {
                 if (this.debugTextOutput) this.debugTextOutput.text = "TTS ERROR: Enqueue Fail";
                 throw new Error("SpiritAnimalTTS: Failed to enqueue audio frame - " + e.message + " at position " + currentPosition);
             }
         }
+        
         print("SpiritAnimalTTS: All PCM data enqueued.");
         if (this.debugTextOutput) this.debugTextOutput.text = "TTS: PCM Processed";
         return outputAudioTrack;

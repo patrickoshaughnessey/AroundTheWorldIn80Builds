@@ -1,0 +1,78 @@
+- !<AssetImportMetadata/2733c733-99d7-c37d-897f-835072fa7fa4>
+  ImportedAssetIds:
+    JavaScriptAsset: !<reference> 17546647-aecf-4b5a-a49d-c1b02d83befd
+  ImporterName: JavaScriptAssetImporter
+  PrimaryAsset: !<reference> 17546647-aecf-4b5a-a49d-c1b02d83befd
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  AssetDataMap:
+    JavaScriptAsset: !<own> 6784d64e-87f9-4f61-ba47-4487ae6d5f9d
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+  ExtraData:
+    {}
+- !<ScriptAssetData/6784d64e-87f9-4f61-ba47-4487ae6d5f9d>
+  SvgIcon: |
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_31_25)">
+    <rect x="8" y="8" width="16" height="16" rx="4" stroke="#3EA9F1" stroke-width="2"/>
+    <path d="M27 16L31.5 13.4019L31.5 18.5981L27 16Z" fill="#D9D9D9"/>
+    <path d="M5 16L0.499999 18.5981L0.5 13.4019L5 16Z" fill="#D9D9D9"/>
+    <path d="M16 27L18.5981 31.5H13.4019L16 27Z" fill="#D9D9D9"/>
+    <path d="M16 5L13.4019 0.5L18.5981 0.5L16 5Z" fill="#D9D9D9"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_31_25">
+    <rect width="32" height="32" fill="white"/>
+    </clipPath>
+    </defs>
+    </svg>
+
+  Description: |-
+    Layout Element a single layout element that can be arranged using Vertical or Horizontal Layout custom components (Containers)
+    
+    Requested Size - a desired size of this layout elements in world units
+    
+    Minimum Size - minimum size this element can shrink to 
+    
+    Maximum Size - maximum size this element can expand to
+    
+    Grow Weight -  specifies how much of the remaining space in the layout container should be assigned to the item
+    
+    Shrink Weight -  specifies how much layout element shrinks if the size of all flex items is larger than the container
+    
+    Margins -  specifies a spacing around each layout element in world units
+  InternalVersion: 3
+  VersionMajor: 3
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 0005e81d-f222-b461-0000-0000000e4240
+  ExportUid: c90d75d0-8a34-4afc-8d3d-3fcfb431618b
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    growWeight: false
+    marginsVec: false
+    maximumSize: false
+    minimumSize: false
+    requestedSize: false
+    shrinkWeight: false
+  ScriptTypesHidden:
+    {}
+  DefaultScriptInputs:
+    - requestedSize: !<Vec2> {x: 0.000000, y: 0.000000}
+      minimumSize: !<Vec2> {x: 0.000000, y: 0.000000}
+      maximumSize: !<Vec2> {x: 0.000000, y: 0.000000}
+      growWeight: !<float> 1.000000
+      shrinkWeight: !<float> 1.000000
+      marginsVec: !<Vec4> {x: 0.000000, y: 0.000000, z: 0.000000, w: 0.000000}
+  ScriptTypes:
+    -
+      {}
+  SetupScript:
+    code: ""
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000

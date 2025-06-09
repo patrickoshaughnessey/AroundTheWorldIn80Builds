@@ -52,6 +52,7 @@ export class ApplicationModel extends BaseScriptComponent {
 
     lastClickedAnimal: NetworkRootInfo = null;
     currentInteractionData: InteractionData;
+    compatibilityAnalysisResult: string | null = null;
 
     // Singleton getter
     static get instance(): ApplicationModel {

@@ -80,7 +80,7 @@ export class OpenAIChatService extends BaseScriptComponent {
                     print('OpenAIChatService: OpenAI Response: ' + aiResponseText);
 
                     if (this.textToSpeechService && aiResponseText) {
-                        this.textToSpeechService.generateAndPlaySpeech(aiResponseText);
+                        // this.textToSpeechService.generateAndPlaySpeech(aiResponseText);
                     } else if (!this.textToSpeechService) {
                         print("OpenAIChatService: WARN - TextToSpeechService not available to play response.");
                     }

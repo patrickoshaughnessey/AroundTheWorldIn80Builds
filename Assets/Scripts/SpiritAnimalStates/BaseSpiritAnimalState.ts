@@ -61,6 +61,9 @@ export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
         if (this.controller.stateDebugText) {
             this.controller.stateDebugText.text = this.stateName
         }
+        if (this.controller.speechBubble) {
+            this.controller.speechBubble.enabled = false;
+        }
     }
     
     protected onExitState() {

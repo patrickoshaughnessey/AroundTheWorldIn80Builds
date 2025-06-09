@@ -24,6 +24,9 @@ export class SpiritAnimalController extends BaseScriptComponent {
     manipulatable: InteractableManipulation
 
     @input()
+    speechBubble: SceneObject
+
+    @input()
     interactable: Interactable
 
     @input()
@@ -108,7 +111,7 @@ export class SpiritAnimalController extends BaseScriptComponent {
             (myAnimalPosition.z + clickedAnimalPosition.z) / 2
         );
 
-        print(`Meeting location calculated: ${meetingPoint.toString()}`);
+        // print(`Meeting location calculated: ${meetingPoint.toString()}`);
 
         const interactionData: InteractionData = {
             initiatorID: ApplicationModel.instance.myAnimal.getOwnerId(),
@@ -118,11 +121,11 @@ export class SpiritAnimalController extends BaseScriptComponent {
             meetingLocation: meetingPoint
         }
 
-        print("Sending Interaction Data: " + JSON.stringify(interactionData));
-        print("Animal (" + interactionData.initiatorAnimalNetworkId + ") with owner (" + interactionData.initiatorID +
-            "): Initiating request to interact with: " + interactionData.receiverAnimalNetworkId + ", with owner (" + interactionData.receiverID + ")")
+        // print("Sending Interaction Data: " + JSON.stringify(interactionData));
+        // print("Animal (" + interactionData.initiatorAnimalNetworkId + ") with owner (" + interactionData.initiatorID +
+        //     "): Initiating request to interact with: " + interactionData.receiverAnimalNetworkId + ", with owner (" + interactionData.receiverID + ")")
 
-        print("SpiritAnimalController: Info we have on clicked animal ( " + interactionData.receiverID + "): \n" + JSON.stringify(RealtimeDataService.instance.getDataForUser(interactionData.receiverID)))
+        // print("SpiritAnimalController: Info we have on clicked animal ( " + interactionData.receiverID + "): \n" + JSON.stringify(RealtimeDataService.instance.getDataForUser(interactionData.receiverID)))
         this.syncEntity.sendEvent("interactionInitiated", interactionData)
 
         ApplicationModel.instance.currentInteractionData = interactionData;

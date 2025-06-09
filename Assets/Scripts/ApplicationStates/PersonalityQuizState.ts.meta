@@ -29,10 +29,10 @@
   MaxVisibility: Editable
   ScriptInputsHidden:
     answerTextDisplay: false
+    containerFrame: false
     questionTextDisplay: false
+    restartAnswerButton: false
     rootObject: false
-    startRecordButton: false
-    stopRecordButton: false
     submitAnswerButton: false
   ScriptTypesHidden:
     {}
@@ -41,17 +41,17 @@
   DefaultScriptInputs:
     - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       submitAnswerButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
-      startRecordButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
-      stopRecordButton: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      restartAnswerButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
       questionTextDisplay: !<reference.Text> 00000000-0000-0000-0000-000000000000
       answerTextDisplay: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      containerFrame: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input SceneObject rootObject
     - // @input AssignableType submitAnswerButton
-    - // @input AssignableType_1 startRecordButton
-    - // @input AssignableType_2 stopRecordButton
+    - // @input AssignableType_1 restartAnswerButton
     - // @input Component.Text questionTextDisplay
     - // @input Component.Text answerTextDisplay
+    - // @input AssignableType_2 containerFrame

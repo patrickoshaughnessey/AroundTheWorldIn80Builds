@@ -11,11 +11,7 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
 
     private GAP = 2.0;
 
-    onAwake(): void {
-        super.onAwake()
-    }
-
-    protected getStateName(): string {
+    public getStateName(): string {
         return FlyingToMeetingLocation.STATE_NAME
     }
 
@@ -70,13 +66,17 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
     protected onUpdateState(): void {
         super.onUpdateState();
         const interactionData = ApplicationModel.instance.currentInteractionData;
+        print(`interactionData: ${interactionData}`)
         if (interactionData != null) {
+            print(`interactionData not null`)
             if (!this.controller || !this.controller.manipulatable) {
+                print(`controller null or this.controller.manipulatable null`)
                 return;
             }
 
             // Only move the animal if we own it
             if (!this.isMyAnimal()) {
+                print(`not my animal`)
                 return; // This animal doesn't belong to us, don't move it
             }
 
@@ -114,8 +114,9 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
             const newPosition = currentPosition.add(normalizedDirection.uniformScale(moveDistance));
     
             // Apply movement to manipulatable transform
+            print(`Animal (${this.controller.syncEntity.networkId}): newPosition: ${newPosition}, moveDistance: ${moveDistance}`);
             manipulatableTransform.setWorldPosition(newPosition);
-    
+
             // Calculate and apply rotation to face movement direction (Y-axis only)
             if (direction.length > 0.01) { // Only rotate if we're actually moving
                 // Create Y-axis only rotation (billboard style) for movement

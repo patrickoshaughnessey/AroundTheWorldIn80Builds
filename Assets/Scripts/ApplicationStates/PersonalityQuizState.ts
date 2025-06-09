@@ -3,6 +3,12 @@ import { ApplicationModel } from "../ApplicationModel"
 import { PinchButton } from "SpectaclesInteractionKit.lspkg/Components/UI/PinchButton/PinchButton"
 import { SpiritAnimalRevealState } from "./SpiritAnimalRevealState"
 import { SpiritAnimalSpeechInput } from "../SpiritAnimalSpeechInput"
+import {ContainerFrame} from "SpectaclesInteractionKit.lspkg/Components/UI/ContainerFrame/ContainerFrame";
+import {MenuState} from "./MenuState";
+
+declare global {
+    var DoDelay: any;
+}
 
 @component
 export class PersonalityQuizState extends BaseState {
@@ -13,17 +19,17 @@ export class PersonalityQuizState extends BaseState {
     submitAnswerButton: PinchButton
 
     @input()
-    startRecordButton: PinchButton
-
-    @input()
-    stopRecordButton: PinchButton
+    restartAnswerButton: PinchButton
 
     @input()
     questionTextDisplay: Text
 
     @input()
     answerTextDisplay: Text
-    
+
+    @input()
+    containerFrame: ContainerFrame
+
     private speechInputService: SpiritAnimalSpeechInput 
 
     private readonly questions: string[] = [
@@ -40,7 +46,8 @@ export class PersonalityQuizState extends BaseState {
     ];
 
     private currentQuestionIndex: number = 0;
-    private currentAnswerText: string = "";
+    private savedAnswerText: string = "";
+    private latestTranscription: string = "";
     private isListeningForAnswer: boolean = false;
     private isAnalyzingAnswers: boolean = false;
 
@@ -61,17 +68,14 @@ export class PersonalityQuizState extends BaseState {
             print("PersonalityQuizState: WARN - Submit Answer Button not assigned or has no onButtonPinched event.");
         }
 
-        if (this.startRecordButton && this.startRecordButton.onButtonPinched) {
-            this.startRecordButton.onButtonPinched.add(this.startSpeechRecognition);
+        if (this.restartAnswerButton && this.restartAnswerButton.onButtonPinched) {
+            this.restartAnswerButton.onButtonPinched.add(this.restartAnswer);
         } else {
-            print("PersonalityQuizState: WARN - Start Record Button not assigned or has no onButtonPinched event.");
+            print("PersonalityQuizState: WARN - Restart Answer Button not assigned or has no onButtonPinched event.");
         }
-
-        if (this.stopRecordButton && this.stopRecordButton.onButtonPinched) {
-            this.stopRecordButton.onButtonPinched.add(this.stopSpeechRecognition);
-        } else {
-            print("PersonalityQuizState: WARN - Stop Record Button not assigned or has no onButtonPinched event.");
-        }
+        this.containerFrame.closeButton.onTrigger.add(() => {
+            this.sendSignal("CANCEL_QUIZ");
+        });
     }
 
     private displayCurrentQuestion(): void {
@@ -84,9 +88,13 @@ export class PersonalityQuizState extends BaseState {
                 print("PersonalityQuizState: WARN - questionTextDisplay not assigned.");
             }
             if (this.answerTextDisplay) {
-                this.answerTextDisplay.text = "Tap Start Record to answer...";
+                this.answerTextDisplay.text = "Listening...";
             }
-            this.currentAnswerText = "";
+            this.savedAnswerText = "";
+            this.latestTranscription = "";
+
+            // Automatically start voice recording for each question
+            this.startSpeechRecognition();
         }
     }
 
@@ -97,14 +105,16 @@ export class PersonalityQuizState extends BaseState {
             return;
         }
         if (this.isListeningForAnswer) {
-            print("PersonalityQuizState: Already listening. Press Stop Record first if you want to restart.");
+            print("PersonalityQuizState: Already listening.");
             return;
         }
 
         print("PersonalityQuizState: Starting speech recognition.");
-        if (this.answerTextDisplay) this.answerTextDisplay.text = "Listening...";
-        
-        this.currentAnswerText = "";
+        if (this.answerTextDisplay && this.savedAnswerText === "") {
+            this.answerTextDisplay.text = "Listening...";
+        }
+
+        // Remove resetting currentAnswerText to allow appending
         this.speechInputService.onTranscriptionReady = this.handleTranscription;
         this.speechInputService.startListening();
         this.isListeningForAnswer = true;
@@ -115,48 +125,81 @@ export class PersonalityQuizState extends BaseState {
             print("PersonalityQuizState: ERROR - SpeechInputService is not available for stop.");
             return;
         }
-
         if (this.isListeningForAnswer) {
             print("PersonalityQuizState: Manually stopping speech recognition.");
             this.speechInputService.stopListening();
             this.isListeningForAnswer = false;
-            if (this.answerTextDisplay && this.currentAnswerText === "") {
-                this.answerTextDisplay.text = "Stopped. Tap Start Record to try again.";
-            }
         } else {
             print("PersonalityQuizState: Not currently listening, stop command ignored.");
         }
     }
 
-    private handleTranscription = (transcription: string) => {
-        print(`PersonalityQuizState: Transcription received: "${transcription}"`);
-        this.currentAnswerText = transcription;
+    private restartAnswer = () => {
+        print("PersonalityQuizState: Restarting answer recording.");
+
+        // Stop any ongoing recognition first
+        this.stopSpeechRecognition();
+
+        // Reset current answer text
+        this.savedAnswerText = "";
+        this.latestTranscription = "";
+
+        // Update display
         if (this.answerTextDisplay) {
-            this.answerTextDisplay.text = transcription;
-        } else {
-            print("PersonalityQuizState: WARN - answerTextDisplay not assigned.");
+            this.answerTextDisplay.text = "Listening...";
         }
-        this.isListeningForAnswer = false;
-        print("PersonalityQuizState: Transcription handled. isListeningForAnswer is now false.");
+
+        // Restart voice recognition after a short delay to ensure clean start
+        new DoDelay(this.startSpeechRecognition).byFrame(1);
+    }
+
+    private handleTranscription = (transcription: string, isFinal: boolean) => {
+        print(`PersonalityQuizState: Transcription received: "${transcription}", isFinal: ${isFinal}`);
+        this.latestTranscription = transcription;
+
+        if (isFinal) {
+            this.savedAnswerText += (this.savedAnswerText ? " " : "") + this.latestTranscription;
+            this.latestTranscription = "";
+        }
+
+        if (this.answerTextDisplay) {
+            let textToShow = this.savedAnswerText;
+            if (this.latestTranscription) {
+                textToShow += (textToShow ? " " : "") + this.latestTranscription;
+            }
+            this.answerTextDisplay.text = textToShow + " 🎤";
+        }
     }
     
     private submitCurrentAnswer = async () => {
+        // Stop listening first
+        this.stopSpeechRecognition();
+
         if (this.currentQuestionIndex < this.questions.length) {
             const question = this.questions[this.currentQuestionIndex];
-            if (this.currentAnswerText.trim() === "") {
+            
+            let finalAnswer = this.savedAnswerText;
+            if (this.latestTranscription) {
+                finalAnswer += (finalAnswer ? " " : "") + this.latestTranscription;
+            }
+            finalAnswer = finalAnswer.trim();
+
+            if (finalAnswer.trim() === "") {
                 print("PersonalityQuizState: WARN - Answer is empty. Please record an answer before submitting.");
                 if (this.answerTextDisplay) this.answerTextDisplay.text = "Please record an answer first!";
                 return;
             }
-            print(`Submitting answer for question "${question}": "${this.currentAnswerText}".`);
+            print(`Submitting answer for question "${question}": "${finalAnswer}".`);
 
             if (!ApplicationModel.instance) {
                 print("PersonalityQuizState: ERROR - ApplicationModel instance not found. Cannot save answer.");
                 return;
             }
-            ApplicationModel.instance.saveQuizAnswer(question, this.currentAnswerText);
+            ApplicationModel.instance.saveQuizAnswer(question, finalAnswer);
 
             this.currentQuestionIndex++;
+            this.savedAnswerText = "";
+            this.latestTranscription = "";
             if (this.currentQuestionIndex < this.questions.length) {
                 this.displayCurrentQuestion();
             } else {
@@ -247,7 +290,7 @@ export class PersonalityQuizState extends BaseState {
     }
 
     private setButtonsInteractive(interactive: boolean): void {
-        const buttons = [this.submitAnswerButton, this.startRecordButton, this.stopRecordButton];
+        const buttons = [this.submitAnswerButton, this.restartAnswerButton];
         for (const button of buttons) {
             if (button && button.getSceneObject()) {
                 button.getSceneObject().enabled = interactive;
@@ -265,6 +308,15 @@ export class PersonalityQuizState extends BaseState {
                 onExecution: () => {
                     print("Transitioning from PersonalityQuiz to SpiritAnimalReveal");
                 }
+            },
+            {
+                nextStateName: MenuState.STATE_NAME,
+                checkOnSignal: (signal: string) => {
+                    return signal === "CANCEL_QUIZ";
+                },
+                onExecution: () => {
+                    print("Transitioning from PersonalityQuiz to SpiritAnimalReveal");
+                }
             }
         ];
     }
@@ -273,7 +325,8 @@ export class PersonalityQuizState extends BaseState {
         super.onEnterState();
         print("PersonalityQuizState: Entering state.");
         this.currentQuestionIndex = 0;
-        this.currentAnswerText = "";
+        this.savedAnswerText = "";
+        this.latestTranscription = "";
         this.isListeningForAnswer = false;
         this.isAnalyzingAnswers = false;
         
