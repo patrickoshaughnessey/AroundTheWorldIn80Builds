@@ -33,9 +33,11 @@ export class PersonalityQuizState extends BaseState {
     private speechInputService: SpiritAnimalSpeechInput 
 
     private readonly questions: string[] = [
-        "What is your primary color?",
-        "What is your secondary color?"
-        // "When you're part of a team project, what role do you naturally take on and how do you make sure things go well?",
+        // "What is your primary color?",
+        // "What is your secondary color?"
+        "When you're part of a team project, what role do you naturally take on?",
+        "Others often say I am…",
+        "When faced with a big decision, I usually…"
         // "Tell me about a time you felt truly proud of something you did. What made that moment meaningful to you?",
         // "What kind of situations or environments drain your energy the fastest and why?",
         // "How do you typically make a big decision? Walk me through your process.",
