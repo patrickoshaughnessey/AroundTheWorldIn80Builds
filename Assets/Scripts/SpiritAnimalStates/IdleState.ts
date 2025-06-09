@@ -6,7 +6,11 @@ export class IdleState extends BaseSpiritAnimalState {
 
     public static readonly STATE_NAME = "SAIdle"
 
-    protected getStateName(): string {
+    onAwake(): void {
+        super.onAwake()
+    }
+
+    public getStateName(): string {
         return IdleState.STATE_NAME
     }
 

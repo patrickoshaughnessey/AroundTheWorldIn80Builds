@@ -4,7 +4,7 @@ import { IdleState } from "./IdleState"
 @component
 export class FlyingBackToOwnerState extends BaseSpiritAnimalState {
 
-    public static readonly STATE_NAME = "SAFlyingBackToOwner"
+    public static readonly STATE_NAME = "FlyingBackToOwner"
 
     onAwake(): void {
         super.onAwake()
@@ -15,7 +15,7 @@ export class FlyingBackToOwnerState extends BaseSpiritAnimalState {
         // })
     }
 
-    protected getStateName(): string {
+    public getStateName(): string {
         return FlyingBackToOwnerState.STATE_NAME
     }
 

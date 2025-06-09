@@ -1,5 +1,6 @@
 import {StateConfig} from "SpectaclesInteractionKit.lspkg/Utils/State"
 import {SpiritAnimalController} from "../SpiritAnimalController"
+import StateMachine from "SpectaclesInteractionKit.lspkg/Utils/StateMachine"
 
 export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
     protected stateName: string
@@ -7,6 +8,10 @@ export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
     protected stateDebugText: Text
 
     protected controller: SpiritAnimalController
+
+    // Reference to the state machine that owns this state
+    protected spiritAnimalStateMachine: StateMachine
+    public spiritAnimalController: SpiritAnimalController
 
     onAwake() {
         this.createEvent("OnStartEvent").bind(() => this.onStart())
@@ -20,7 +25,7 @@ export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
         this.initializeState()
     }
 
-    protected abstract getStateName(): string
+    public abstract getStateName(): string
     protected abstract initializeState(): void
 
     private registerState() {

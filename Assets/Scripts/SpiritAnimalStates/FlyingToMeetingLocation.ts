@@ -15,7 +15,7 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
         super.onAwake()
     }
 
-    protected getStateName(): string {
+    public getStateName(): string {
         return FlyingToMeetingLocation.STATE_NAME
     }
 

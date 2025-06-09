@@ -11,6 +11,9 @@ import {InstantiationOptions} from "SpectaclesSyncKit.lspkg/Components/Instantia
 import {SessionController} from "../SpectaclesSyncKit.lspkg/Core/SessionController";
 import {ApplicationModel, InteractionData} from "./ApplicationModel";
 import {RealtimeDataService} from "./RealtimeDataService";
+import { BaseSpiritAnimalState } from "./SpiritAnimalStates/BaseSpiritAnimalState";
+import { TalkingToOtherAnimalState } from "./SpiritAnimalStates/TalkingToOtherAnimalState";
+import { FlyingBackToOwnerState } from "./SpiritAnimalStates/FlyingBackToOwnerState";
 
 // Define the event data type
 interface SpiritAnimalEventData {
@@ -139,6 +142,8 @@ export class SpiritAnimalController extends BaseScriptComponent {
         this.spiritAnimalStateMachine = new StateMachine("SpiritAnimalBehavior")
         print("Spirit animal state machine initialized")
 
+        this.setupStateMachine();
+
         // Check sync entity is ready before using it
         this.syncEntity.notifyOnReady(() => {
             this.syncEntity.onEventReceived.add("interactionInitiated", (messageInfo) => {
@@ -152,6 +157,33 @@ export class SpiritAnimalController extends BaseScriptComponent {
 
             this.onReady()
         })
+    }
+
+    private setupStateMachine(): void {
+        if (!this.spiritAnimalStateMachine) {
+            print("SpiritAnimalController: ERROR - State machine not initialized before setup.");
+            return;
+        }
+
+        // A more robust way to find states: get all script components and filter them.
+        const allScripts = this.getSceneObject().getComponents("ScriptComponent") as ScriptComponent[];
+        const states: BaseSpiritAnimalState[] = [];
+        for (const script of allScripts) {
+            if (script instanceof BaseSpiritAnimalState) {
+                states.push(script);
+            }
+        }
+
+        if (states.length === 0) {
+            print("SpiritAnimalController: WARN - No state scripts found on this SceneObject!");
+            return;
+        }
+
+        for (const state of states) {
+            state.spiritAnimalController = this; // Assign the controller reference
+            this.spiritAnimalStateMachine.addState(state);
+            print(`SpiritAnimalController: Added state ${state.getStateName()} to state machine.`);
+        }
     }
 
     // Clean up resources when destroyed
@@ -197,15 +229,17 @@ export class SpiritAnimalController extends BaseScriptComponent {
             if (animalNamed === prefab.name) {
                 const options = new InstantiationOptions();
                 options.localScale = new vec3(2, 2, 2);
+                
+                const successCallback = (networkRootInfo: NetworkRootInfo) => {
+                    print("spirit animal model networkRootInfo: " + networkRootInfo);
+                    const newObj = networkRootInfo.instantiatedObject;
+                    print('instantiated spirit animal model: ' + newObj);
+                };
+
                 this.modelInstantiator.instantiate(
                     prefab,
-                    options,
-                    // onSuccess
-                    (networkRootInfo: NetworkRootInfo) => {
-                        print("spirit animal model networkRootInfo: " + networkRootInfo);
-                        const newObj = networkRootInfo.instantiatedObject;
-                        print('instantiated spirit animal model: ' + newObj);
-                    }
+                    options as any,
+                    successCallback as any
                 );
             }
         }

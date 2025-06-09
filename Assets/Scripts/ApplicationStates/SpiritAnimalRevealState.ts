@@ -33,7 +33,7 @@ export class SpiritAnimalRevealState extends BaseState {
             this.continueButton.onButtonPinched.add(() => {
                 print("Continue button pinched - transitioning to Goal Definition or Menu")
                 this.sendSignal("DEFINE_GOALS")
-            })
+                })
         } else {
             print("SpiritAnimalRevealState: WARN - Continue Button not assigned or no pinch event.")
         }
@@ -50,7 +50,7 @@ export class SpiritAnimalRevealState extends BaseState {
                 nextStateName: GoalDefinitionState.STATE_NAME,
                 checkOnSignal: (signal: string) => signal === "DEFINE_GOALS",
                 onExecution: () => print("Transitioning from SpiritAnimalReveal to GoalDefinition"),
-            },
+                },
         ]
     }
 
