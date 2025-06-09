@@ -27,6 +27,7 @@
     hasSegmentScaleCompensation: false
   Children:
     - !<own> 19cb351e-5242-4a15-a754-38570f0a0da1
+    - !<own> dfb5f5dd-3ad6-4c4f-b5af-006b3cf8bc20
     - !<own> 1c8d577f-91a8-4431-9b0a-3d2b83538676
   Components:
     - !<own> 81267bb8-24b1-4005-aa0b-651501e53912
@@ -138,7 +139,7 @@
   PrefabRemaps:
     []
   Name: State Debug
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform:
     position: {x: 0.000000, y: 0.000000, z: 0.000000}
@@ -251,6 +252,25 @@
   ScriptTypes:
     "":
       {}
+- !<Image/7b053689-e8fd-4257-963a-b10b12b41e69>
+  PrefabRemaps:
+    []
+  Name: Image
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Fit
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 6c00a4a5-a5e6-422a-bfdc-7a8899c48484
+  FlipX: false
+  FlipY: false
+  RotationAngle: 0
+  Pivot: {x: 0.000000, y: 0.000000}
+  ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
 - !<ColliderComponent/81267bb8-24b1-4005-aa0b-651501e53912>
   PrefabRemaps:
     []
@@ -338,6 +358,7 @@
   ScriptInputs:
     "":
       manipulatable: !<MappingBased.AssignableType> b072f0a8-f688-4ce8-a294-8fe4a3321648
+      speechBubble: !<reference.SceneObject> dfb5f5dd-3ad6-4c4f-b5af-006b3cf8bc20
       interactable: !<MappingBased.AssignableType_1> ce7180bf-3725-4998-8cf6-59933cbec9cb
       headLock: !<MappingBased.AssignableType_2> 0697f32f-e9c4-4aec-a46f-a4d369e6000a
       stateDebugText: !<reference.Text> c5df3c9c-8e9a-4a43-bde5-d5722e2a0c1d
@@ -361,6 +382,8 @@
       {}
 - !<ObjectPrefabAssetData/97bbb4e0-408a-4274-a8d0-4fd4b1d5d530>
   SourceRemaps:
+    - 09a8a6ae-2287-4aeb-bb0d-c59b4af552fb: dfb5f5dd-3ad6-4c4f-b5af-006b3cf8bc20
+    - 0cb5a15a-1182-4efc-a188-4e620f07ed97: 9e900eed-2a87-487e-9d5a-c0af0816e04b
     - 114226ac-9c38-410e-a221-df18fcf49484: 1122223b-b4b1-47d3-b527-82f8905ab7f1
     - 1a1da8db-b609-4a98-8235-a5c5d7547303: 0449b4e1-c68b-468c-8976-6cf447d1600d
     - 1eaba587-e82d-4994-8045-2e6e70c9e1ee: a478d86d-f1f0-475c-93f7-ea53d8b4c580
@@ -368,6 +391,7 @@
     - 3943b96b-5fb7-4341-a49a-d4d1acb26e10: 21e2f939-e366-433a-b8fe-5fa3bccb1646
     - 5a8e5884-12b1-4458-9fe7-fcd6f53b2a3a: 74327a36-df19-4621-bc89-4729f5923764
     - 658429d8-0ebe-435c-99a5-c98da06c7123: 81267bb8-24b1-4005-aa0b-651501e53912
+    - 6921f9de-2d23-4c9f-8885-48ca71ce3c58: 7b053689-e8fd-4257-963a-b10b12b41e69
     - 7949a5a1-ec51-4f26-a137-a7cedf392d27: 0697f32f-e9c4-4aec-a46f-a4d369e6000a
     - 7ba6980a-7fb4-4ead-971c-001d295cd579: 019d719a-90fb-486c-b420-c2a87d501322
     - 9bbc68c6-7bd0-4d8e-bf1e-42d6eb14346a: 1c8d577f-91a8-4431-9b0a-3d2b83538676
@@ -384,6 +408,32 @@
     - f02a2fb6-e7e3-4bfb-ad63-1086c96ea983: ea66205c-f6b3-4c16-8573-054c305ff660
     - f168d40f-d1cf-453c-bd9d-715e520a18af: ce7180bf-3725-4998-8cf6-59933cbec9cb
   SourceState: !<own> b56aa634-8c51-4fdc-a56b-b98541950b13
+- !<ScriptComponent/9e900eed-2a87-487e-9d5a-c0af0816e04b>
+  PrefabRemaps:
+    []
+  Name: Billboard
+  Enabled: true
+  ScriptAsset: !<reference> 74eafc23-e98b-4073-ab18-82ca532994e3
+  ScriptInputsDefault:
+    _xAxisEnabled: true
+    _yAxisEnabled: true
+    _zAxisEnabled: true
+    _axisBufferDegrees: true
+    _axisEasing: true
+    duration: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      _xAxisEnabled: false
+      _yAxisEnabled: true
+      _zAxisEnabled: false
+      _axisBufferDegrees: !<Vec3> {x: 0.000000, y: 0.000000, z: 0.000000}
+      _axisEasing: !<Vec3> {x: 1.000000, y: 1.000000, z: 1.000000}
+      duration: 0.033000
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/a478d86d-f1f0-475c-93f7-ea53d8b4c580>
   PrefabRemaps:
     []
@@ -587,6 +637,22 @@
   ScriptTypes:
     "":
       {}
+- !<SceneObject/dfb5f5dd-3ad6-4c4f-b5af-006b3cf8bc20>
+  PrefabRemaps:
+    []
+  Name: Speech Bubble
+  Enabled: false
+  Layers: 1
+  LocalTransform:
+    position: {x: 0.000000, y: 5.000000, z: 0.000000}
+    rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    scale: {x: 2.000000, y: 2.000000, z: 2.000000}
+    hasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 7b053689-e8fd-4257-963a-b10b12b41e69
+    - !<own> 9e900eed-2a87-487e-9d5a-c0af0816e04b
 - !<ScriptComponent/ea66205c-f6b3-4c16-8573-054c305ff660>
   PrefabRemaps:
     []
