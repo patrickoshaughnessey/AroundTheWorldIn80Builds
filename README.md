@@ -41,8 +41,9 @@ We believe networking shouldn't be intimidating. Our vision is to make socializi
 
 ## 🛠️ Installation & Setup
 
-> ⚠️ This is a prototype developed for [MIT Reality Hackx Snap LiveAR Hack at AWE 2025](https://realityhack.mit.edu/). Spectacles access and Lens Studio setup required.
+> ⚠️ This is a prototype developed for [MIT Reality Hackx Snap LiveAR Hack at AWE 2025](https://realityhack.mit.edu/).
+> Spectacles access and Lens Studio setup required: [Download here]([url](https://ar.snap.com/lens-studio-dl?utm_source=GooglePM&utm_medium=PAIDPLATFORM&utm_campaign=LensStudio_PM_P0_RET&utm_term=Retargeting_LS_Downloaders&utm_content=LS_ProductPage&gad_source=1&gad_campaignid=22443428343&gbraid=0AAAAADGpnVFN0BCP7iWuTWvp7StTXJ16h&gclid=Cj0KCQjwjJrCBhCXARIsAI5x66UKihNtqvjAJpxeP2gzS6fg6azZp4O8ecr1PhuCk-8MPF1WU7wLbIgaApR8EALw_wcB))
 
 1. Clone this repository:
    ```bash
-   
+   https://github.com/patrickoshaughnessey/AroundTheWorldIn80Builds.git
