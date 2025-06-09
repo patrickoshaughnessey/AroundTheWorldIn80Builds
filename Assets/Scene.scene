@@ -598,6 +598,7 @@
     worldSnapping: true
     showFollowButton: true
     useFOVFollow: true
+    isFollowing: true
     showCloseButton: true
     _enableInteractionPlane: true
   ScriptTypesDefault:
@@ -626,7 +627,7 @@
       worldSnapping: true
       showFollowButton: true
       useFOVFollow: true
-      isFollowing: true
+      isFollowing: false
       showCloseButton: false
       _enableInteractionPlane: true
   ScriptTypes:
@@ -684,6 +685,7 @@
     worldSnapping: true
     showFollowButton: true
     useFOVFollow: true
+    isFollowing: true
     _enableInteractionPlane: true
   ScriptTypesDefault:
     {}
@@ -711,7 +713,7 @@
       worldSnapping: true
       showFollowButton: true
       useFOVFollow: true
-      isFollowing: true
+      isFollowing: false
       showCloseButton: true
       _enableInteractionPlane: true
   ScriptTypes:
@@ -3397,6 +3399,7 @@
     worldSnapping: true
     showFollowButton: true
     useFOVFollow: true
+    isFollowing: true
     _enableInteractionPlane: true
   ScriptTypesDefault:
     {}
@@ -3424,7 +3427,7 @@
       worldSnapping: true
       showFollowButton: true
       useFOVFollow: true
-      isFollowing: true
+      isFollowing: false
       showCloseButton: true
       _enableInteractionPlane: true
   ScriptTypes:
@@ -7235,6 +7238,7 @@
     worldSnapping: true
     showFollowButton: true
     useFOVFollow: true
+    isFollowing: true
     _enableInteractionPlane: true
   ScriptTypesDefault:
     {}
@@ -7262,7 +7266,7 @@
       worldSnapping: true
       showFollowButton: true
       useFOVFollow: true
-      isFollowing: true
+      isFollowing: false
       showCloseButton: true
       _enableInteractionPlane: true
   ScriptTypes:
@@ -8238,6 +8242,7 @@
     worldSnapping: true
     showFollowButton: true
     useFOVFollow: true
+    isFollowing: true
     showCloseButton: true
     _enableInteractionPlane: true
   ScriptTypesDefault:
@@ -8266,7 +8271,7 @@
       worldSnapping: true
       showFollowButton: true
       useFOVFollow: true
-      isFollowing: true
+      isFollowing: false
       showCloseButton: false
       _enableInteractionPlane: true
   ScriptTypes:
@@ -10656,6 +10661,7 @@
     worldSnapping: true
     showFollowButton: true
     useFOVFollow: true
+    isFollowing: true
     showCloseButton: true
     _enableInteractionPlane: true
   ScriptTypesDefault:
@@ -10684,7 +10690,7 @@
       worldSnapping: true
       showFollowButton: true
       useFOVFollow: true
-      isFollowing: true
+      isFollowing: false
       showCloseButton: false
       _enableInteractionPlane: true
   ScriptTypes:
@@ -15541,6 +15547,7 @@
     worldSnapping: true
     showFollowButton: true
     useFOVFollow: true
+    isFollowing: true
     showCloseButton: true
     _enableInteractionPlane: true
   ScriptTypesDefault:
@@ -15569,7 +15576,7 @@
       worldSnapping: true
       showFollowButton: true
       useFOVFollow: true
-      isFollowing: true
+      isFollowing: false
       showCloseButton: false
       _enableInteractionPlane: true
   ScriptTypes:
