@@ -84,6 +84,7 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
                 const compatibilityResult = await ApplicationModel.instance.chatService.ask(prompt)
                 if (compatibilityResult) {
                     print(`TalkingToOtherAnimalState: Compatibility result received: ${compatibilityResult}`)
+                    ApplicationModel.instance.compatibilityAnalysisResult = compatibilityResult;
                     // Use TTS to speak the result
                     const ttsService = ApplicationModel.instance.chatService.textToSpeechService
                     if (ttsService) {
@@ -116,7 +117,7 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
     }
 
     private constructCompatibilityPrompt(user1: UserSpiritAnimalData, user2: UserSpiritAnimalData): string {
-        let prompt = "Two users in a shared AR experience have brought their spirit animals together. Analyze their compatibility based on their personality data. Provide a short, fun, and insightful voice-line for one spirit animal to say to the other. Do not exceed 30 words.\n\n"
+        let prompt = "Given the information about these two people, analyze their compatibility, unique aspects and provide a detailed information how their interaction will be. Your tone should match with the personality of the users\n\n"
         
         prompt += `User 1 Data:\n`
         prompt += `Primary Color: ${user1.primaryPersonalityColor || 'N/A'}\n`
@@ -128,7 +129,6 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
         prompt += `Secondary Color: ${user2.secondaryPersonalityColor || 'N/A'}\n`
         prompt += `Stated Goal: ${user2.userGoal || 'Not specified'}\n\n`
 
-        prompt += "Based on this data, what insightful and friendly thing does User 1's spirit animal say?"
         return prompt
     }
 

@@ -321,7 +321,8 @@
     {}
   ScriptInputs:
     "":
-      {}
+      gptOutputText: !<reference.Text> 251100eb-3aab-40bd-ab09-a3f76eee576d
+      readButton: !<reference.ScreenTransform> 27ab4cdf-634d-4b64-b084-13a0dc5a53c5
   ScriptTypes:
     "":
       {}
