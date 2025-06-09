@@ -1,59 +1,96 @@
 import {StateConfig} from "SpectaclesInteractionKit.lspkg/Utils/State"
 import {SpiritAnimalController} from "../SpiritAnimalController"
 
-declare var Time: {
-    deltaTime: number
-}
-
 export abstract class BaseSpiritAnimalState extends BaseScriptComponent {
-    
-    public controller: SpiritAnimalController;
+    protected stateName: string
 
-    public getConfig(): StateConfig {
-        const stateName = this.getStateName();
-        return {
-            name: stateName,
-            onEnter: () => this.onEnterState(),
-            onExit: () => this.onExitState(),
+    protected stateDebugText: Text
+
+    protected controller: SpiritAnimalController
+
+    onAwake() {
+        this.createEvent("OnStartEvent").bind(() => this.onStart())
+    }
+
+    onStart() {
+        // Add this state to the state machine
+        this.registerState()
+
+        // Initialize our UI
+        this.initializeState()
+    }
+
+    protected abstract getStateName(): string
+    protected abstract initializeState(): void
+
+    private registerState() {
+        this.stateName = this.getStateName()
+        const transitions = this.getTransitions()
+        const stateConfig: StateConfig = {
+            name: this.stateName,
+            onEnter: () => {
+                print(`SpiritAnimalStateMachine calling onEnter for ${this.stateName}`)
+                this.onEnterState()
+            },
+            onExit: () => {
+                print(`SpiritAnimalStateMachine calling onExit for ${this.stateName}`)
+                this.onExitState()
+            },
             onUpdate: () => this.onUpdateState(),
             onSignal: () => this.onSignalReceived(),
-            transitions: this.getTransitions(),
-        };
+            transitions: transitions,
+        }
+
+        print(`Registering spirit animal state: ${this.stateName}`)
+
+        // Get the SpiritAnimalController instance and register the state
+        this.controller = this.getSceneObject().getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController
+        if (this.controller && this.controller.spiritAnimalStateMachine) {
+            this.controller.spiritAnimalStateMachine.addState(stateConfig)
+            print(`Spirit animal state registered: ${this.stateName}`)
+        } else {
+            print(`Error: Could not find SpiritAnimalController or state machine is not initialized`)
+        }
     }
 
-    public abstract getStateName(): string;
+    protected abstract getTransitions(): any[]
     
-    protected getTransitions(): any[] {
-        return []; // Default to no transitions
-    }
-    
-    // State lifecycle methods that can be overridden by children
+    // State lifecycle methods that can be overridden
     protected onEnterState() {
-        print(`Entered ${this.getStateName()} state`);
-        if (this.controller && this.controller.stateDebugText) {
-            this.controller.stateDebugText.text = this.getStateName();
+        print(`Entered ${this.stateName} state`)
+        if (this.controller.stateDebugText) {
+            this.controller.stateDebugText.text = this.stateName
         }
     }
     
     protected onExitState() {
-        print(`Exited ${this.getStateName()} state`);
+        print(`Exited ${this.stateName} state`)
     }
     
     protected onUpdateState() {
-        // Override in child classes if needed. Use Time.deltaTime for time-based logic.
+        // Override in child classes if needed
     }
     
     protected onSignalReceived() {
-        // Override in child classes if needed. Access signal data from a shared model if necessary.
+        // Override in child classes if needed
     }
 
-    // Utility method to send signals to the state machine
+    // Utility method to send signals to state machine
     protected sendSignal(signal: string, data: any = null) {
-        if (this.controller && this.controller.spiritAnimalStateMachine) {
-            this.controller.spiritAnimalStateMachine.sendSignal(signal, data);
+        print("=== SENDING SIGNAL ===")
+        print("Signal: " + signal)
+        
+        // Get the SpiritAnimalController instance and send the signal
+        const controller = this.getSceneObject().getComponent(SpiritAnimalController.getTypeName()) as SpiritAnimalController
+        if (controller && controller.spiritAnimalStateMachine) {
+            print("Current state before signal: " + controller.spiritAnimalStateMachine.currentState?.name)
+            controller.spiritAnimalStateMachine.sendSignal(signal, data)
+            print("Current state after signal: " + controller.spiritAnimalStateMachine.currentState?.name)
         } else {
-            print(`Error: Could not find SpiritAnimalController or state machine is not initialized in ${this.getStateName()}`);
+            print(`Error: Could not find SpiritAnimalController or state machine is not initialized`)
         }
+        
+        print("=== SIGNAL SENT ===")
     }
 
     // Convenience method to check if this is my spirit animal

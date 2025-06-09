@@ -7,6 +7,8 @@ declare global {
 
 @component
 export class FlyingBackToOwnerState extends BaseSpiritAnimalState {
+    protected initializeState(): void {
+    }
 
     public static readonly STATE_NAME = "SAFlyingBackToOwner"
 

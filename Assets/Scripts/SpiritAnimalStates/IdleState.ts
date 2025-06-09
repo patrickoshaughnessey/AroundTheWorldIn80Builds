@@ -3,6 +3,8 @@ import { FlyingToMeetingLocation } from "./FlyingToMeetingLocation"
 
 @component
 export class IdleState extends BaseSpiritAnimalState {
+    protected initializeState(): void {
+    }
 
     public static readonly STATE_NAME = "SAIdle"
 

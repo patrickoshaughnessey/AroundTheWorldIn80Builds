@@ -24,7 +24,9 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
         return [
             {
                 nextStateName: TalkingToOtherAnimalState.STATE_NAME,
-                checkOnSignal: (signal: string) => signal === "ARRIVED_AT_MEETING_LOCATION",
+                checkOnSignal: (signal: string) => {
+                    return signal === "ARRIVED_AT_MEETING_LOCATION"
+                },
                 onExecution: () => {
                     print(`Animal (${this.controller?.syncEntity?.networkId}): Transitioning from FlyingToMeetingLocation to TalkingToOtherAnimal`)
                 }
@@ -64,13 +66,17 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
     protected onUpdateState(): void {
         super.onUpdateState();
         const interactionData = ApplicationModel.instance.currentInteractionData;
+        print(`interactionData: ${interactionData}`)
         if (interactionData != null) {
+            print(`interactionData not null`)
             if (!this.controller || !this.controller.manipulatable) {
+                print(`controller null or this.controller.manipulatable null`)
                 return;
             }
 
             // Only move the animal if we own it
             if (!this.isMyAnimal()) {
+                print(`not my animal`)
                 return; // This animal doesn't belong to us, don't move it
             }
 
@@ -84,7 +90,7 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
             const distance = direction.length - this.GAP;
     
             // Check if we've reached the target (increased threshold so they stop further away)
-            const arrivalThreshold = 0.1;
+            const arrivalThreshold = this.GAP;
             if (distance <= arrivalThreshold) {
                 // Arrived at meeting location - billboard face the meeting point (Y-axis only)
                 const lookDirection = direction.normalize();
@@ -108,8 +114,9 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
             const newPosition = currentPosition.add(normalizedDirection.uniformScale(moveDistance));
     
             // Apply movement to manipulatable transform
+            print(`Animal (${this.controller.syncEntity.networkId}): newPosition: ${newPosition}, moveDistance: ${moveDistance}`);
             manipulatableTransform.setWorldPosition(newPosition);
-    
+
             // Calculate and apply rotation to face movement direction (Y-axis only)
             if (direction.length > 0.01) { // Only rotate if we're actually moving
                 // Create Y-axis only rotation (billboard style) for movement
