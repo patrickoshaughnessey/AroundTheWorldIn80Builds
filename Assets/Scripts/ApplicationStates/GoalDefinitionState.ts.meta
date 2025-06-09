@@ -28,11 +28,11 @@
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
+    containerFrame: false
     goalTextDisplay: false
     promptTextDisplay: false
+    restartGoalButton: false
     rootObject: false
-    startRecordGoalButton: false
-    stopRecordGoalButton: false
     submitGoalButton: false
   ScriptTypesHidden:
     {}
@@ -42,9 +42,9 @@
     - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       promptTextDisplay: !<reference.Text> 00000000-0000-0000-0000-000000000000
       goalTextDisplay: !<reference.Text> 00000000-0000-0000-0000-000000000000
-      startRecordGoalButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
-      stopRecordGoalButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
-      submitGoalButton: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      restartGoalButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      submitGoalButton: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      containerFrame: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
@@ -52,6 +52,6 @@
     - // @input SceneObject rootObject
     - // @input Component.Text promptTextDisplay
     - // @input Component.Text goalTextDisplay
-    - // @input AssignableType startRecordGoalButton
-    - // @input AssignableType_1 stopRecordGoalButton
-    - // @input AssignableType_2 submitGoalButton
+    - // @input AssignableType restartGoalButton
+    - // @input AssignableType_1 submitGoalButton
+    - // @input AssignableType_2 containerFrame

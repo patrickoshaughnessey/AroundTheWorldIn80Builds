@@ -28,7 +28,7 @@
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
-    menuButton: false
+    containerFrame: false
     rootObject: false
   ScriptTypesHidden:
     {}
@@ -36,10 +36,10 @@
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
     - rootObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
-      menuButton: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      containerFrame: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input SceneObject rootObject
-    - // @input AssignableType menuButton
+    - // @input AssignableType containerFrame
