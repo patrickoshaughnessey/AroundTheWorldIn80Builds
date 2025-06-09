@@ -90,7 +90,7 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
             const distance = direction.length - this.GAP;
     
             // Check if we've reached the target (increased threshold so they stop further away)
-            const arrivalThreshold = this.GAP;
+            const arrivalThreshold = 0.1;
             if (distance <= arrivalThreshold) {
                 // Arrived at meeting location - billboard face the meeting point (Y-axis only)
                 const lookDirection = direction.normalize();
