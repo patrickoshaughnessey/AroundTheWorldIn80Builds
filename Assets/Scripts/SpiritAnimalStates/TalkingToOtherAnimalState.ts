@@ -45,6 +45,9 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
 
     protected async onEnterState(): Promise<void> {
         super.onEnterState()
+        if (this.controller.speechBubble) {
+            this.controller.speechBubble.enabled = true;
+        }
         print("Spirit animal is now in TalkingToOtherAnimalState")
 
         if (this.isAnalyzing) {
@@ -134,6 +137,9 @@ export class TalkingToOtherAnimalState extends BaseSpiritAnimalState {
 
     protected onExitState(): void {
         super.onExitState()
+        if (this.controller.speechBubble) {
+            this.controller.speechBubble.enabled = false;
+        }
         this.isAnalyzing = false // Ensure flag is reset on exit
         print("Spirit animal is no longer talking to other animal")
     }

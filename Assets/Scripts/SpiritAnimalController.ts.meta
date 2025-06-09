@@ -32,6 +32,7 @@
     interactable: false
     manipulatable: false
     modelInstantiator: false
+    speechBubble: false
     spiritAnimalGeometryParent: false
     spiritAnimalPrefabs: false
     stateDebugText: false
@@ -41,6 +42,7 @@
   DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
   DefaultScriptInputs:
     - manipulatable: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      speechBubble: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       interactable: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
       headLock: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
       stateDebugText: !<reference.Text> 00000000-0000-0000-0000-000000000000
@@ -53,6 +55,7 @@
       {}
   InputLines:
     - // @input AssignableType manipulatable
+    - // @input SceneObject speechBubble
     - // @input AssignableType_1 interactable
     - // @input AssignableType_2 headLock
     - // @input Component.Text stateDebugText
