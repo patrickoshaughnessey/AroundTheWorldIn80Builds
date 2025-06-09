@@ -11,28 +11,17 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
 
     private GAP = 2.0;
 
-    onAwake(): void {
-        super.onAwake()
-    }
-
-    protected getStateName(): string {
+    public getStateName(): string {
         return FlyingToMeetingLocation.STATE_NAME
-    }
-
-    protected initializeState(): void {
-        // Initialize any UI elements specific to this state
-        print(`FlyingToMeetingLocation (${this.controller?.syncEntity?.networkId}): initializeState`)
     }
 
     protected getTransitions(): any[] {
         return [
             {
                 nextStateName: TalkingToOtherAnimalState.STATE_NAME,
-                checkOnSignal: (signal: string) => {
-                    return signal === "ARRIVED_AT_MEETING_LOCATION"
-                },
+                checkOnSignal: (signal: string) => signal === "ARRIVED_AT_MEETING_LOCATION",
                 onExecution: () => {
-                    print(`Animal (${this.controller?.syncEntity?.networkId}): Transitioning from FlyingToMeetingLocation to TalkingToOtherAnimal`)
+                    print(`Animal (${this.spiritAnimalController?.syncEntity?.networkId}): Transitioning from FlyingToMeetingLocation to TalkingToOtherAnimal`)
                 }
             }
         ]
@@ -40,21 +29,21 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
 
     protected onEnterState(): void {
         super.onEnterState();
-        print(`Animal (${this.controller?.syncEntity?.networkId}): Spirit animal is now flying to meeting location`);
+        print(`Animal (${this.spiritAnimalController?.syncEntity?.networkId}): Spirit animal is now flying to meeting location`);
         
         // Disable headlock and manipulatable while flying
-        if (this.controller.headLock) {
-            this.controller.headLock.enabled = false;
+        if (this.spiritAnimalController.headLock) {
+            this.spiritAnimalController.headLock.enabled = false;
         }
         
-        if (this.controller.manipulatable) {
-            this.controller.manipulatable.enabled = false;
+        if (this.spiritAnimalController.manipulatable) {
+            this.spiritAnimalController.manipulatable.enabled = false;
         }
 
         // Calculate movement speed once based on initial distance
         const interactionData = ApplicationModel.instance.currentInteractionData;
-        if (interactionData && this.controller && this.controller.manipulatable && this.isMyAnimal()) {
-            const manipulatableTransform = this.controller.manipulatable.getSceneObject().getTransform();
+        if (interactionData && this.spiritAnimalController && this.spiritAnimalController.manipulatable && this.isMyAnimal()) {
+            const manipulatableTransform = this.spiritAnimalController.manipulatable.getSceneObject().getTransform();
             const currentPosition = manipulatableTransform.getWorldPosition();
             const targetPosition = interactionData.meetingLocation;
             const initialDistance = targetPosition.sub(currentPosition).length - this.GAP;
@@ -63,7 +52,7 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
             const minSpeed = 2.0; // minimum speed to avoid too slow movement for short distances
             this.movementSpeed = Math.max(initialDistance / maxTravelTime, minSpeed);
             
-            print(`Animal (${this.controller.syncEntity.networkId}): Initial distance: ${initialDistance.toFixed(2)}, Movement speed: ${this.movementSpeed.toFixed(2)}`);
+            print(`Animal (${this.spiritAnimalController.syncEntity.networkId}): Initial distance: ${initialDistance.toFixed(2)}, Movement speed: ${this.movementSpeed.toFixed(2)}`);
         }
     }
 
@@ -71,7 +60,7 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
         super.onUpdateState();
         const interactionData = ApplicationModel.instance.currentInteractionData;
         if (interactionData != null) {
-            if (!this.controller || !this.controller.manipulatable) {
+            if (!this.spiritAnimalController || !this.spiritAnimalController.manipulatable) {
                 return;
             }
 
@@ -81,7 +70,7 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
             }
 
             // Move the manipulatable transform instead of the geometry
-            const manipulatableTransform = this.controller.manipulatable.getSceneObject().getTransform();
+            const manipulatableTransform = this.spiritAnimalController.manipulatable.getSceneObject().getTransform();
             const currentPosition = manipulatableTransform.getWorldPosition();
             const targetPosition = interactionData.meetingLocation;
         
@@ -101,7 +90,7 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
                     manipulatableTransform.setWorldRotation(finalRotation);
                 }
             
-                print(`Animal (${this.controller.syncEntity.networkId}): Arrived at meeting location`);
+                print(`Animal (${this.spiritAnimalController.syncEntity.networkId}): Arrived at meeting location`);
                 this.sendSignal("ARRIVED_AT_MEETING_LOCATION");
                 return;
             }
@@ -134,6 +123,6 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
 
     protected onExitState(): void {
         super.onExitState();
-        print(`Animal (${this.controller?.syncEntity?.networkId}): Spirit animal is no longer flying to meeting location`);
+        print(`Animal (${this.spiritAnimalController?.syncEntity?.networkId}): Spirit animal is no longer flying to meeting location`);
     }
 }

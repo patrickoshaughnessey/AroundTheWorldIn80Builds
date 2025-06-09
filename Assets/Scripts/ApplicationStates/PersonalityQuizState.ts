@@ -6,6 +6,10 @@ import { SpiritAnimalSpeechInput } from "../SpiritAnimalSpeechInput"
 import {ContainerFrame} from "SpectaclesInteractionKit.lspkg/Components/UI/ContainerFrame/ContainerFrame";
 import {MenuState} from "./MenuState";
 
+declare global {
+    var DoDelay: any;
+}
+
 @component
 export class PersonalityQuizState extends BaseState {
 
@@ -42,7 +46,8 @@ export class PersonalityQuizState extends BaseState {
     ];
 
     private currentQuestionIndex: number = 0;
-    private currentAnswerText: string = "";
+    private savedAnswerText: string = "";
+    private latestTranscription: string = "";
     private isListeningForAnswer: boolean = false;
     private isAnalyzingAnswers: boolean = false;
 
@@ -85,7 +90,8 @@ export class PersonalityQuizState extends BaseState {
             if (this.answerTextDisplay) {
                 this.answerTextDisplay.text = "Listening...";
             }
-            this.currentAnswerText = "";
+            this.savedAnswerText = "";
+            this.latestTranscription = "";
 
             // Automatically start voice recording for each question
             this.startSpeechRecognition();
@@ -104,7 +110,7 @@ export class PersonalityQuizState extends BaseState {
         }
 
         print("PersonalityQuizState: Starting speech recognition.");
-        if (this.answerTextDisplay && this.currentAnswerText === "") {
+        if (this.answerTextDisplay && this.savedAnswerText === "") {
             this.answerTextDisplay.text = "Listening...";
         }
 
@@ -131,58 +137,73 @@ export class PersonalityQuizState extends BaseState {
     private restartAnswer = () => {
         print("PersonalityQuizState: Restarting answer recording.");
 
+        // Stop any ongoing recognition first
+        this.stopSpeechRecognition();
+
         // Reset current answer text
-        this.currentAnswerText = "";
+        this.savedAnswerText = "";
+        this.latestTranscription = "";
 
         // Update display
         if (this.answerTextDisplay) {
             this.answerTextDisplay.text = "Listening...";
         }
 
-        // Restart voice recognition
-        this.startSpeechRecognition();
+        // Restart voice recognition after a short delay to ensure clean start
+        new DoDelay(this.startSpeechRecognition).byFrame(1);
     }
 
-    private handleTranscription = (transcription: string) => {
-        print(`PersonalityQuizState: Transcription received: "${transcription}"`);
-        // Append the new transcription to the current answer text instead of replacing it
-        this.currentAnswerText += (this.currentAnswerText ? " " : "") + transcription;
+    private handleTranscription = (transcription: string, isFinal: boolean) => {
+        print(`PersonalityQuizState: Transcription received: "${transcription}", isFinal: ${isFinal}`);
+        this.latestTranscription = transcription;
 
-        if (this.answerTextDisplay) {
-            // Display current answer with an indicator that we're still listening
-            this.answerTextDisplay.text = this.currentAnswerText + " 🎤";
-        } else {
-            print("PersonalityQuizState: WARN - answerTextDisplay not assigned.");
+        if (isFinal) {
+            this.savedAnswerText += (this.savedAnswerText ? " " : "") + this.latestTranscription;
+            this.latestTranscription = "";
         }
 
-        // Restart voice recognition automatically
-        this.isListeningForAnswer = false;
-        print("PersonalityQuizState: Transcription handled. Restarting voice recognition.");
-        this.startSpeechRecognition();
+        if (this.answerTextDisplay) {
+            let textToShow = this.savedAnswerText;
+            if (this.latestTranscription) {
+                textToShow += (textToShow ? " " : "") + this.latestTranscription;
+            }
+            this.answerTextDisplay.text = textToShow + " 🎤";
+        }
     }
     
     private submitCurrentAnswer = async () => {
+        // Stop listening first
+        this.stopSpeechRecognition();
+
         if (this.currentQuestionIndex < this.questions.length) {
             const question = this.questions[this.currentQuestionIndex];
-            if (this.currentAnswerText.trim() === "") {
+            
+            let finalAnswer = this.savedAnswerText;
+            if (this.latestTranscription) {
+                finalAnswer += (finalAnswer ? " " : "") + this.latestTranscription;
+            }
+            finalAnswer = finalAnswer.trim();
+
+            if (finalAnswer.trim() === "") {
                 print("PersonalityQuizState: WARN - Answer is empty. Please record an answer before submitting.");
                 if (this.answerTextDisplay) this.answerTextDisplay.text = "Please record an answer first!";
                 return;
             }
-            print(`Submitting answer for question "${question}": "${this.currentAnswerText}".`);
+            print(`Submitting answer for question "${question}": "${finalAnswer}".`);
 
             if (!ApplicationModel.instance) {
                 print("PersonalityQuizState: ERROR - ApplicationModel instance not found. Cannot save answer.");
                 return;
             }
-            ApplicationModel.instance.saveQuizAnswer(question, this.currentAnswerText);
+            ApplicationModel.instance.saveQuizAnswer(question, finalAnswer);
 
             this.currentQuestionIndex++;
+            this.savedAnswerText = "";
+            this.latestTranscription = "";
             if (this.currentQuestionIndex < this.questions.length) {
                 this.displayCurrentQuestion();
             } else {
                 print("PersonalityQuizState: All questions answered. Starting personality analysis.");
-                this.stopSpeechRecognition()
                 if (this.questionTextDisplay) this.questionTextDisplay.text = "Analyzing your answers...";
                 if (this.answerTextDisplay) this.answerTextDisplay.text = "Please wait.";
                 this.setButtonsInteractive(false);
@@ -304,7 +325,8 @@ export class PersonalityQuizState extends BaseState {
         super.onEnterState();
         print("PersonalityQuizState: Entering state.");
         this.currentQuestionIndex = 0;
-        this.currentAnswerText = "";
+        this.savedAnswerText = "";
+        this.latestTranscription = "";
         this.isListeningForAnswer = false;
         this.isAnalyzingAnswers = false;
         

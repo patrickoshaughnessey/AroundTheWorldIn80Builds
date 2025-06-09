@@ -11,7 +11,7 @@ declare var VoiceML: {
 export class SpiritAnimalSpeechInput extends BaseScriptComponent {
     private voiceMLModule: VoiceMLModule = require("LensStudio:VoiceMLModule");
     private isListening: boolean = false;
-    public onTranscriptionReady: (transcription: string) => void;
+    public onTranscriptionReady: (transcription: string, isFinal: boolean) => void;
 
     // @input() // Removed decorator
     debugTextOutput: Text = null; // Initialize to null
@@ -46,7 +46,7 @@ export class SpiritAnimalSpeechInput extends BaseScriptComponent {
 
         let options: any = VoiceML.ListeningOptions.create(); // Changed from VoiceML.ListeningOptionsFactory
         options.shouldReturnAsrTranscription = true;
-        options.shouldReturnInterimAsrTranscription = false; 
+        options.shouldReturnInterimAsrTranscription = true; 
         
         // Remove previous listener by its cookie if it exists, before adding a new one.
         if (this.listeningUpdateCookie) {
@@ -77,23 +77,13 @@ export class SpiritAnimalSpeechInput extends BaseScriptComponent {
     }
 
     private onListenUpdate = (eventData: VoiceML.ListeningUpdateEventArgs) => { 
-        print("SpiritAnimalSpeechInput: onListenUpdate received eventData: " + JSON.stringify(eventData));
-        if (eventData.isFinalTranscription && eventData.transcription) {
-            print("SpiritAnimalSpeechInput: Final transcription: " + eventData.transcription);
-            if(this.debugTextOutput) this.debugTextOutput.text = "STT: " + eventData.transcription;
-
-            print(`SpiritAnimalSpeechInput: About to call onTranscriptionReady. Is it assigned? ${!!this.onTranscriptionReady}. Transcription content: "${eventData.transcription}"`);
-
+        if (eventData.transcription) {
             if (this.onTranscriptionReady) {
-                this.onTranscriptionReady(eventData.transcription);
+                this.onTranscriptionReady(eventData.transcription, eventData.isFinalTranscription);
             } else {
                 print("SpiritAnimalSpeechInput: WARN - onTranscriptionReady was not assigned! Cannot send transcription.");
             }
-            // It's good practice to stop listening after a final transcription to avoid continuous listening by default
-            this.stopListening(); 
-        } 
-        // Removed check for eventData.error as it's not a confirmed property
-        // Errors might be handled via other mechanisms or separate events in VoiceMLModule
+        }
     };
 
     onDestroy() {
