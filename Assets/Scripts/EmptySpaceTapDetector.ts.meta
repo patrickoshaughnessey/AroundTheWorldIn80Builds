@@ -1,0 +1,57 @@
+- !<AssetImportMetadata/b5180556-d8f9-43d2-a671-a2124b8a1837>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> de4b08fc-b6d5-49ba-bba1-827fdbc871ef
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> de4b08fc-b6d5-49ba-bba1-827fdbc871ef
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> b361c9c1-7e49-4b65-997f-7cde086ad3dc
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/b361c9c1-7e49-4b65-997f-7cde086ad3dc>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: cfac33e1-92e0-4f52-88eb-be81ef080a4c
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    autoShowTooltip: false
+    tooltipCooldown: false
+    tooltipDuration: false
+    tooltipParent: false
+    tooltipText: false
+    uiInteractionDistance: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  DefaultScriptInputs:
+    - tooltipText: Pinch in empty space to open menu
+      tooltipDuration: !<float> 3.000000
+      autoShowTooltip: true
+      tooltipCooldown: !<float> 2.000000
+      uiInteractionDistance: !<float> 15.000000
+      tooltipParent: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input string tooltipText = "Pinch in empty space to open menu" {"hint":"Text to display in the tooltip to guide users"}'
+    - '// @input float tooltipDuration = 3 {"hint":"How long to show the tooltip in seconds"}'
+    - '// @input bool autoShowTooltip = true {"hint":"Show tooltip automatically when hands are detected"}'
+    - '// @input float tooltipCooldown = 2 {"hint":"Minimum time between showing tooltips (to avoid spam)"}'
+    - '// @input float uiInteractionDistance = 15 {"hint":"Distance threshold for detecting UI interaction (world units)"}'
+    - '// @input SceneObject tooltipParent {"hint":"Optional parent object for tooltip positioning"}'

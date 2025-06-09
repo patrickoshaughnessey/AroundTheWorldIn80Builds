@@ -1,0 +1,30 @@
+- !<AssetImportMetadata/c38b0a1f-9f8e-4750-8d11-b4d0ad678707>
+  ImportedAssetIds:
+    AnimatedTexture: !<reference> 43882378-5bd9-4cbb-8daf-b4eccb921ae7
+    LPD-309_atlas_transition_v01.png: !<reference> 959f2f3b-feb8-465e-bc90-a755973cf2b9
+  ImporterName: LensAnimationImporter
+  PrimaryAsset: !<reference> 43882378-5bd9-4cbb-8daf-b4eccb921ae7
+  PackageType: LegacyPackage
+  PackagePolicy: CannotBeUnpackedTransparent
+  ExtraData:
+    AssetLibraryId: 4YPSGjIyUplv0LDtvMRGIx
+  AssetDataMap:
+    AnimatedTexture: !<own> c2f35c87-0dd6-4573-bb80-636aba19ac55
+  DependentFiles:
+    - LPD-309_atlas_transition_v01.png
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<SingleCompressionSettings>
+    CompressorName: None
+    CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<AnimatedTextureData/c2f35c87-0dd6-4573-bb80-636aba19ac55>
+  AutoPlay: false
+  Reversed: false
+  PingPong: false
+  CurrentSequence: 01
+  KeyFramesData:
+    01:
+      - time: 0.000000
+        value: 0
+      - time: 0.800000
+        value: 12
