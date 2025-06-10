@@ -4116,15 +4116,7 @@
   MeshShadowMode: None
   ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
   ShadowDensity: 1.000000
-  Text: |-
-    “In a team project, I naturally gravitate toward the coordinator/facilitator role. I enjoy making sure everyone’s clear on our objectives and that we’re all pulling in the same direction. To keep things on track, I:
-    	1.	Clarify goals and roles up front. I like to kick off with a brief alignment meeting—reviewing scope, deadlines, deliverables, and who’s responsible for what.
-    	2.	Establish regular check-ins. Whether it’s a quick daily stand-up or a weekly status email, I set up a cadence so small issues don’t turn into big roadblocks.
-    	3.	Keep communication channels open. I make sure our shared workspace (Slack, Teams, or a project-board) is organized, and encourage teammates to flag risks or ask for help as soon as they arise.
-    	4.	Offer hands-on support. When someone hits a snag—be it a technical bug or a resource gap—I jump in to troubleshoot or re-allocate tasks so no one gets stuck.
-    	5.	Celebrate wins and share learnings. I circulate quick “shout-outs” when milestones are hit, and after delivery I lead a short retro to capture what worked and what we’d tweak next time.
-    
-    For example, on my last XR prototype I set up our project board in Jira, ran twice-weekly stand-ups, and flagged any dependencies with our backend team. As a result, we delivered the demo two weeks early and avoided last-minute fires. That structured—but still flexible—approach is how I help teams collaborate smoothly and hit our goals.”
+  Text: ""
   Editable: false
   ShowEditingPreview: true
   TouchHandler: !<reference> ea6db4ba-ac72-4be9-ae63-cdee7d8cb570
@@ -25447,7 +25439,7 @@
   PrefabRemaps:
     []
   Name: UserResponse
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform:
     position: {x: 0.000000, y: 0.000000, z: 0.000000}
@@ -27076,7 +27068,7 @@
   PrefabRemaps:
     []
   Name: Button One
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform:
     position: {x: 0.000000, y: 0.000000, z: 0.000000}

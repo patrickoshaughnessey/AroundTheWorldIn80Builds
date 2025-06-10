@@ -36,15 +36,15 @@ export class PersonalityQuizState extends BaseState {
         // "What is your primary color?",
         // "What is your secondary color?"
         "When you're part of a team project, what role do you naturally take on?",
-        "Others often say I am…",
-        "When faced with a big decision, I usually…"
-        // "Tell me about a time you felt truly proud of something you did. What made that moment meaningful to you?",
-        // "What kind of situations or environments drain your energy the fastest and why?",
+        // "Others often say I am…",
+        // "When faced with a big decision, I usually…"
+        // "Tell me about a time you felt truly proud of something you did.",// What made that moment meaningful to you?",
         // "How do you typically make a big decision? Walk me through your process.",
+        "What kind of situations or environments drain your energy the fastest and why?",
         // "If you had a full day to do anything you want, with no obligations, how would you spend it?",
         // "What kind of feedback or recognition feels most rewarding to you?",
         // "What is your profession, how would you describe your interest?",
-        // "What are your hobbies and interests?"
+        "What are your hobbies and interests?"
     ];
 
     private currentQuestionIndex: number = 0;

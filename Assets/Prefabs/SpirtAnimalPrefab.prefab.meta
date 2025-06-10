@@ -466,6 +466,7 @@
     minimumScaleFactor: true
     maximumScaleFactor: true
     enableTranslation: true
+    enableRotation: true
     showStretchZProperties: true
     zStretchFactorMin: true
     zStretchFactorMax: true
@@ -488,7 +489,7 @@
       minimumScaleFactor: 0.250000
       maximumScaleFactor: !<float> 20.000000
       enableTranslation: true
-      enableRotation: false
+      enableRotation: true
       enableScale: false
       enableStretchZ: false
       showStretchZProperties: false
