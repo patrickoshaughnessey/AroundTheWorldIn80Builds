@@ -199,7 +199,7 @@ export class SpiritAnimalController extends BaseScriptComponent {
         for (const prefab of this.spiritAnimalPrefabs) {
             if (animalNamed === prefab.name) {
                 const options = new InstantiationOptions();
-                options.localScale = new vec3(8, 8, 8);
+                options.localScale = new vec3(4, 4, 4);
                 this.modelInstantiator.instantiate(
                     prefab,
                     options,

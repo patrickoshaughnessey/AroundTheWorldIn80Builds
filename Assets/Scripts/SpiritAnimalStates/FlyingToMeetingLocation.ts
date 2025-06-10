@@ -9,7 +9,7 @@ export class FlyingToMeetingLocation extends BaseSpiritAnimalState {
     
     private movementSpeed: number = 0; // Will be calculated once on enter
 
-    private GAP = 2.0;
+    private GAP = 6.0;
 
     public getStateName(): string {
         return FlyingToMeetingLocation.STATE_NAME
